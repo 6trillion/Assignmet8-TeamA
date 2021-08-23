@@ -1,2 +1,3 @@
 # Assignmet8-TeamA
-assignment5(미스터카멜) by 동원, 현정, 윤성, 수진
+
+Assignment8(모두컴퍼니) by 동원, 현정, 윤성, 수진
