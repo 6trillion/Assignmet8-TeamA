@@ -1,1 +1,24 @@
-// util 함수들 모아두는 파일입니다.
+const getLocalStorage = (key: string) => {
+  const data = localStorage.getItem(key);
+  return data && JSON.parse(data);
+};
+
+const setLocalStorage = (key: string, value: string) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+const removeLocalStorage = (key: string) => {
+  localStorage.removeItem(key);
+};
+
+export const getUserId = () => {
+  return getLocalStorage('user_id');
+};
+
+export const setUserId = (value: string) => {
+  setLocalStorage('user_id', value);
+};
+
+export const logOutUser = () => {
+  removeLocalStorage('user_id');
+};
