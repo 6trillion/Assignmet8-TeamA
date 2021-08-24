@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ReactComponent as StarSvg } from './star.svg';
+import { ReactComponent as StarSvg } from 'component/assets/svg/star.svg';
 import { initStar } from 'utils/constants';
 import { Modal } from 'component/modal';
 import { Itodo } from 'utils/todoService';
@@ -49,6 +49,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
       createAt: new Date(),
       updateAt: new Date(),
     };
+
     createTodo(todos);
     increamentNextId();
     setInputTask('');
