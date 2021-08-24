@@ -17,7 +17,7 @@ const App = () => {
         createTodo={createTodo}
         increamentNextId={increamentNextId}
       />
-      <ToDoList todos={todoState}></ToDoList>
+      {/*<ToDoList todos={todoState}></ToDoList>*/}
     </div>
   );
 };
