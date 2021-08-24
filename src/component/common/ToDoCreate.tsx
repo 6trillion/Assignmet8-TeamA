@@ -17,7 +17,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
   const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
     setOpen((open) => !open);
