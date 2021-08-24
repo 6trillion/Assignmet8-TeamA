@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ReactComponent as StarSvg } from 'component/assets/svg/star.svg';
 import { initStar } from 'utils/constants';
 import { Modal } from 'component/modal';
 import { Itodo } from 'utils/todoService';
+import Stars from './Stars';
 
 interface TodoCreateProps {
   userName: string;
@@ -29,13 +29,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
 
   const onChange = (e: any) => {
     setInputTask(e.target.value);
-  };
-
-  const onClick = (e: any, index: number) => {
-    const newStars = stars.map((_, i): boolean => i < index);
-
-    setStars(newStars);
-    setStarIndex(index);
   };
 
   const handleSave = () => {
@@ -74,16 +67,11 @@ const ToDoCreate = (props: TodoCreateProps) => {
             name="taskName"
             value={inputTask}
           />
-          <label htmlFor="importance">중요도</label>
-          {stars.map((item, index) => (
-            <StarSvg
-              onClick={(e) => {
-                onClick(e, index + 1);
-              }}
-              name="importance"
-              fill={item ? 'gold' : 'lightgray'}
-            />
-          ))}
+          <Stars
+            stars={stars}
+            setStars={setStars}
+            setStarIndex={setStarIndex}
+          />
           <button onClick={handleSave}>저장</button>
           <button onClick={handleCancle}>취소</button>
         </form>
