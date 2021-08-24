@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
+import Login from 'components/common/Login';
 
-const Header = () => {
-  return <p>헤더</p>;
+interface HeaderProps {
+  userName: string;
+  setUserName: (e: any) => void;
+}
+
+const Header: FC<HeaderProps> = ({ userName, setUserName }) => {
+  return <Login userName={userName} setUserName={setUserName} />;
 };
 
 export default Header;

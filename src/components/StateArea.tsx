@@ -1,30 +1,45 @@
 import React, { FC } from 'react';
-import TodoItem from 'components/TodoItem';
+// import TodoItem from 'components/TodoItem';
 import styled from 'styled-components';
 import { useCallback } from 'react';
 import { useState } from 'react';
-import CreateForm from 'components/CreateForm';
+import { useTodo } from 'utils/todoService';
+import ToDoCreate from 'components/common/ToDoCreate';
+import TodoList from 'components/todoList/TodoList';
 
-const StateArea: FC = ({ children }) => {
+interface StateAreaProps {
+  tagName: string;
+  userName: string;
+}
+
+const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
+  const { todoState, nextIdState, increamentNextId, removeTodo, createTodo } =
+    useTodo();
+
   const handleClick = useCallback(() => {
-    setIsFormOpen(true);
+    setIsFormOpen((prev) => !prev);
   }, []);
 
   return (
     <>
       <StateHeader>
-        {children}
+        <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
       <>
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-        {isFormOpen && <CreateForm />}
+        <TodoList todos={todoState} />
       </>
+
+      {isFormOpen && (
+        <ToDoCreate
+          userName={userName}
+          nextId={nextIdState}
+          createTodo={createTodo}
+          increamentNextId={increamentNextId}
+        />
+      )}
     </>
   );
 };
