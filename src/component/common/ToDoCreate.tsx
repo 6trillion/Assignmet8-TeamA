@@ -44,7 +44,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
       id: nextId,
       taskName: inputTask,
       status: 'NOT_STARTED',
-      priority: starIndex,
+      importance: starIndex,
       writer: userName,
       createAt: new Date(),
       updateAt: new Date(),
@@ -73,13 +73,13 @@ const ToDoCreate = (props: TodoCreateProps) => {
             name="taskName"
             value={inputTask}
           />
-          <label htmlFor="priority">중요도</label>
+          <label htmlFor="importance">중요도</label>
           {stars.map((item, index) => (
             <StarSvg
               onClick={(e) => {
                 onClick(e, index + 1);
               }}
-              name="priority"
+              name="importance"
               fill={item ? 'gold' : 'lightgray'}
             />
           ))}
