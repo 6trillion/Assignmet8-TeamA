@@ -10,7 +10,9 @@ const TodoList = (props: TodoListProps) => {
   console.log(todos);
   return (
     <>
-      {todos && todos.map((todo) => <div key={todo.id}>{todo.taskName}</div>)}
+      {todos &&
+        todos.length > 0 &&
+        todos.map((todo) => <div key={todo.id}>{todo.taskName}</div>)}
     </>
   );
 };
