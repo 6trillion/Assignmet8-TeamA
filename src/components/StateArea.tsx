@@ -13,13 +13,13 @@ interface StateAreaProps {
 }
 
 const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [open, setIsOpen] = useState(false);
 
   const { todoState, nextIdState, increamentNextId, removeTodo, createTodo } =
     useTodo();
 
   const handleClick = useCallback(() => {
-    setIsFormOpen((prev) => !prev);
+    setIsOpen(true);
   }, []);
 
   return (
@@ -28,18 +28,15 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
-      <>
-        <TodoList todos={todoState} />
-      </>
-
-      {isFormOpen && (
-        <ToDoCreate
-          userName={userName}
-          nextId={nextIdState}
-          createTodo={createTodo}
-          increamentNextId={increamentNextId}
-        />
-      )}
+      <TodoList todos={todoState} />
+      <ToDoCreate
+        userName={userName}
+        nextId={nextIdState}
+        createTodo={createTodo}
+        increamentNextId={increamentNextId}
+        open={open}
+        setIsOpen={setIsOpen}
+      />
     </>
   );
 };

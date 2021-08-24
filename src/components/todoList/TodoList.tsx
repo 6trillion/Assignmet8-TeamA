@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Itodo } from 'utils/todoService';
 
 interface TodoListProps {
@@ -13,13 +14,18 @@ const TodoList = (props: TodoListProps) => {
       {todos &&
         todos.length > 0 &&
         todos.map((todo) => (
-          <div key={todo.id}>
+          <TodoItem key={todo.id}>
             <div>{todo.taskName}</div>
             <p>{todo.importance}</p>
-          </div>
+          </TodoItem>
         ))}
     </>
   );
 };
 
 export default React.memo(TodoList);
+
+const TodoItem = styled.div`
+  border: 1px solid black;
+  margin-bottom: 5px;
+`;

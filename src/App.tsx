@@ -15,7 +15,7 @@ const App = () => {
         </S.Header>
         <S.Main>
           {tagStates.map((v, i) => (
-            <S.Section key={i}>
+            <S.Section key={v}>
               <StateArea tagName={v} userName={userName} />
             </S.Section>
           ))}
