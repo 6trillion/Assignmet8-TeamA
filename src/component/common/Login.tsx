@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { getUserId, setUserId, logOutUser } from '../../utils';
+import { getUserId, setUserId, logOutUser } from '../../utils/localStorage';
 
 interface LoginProps {}
 
