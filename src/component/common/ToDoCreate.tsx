@@ -45,7 +45,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
       taskName: inputTask,
       status: 'NOT_STARTED',
       importance: starIndex,
-      writer: userName,
+      writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
     };
