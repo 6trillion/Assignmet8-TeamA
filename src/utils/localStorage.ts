@@ -1,4 +1,4 @@
-import { Itodo } from '../component/modal/Modal';
+import { Itodo } from './todoService';
 
 const getLocalStorage = (key: string) => {
   const data = localStorage.getItem(key);
@@ -25,6 +25,17 @@ export const logOutUser = () => {
   removeLocalStorage('user_id');
 };
 
+export const getTodoStorage = () => {
+  return getLocalStorage('todos');
+};
+
 export const saveTodoStorage = (todo: any) => {
   setLocalStorage('todos', todo);
+};
+
+export const removeTodoStorage = (id: number) => {
+  const todos = getTodoStorage();
+  const newTodos = todos.filter((todo: Itodo) => todo.id !== id);
+  saveTodoStorage(newTodos);
+  return newTodos;
 };

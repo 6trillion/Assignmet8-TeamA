@@ -1,0 +1,38 @@
+export const data = [
+  {
+    id: 1,
+    taskName: '보리랑 산책',
+    status: 'FINISHED',
+    priority: 1,
+    writer: '수진',
+    createAt: '2021-02-03',
+    updateAt: '2021-02-04',
+  },
+  {
+    id: 2,
+    taskName: '앵두랑 산책',
+    status: 'ONGOING',
+    priority: 2,
+    writer: '현정',
+    createAt: '2021-02-04',
+    updateAt: '2021-03-04',
+  },
+  {
+    id: 3,
+    taskName: '코딩하기',
+    status: 'DONE',
+    priority: 3,
+    writer: '동원',
+    createAt: '2021-02-05',
+    updateAt: '2021-03-04',
+  },
+  {
+    id: 4,
+    taskName: '티비보기',
+    status: 'ONGOING',
+    priority: 4,
+    writer: '윤성',
+    createAt: '2021-02-05',
+    updateAt: '2021-03-04',
+  },
+];

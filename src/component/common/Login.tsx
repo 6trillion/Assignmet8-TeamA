@@ -1,12 +1,14 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { getUserId, setUserId, logOutUser } from '../../utils/localStorage';
+import React, { useEffect, useState } from 'react';
+import { getUserId, setUserId, logOutUser } from 'utils/localStorage';
 
-interface LoginProps {}
+interface LoginProps {
+  userName: string;
+  setUserName: any;
+}
 
-const Login = (props: any) => {
+const Login = (props: LoginProps) => {
   const [isLogin, setIsLogin] = useState(false);
-  const [userName, setUserName] = useState('');
+  const { userName, setUserName } = props;
 
   useEffect(() => {
     const userId = getUserId();
@@ -16,12 +18,14 @@ const Login = (props: any) => {
     } else {
       setIsLogin(false);
     }
-  }, [isLogin]);
+  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLogin(true);
-    setUserId(userName);
+    if (userName) {
+      setIsLogin(true);
+      setUserId(userName);
+    }
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

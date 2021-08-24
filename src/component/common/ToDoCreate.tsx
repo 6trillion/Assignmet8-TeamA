@@ -1,97 +1,94 @@
 import React, { useState } from 'react';
-import { Status } from '../../utils/constants';
 import { ReactComponent as StarSvg } from './star.svg';
-import Modal from '../../component/modal/Modal';
+import { initStar } from 'utils/constants';
+import { Modal } from 'component/modal';
+import { Itodo } from 'utils/todoService';
 
 interface TodoCreateProps {
-  id?: number;
-  taskName?: string;
-  status?: Status;
-  priority?: number;
-  createAt?: string;
-  updateAt?: string;
+  userName: string;
+  nextId: number;
+  createTodo: (todo: Itodo) => void;
+  increamentNextId: () => void;
 }
 
-// 제목,중요도 입력 => 제목 input?, 중요도는 inpu? or selectBox?
-// 생성자, 생성일 자동으로 =>date()?
-// 별점
-
-// 1. +버튼을 누르면 모달이 텨나온다.
-// 2. 제목, 중요도, default = (상태, 날짜)
-// 3. 확인을 누르면 로컬스토리지에 저장, 취소를 누르면 날라감
-
-const ToDoCreate = () => {
-  const [stars, setStars] = useState([false, false, false, false, false]);
+const ToDoCreate = (props: TodoCreateProps) => {
+  const { userName } = props;
+  const { nextId, createTodo, increamentNextId } = props;
+  const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
+  const [inputTask, setInputTask] = useState('');
   const [open, setOpen] = useState(true);
-  const handleToggle = () => {};
 
-  const onCreate = (e: any) => {
+  const handleToggle = () => {
     setOpen((open) => !open);
   };
 
+  const onCreate = () => {
+    handleToggle();
+  };
+
+  const onChange = (e: any) => {
+    setInputTask(e.target.value);
+  };
+
   const onClick = (e: any, index: number) => {
-    console.log(e);
-    console.log(typeof e);
-    console.log(e.target.value);
     const newStars = stars.map((_, i): boolean => i < index);
 
     setStars(newStars);
     setStarIndex(index);
-    console.log(stars);
   };
+
+  const handleSave = () => {
+    handleToggle();
+    const todos: Itodo = {
+      id: nextId,
+      taskName: inputTask,
+      status: 'NOT_STARTED',
+      priority: starIndex,
+      writer: userName,
+      createAt: new Date(),
+      updateAt: new Date(),
+    };
+    createTodo(todos);
+    increamentNextId();
+    setInputTask('');
+    setStars(initStar);
+  };
+
+  const handleCancle = () => {
+    handleToggle();
+  };
+  const onSubmit = () => {};
 
   return (
     <>
       <button onClick={onCreate}>+</button>
-      <Modal open={open} handleToggle={handleToggle}>
-        <form>
+      <Modal open={open}>
+        <form onSubmit={onSubmit}>
           <label htmlFor="taskName">할 일</label>
-          <input type="text" placeholder="할 일을 적어주세요" name="taskName" />
+          <input
+            onChange={onChange}
+            type="text"
+            placeholder="할 일을 적어주세요"
+            name="taskName"
+            value={inputTask}
+          />
           <label htmlFor="priority">중요도</label>
-          <StarSvg
-            onClick={(e) => {
-              onClick(e, 1);
-            }}
-            name="priority"
-            fill={stars[0] ? 'gold' : 'lightgray'}
-          />
-          <StarSvg
-            onClick={(e) => {
-              onClick(e, 2);
-            }}
-            name="priority"
-            fill={stars[1] ? 'gold' : 'lightgray'}
-          />
-          <StarSvg
-            onClick={(e) => {
-              onClick(e, 3);
-            }}
-            name="priority"
-            fill={stars[2] ? 'gold' : 'lightgray'}
-          />
-          <StarSvg
-            onClick={(e) => {
-              onClick(e, 4);
-            }}
-            name="priority"
-            fill={stars[3] ? 'gold' : 'lightgray'}
-          />
-          <StarSvg
-            onClick={(e) => {
-              onClick(e, 5);
-            }}
-            name="priority"
-            fill={stars[4] ? 'gold' : 'lightgray'}
-          />
+          {stars.map((item, index) => (
+            <StarSvg
+              onClick={(e) => {
+                onClick(e, index + 1);
+              }}
+              name="priority"
+              fill={item ? 'gold' : 'lightgray'}
+            />
+          ))}
+          <button onClick={handleSave}>저장</button>
+          <button onClick={handleCancle}>취소</button>
         </form>
       </Modal>
     </>
   );
 };
-
-// 다 짜고 나서 리팩토링할 부분
-// 1. 이벤트 버블링
-// 2. map으로 돌려서 렌더링
 
 export default ToDoCreate;
