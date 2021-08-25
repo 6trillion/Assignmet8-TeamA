@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal } from 'components/modal';
-import { Itodo } from 'utils/todoService';
 import TaskForm from './TaskForm';
 
 interface TodoCreateProps {
   isCreate: boolean;
-  status: string;
-  userName: string;
-  nextId: number;
   open: boolean;
-  createTodo: (todo: Itodo) => void;
-  increamentNextId: () => void;
-  setIsOpen: (e: any) => void;
   stars: boolean[];
   setStars: any;
   setStarIndex: (starIndex: number) => void;
@@ -24,13 +17,7 @@ interface TodoCreateProps {
 const ToDoCreate = (props: TodoCreateProps) => {
   const {
     isCreate,
-    userName,
     open,
-    status,
-    nextId,
-    createTodo,
-    increamentNextId,
-    setIsOpen,
     stars,
     setStars,
     setStarIndex,

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { Itodo } from 'utils/todoService';
-import ToDoCreate from 'components/common/ToDoCreate';
 import TodoList from 'components/todoList/TodoList';
 
 interface StateAreaProps {

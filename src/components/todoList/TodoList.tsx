@@ -32,6 +32,7 @@ const TodoList = (props: TodoListProps) => {
     removeTodo,
     updateToDo,
   } = props;
+
   const [edit, setEdit] = useState(false);
   const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
@@ -39,10 +40,6 @@ const TodoList = (props: TodoListProps) => {
   const [editId, setEditId] = useState(-1);
 
   console.log(todos);
-
-  const handleRemove = (id: number) => {
-    removeTodo(id);
-  };
 
   const onCreate = () => {
     setIsOpen(false);
@@ -106,30 +103,11 @@ const TodoList = (props: TodoListProps) => {
     setEditId(id);
   };
 
-  //React.MouseEventHandler<SVGSVGElement>
-  //const handleEdit = (id: number) => {
-  //const updateTodos = todos.map((todo) =>
-  //  todo.id === id ? (
-  //    <ToDoCreate todo={todo} status={tagName} userName={todo.writer} />
-  //  ) : (
-  //    todo
-  //  ),
-  //);
-  //console.log('updateTodos>>>', updateTodos);
-  // setTodos(updateTodos);
-  //};
-
   return (
     <>
       <ToDoCreate
         isCreate={true}
-        status={tagName}
-        userName={userName}
-        nextId={nextId}
-        createTodo={createTodo}
-        increamentNextId={increamentNextId}
         open={open}
-        setIsOpen={setIsOpen}
         stars={stars}
         setStars={setStars}
         setStarIndex={setStarIndex}
@@ -158,19 +136,9 @@ const TodoList = (props: TodoListProps) => {
             ) : (
               <ToDoItem
                 key={todo.id}
-                isCreate={false}
                 todo={todo}
-                edit={edit}
-                setEdit={setEdit}
                 removeTodo={removeTodo}
-                stars={stars}
-                setStars={setStars}
-                setStarIndex={setStarIndex}
                 handleEdit={handleEdit}
-                handleSave={handleSave}
-                handleCancel={handleCancel}
-                inputTask={inputTask}
-                setInputTask={setInputTask}
               />
             ),
           )}
