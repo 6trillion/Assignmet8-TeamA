@@ -38,6 +38,7 @@ const StateArea: FC<StateAreaProps> = ({
         <p onClick={handleClick}>+</p>
       </StateHeader>
       <ToDoCreate
+        isCreate={true}
         status={tagName}
         userName={userName}
         nextId={nextId}

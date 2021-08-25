@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { initStar } from 'utils/constants';
 import { Modal } from 'components/modal';
 import { Itodo } from 'utils/todoService';
-import styled from 'styled-components';
-import Stars from './Stars';
+import TaskForm from './TaskForm';
 
 interface TodoCreateProps {
+  isCreate: boolean;
   status: string;
   userName: string;
   nextId: number;
@@ -17,17 +17,20 @@ interface TodoCreateProps {
 
 const ToDoCreate = (props: TodoCreateProps) => {
   const { userName } = props;
-  const { open, status, nextId, createTodo, increamentNextId, setIsOpen } =
-    props;
+  const {
+    isCreate,
+    open,
+    status,
+    nextId,
+    createTodo,
+    increamentNextId,
+    setIsOpen,
+  } = props;
   const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
 
-  const onChange = (e: any) => {
-    setInputTask(e.target.value);
-  };
-
-  const handleSave = () => {
+  const onCreate = () => {
     setIsOpen(false);
     const todos: Itodo = {
       id: nextId,
@@ -46,38 +49,29 @@ const ToDoCreate = (props: TodoCreateProps) => {
     setStarIndex(0);
   };
 
-  const handleCancle = () => {
-    setIsOpen(false);
+  const onUpdate = () => {};
+
+  const handleSave = () => {
+    if (isCreate === true) {
+      onCreate();
+    } else {
+      onUpdate();
+    }
   };
-  const onSubmit = () => {};
 
   return (
-    <>
-      <Modal open={open}>
-        <TodoCreateForm onSubmit={onSubmit}>
-          <label htmlFor="taskName">할 일</label>
-          <input
-            onChange={onChange}
-            type="text"
-            placeholder="할 일을 적어주세요"
-            name="taskName"
-            value={inputTask || ''}
-          />
-          <Stars
-            stars={stars}
-            setStars={setStars}
-            setStarIndex={setStarIndex}
-          />
-          <button onClick={handleSave}>저장</button>
-          <button onClick={handleCancle}>취소</button>
-        </TodoCreateForm>
-      </Modal>
-    </>
+    <Modal open={open}>
+      <TaskForm
+        stars={stars}
+        setStars={setStars}
+        setStarIndex={setStarIndex}
+        handleSave={handleSave}
+        setIsOpen={setIsOpen}
+        inputTask={inputTask}
+        setInputTask={setInputTask}
+      />
+    </Modal>
   );
 };
 
 export default ToDoCreate;
-
-const TodoCreateForm = styled.form`
-  border: 1px solid black;
-`;
