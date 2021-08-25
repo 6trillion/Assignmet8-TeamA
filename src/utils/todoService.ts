@@ -55,7 +55,6 @@ export const useTodo = () => {
   };
 
   const saveData = () => {
-    console.log(todoState);
     saveTodoStorage(todoState);
   };
 
