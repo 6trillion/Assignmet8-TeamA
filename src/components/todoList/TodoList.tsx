@@ -39,8 +39,6 @@ const TodoList = (props: TodoListProps) => {
   const [inputTask, setInputTask] = useState('');
   const [editId, setEditId] = useState(-1);
 
-  console.log(todos);
-
   const onCreate = () => {
     setIsOpen(false);
     const todo: Itodo = {
@@ -61,7 +59,6 @@ const TodoList = (props: TodoListProps) => {
   };
 
   const onUpdate = (todo: Itodo) => {
-    console.log(todo);
     const newTodo: Itodo = {
       id: todo.id,
       taskName: inputTask,
@@ -71,7 +68,6 @@ const TodoList = (props: TodoListProps) => {
       createAt: todo.createAt,
       updateAt: new Date(),
     };
-    console.log(newTodo);
     updateToDo(newTodo);
     setEdit(false);
     setInputTask('');
@@ -97,8 +93,6 @@ const TodoList = (props: TodoListProps) => {
   };
 
   const handleEdit = (id: number) => {
-    console.log(id);
-
     setEdit(true);
     setEditId(id);
   };
