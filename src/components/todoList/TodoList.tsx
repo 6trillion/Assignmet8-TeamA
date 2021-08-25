@@ -7,11 +7,16 @@ import { ReactComponent as ReviseSvg } from 'components/assets/svg/revise.svg';
 
 interface TodoListProps {
   todos: Itodo[];
+  removeTodo: (id: number) => void;
 }
 
 const TodoList = (props: TodoListProps) => {
-  const { todos } = props;
+  const { todos, removeTodo } = props;
   console.log(todos);
+
+  const handleRemove = (id: number) => {
+    removeTodo(id);
+  };
   return (
     <>
       {todos &&
@@ -27,7 +32,7 @@ const TodoList = (props: TodoListProps) => {
             <p>{todo.writer}</p>
             <p>{todo.status}</p>
             <ReviseSvg />
-            <DeleteSvg />
+            <DeleteSvg onClick={() => handleRemove(todo.id)} />
           </TodoItem>
         ))}
     </>

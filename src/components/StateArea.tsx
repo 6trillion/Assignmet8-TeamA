@@ -28,7 +28,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
-      <TodoList todos={todoState} />
+      <TodoList todos={todoState} removeTodo={removeTodo} />
       <ToDoCreate
         userName={userName}
         nextId={nextIdState}
