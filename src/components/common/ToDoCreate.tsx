@@ -75,6 +75,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
 
 export default ToDoCreate;
 
-const TodoCreateForm = styled.div`
+const TodoCreateForm = styled.form`
   border: 1px solid black;
 `;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Status } from '../utils/constants';
+import { Status } from 'utils/constants';
 import {
   getTodoStorage,
   saveTodoStorage,
   removeTodoStorage,
-} from '../utils/localStorage';
+} from 'utils/localStorage';
 
 export type Itodo = {
   id: number;
