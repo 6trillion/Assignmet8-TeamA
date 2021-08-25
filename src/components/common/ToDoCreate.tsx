@@ -41,6 +41,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
     increamentNextId();
     setInputTask('');
     setStars(initStar);
+    setStarIndex(0);
   };
 
   const handleCancle = () => {
