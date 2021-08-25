@@ -55,18 +55,18 @@ export const useTodo = () => {
   };
 
   const updateToDo = (todo: Itodo) => {
-    // findIndex -> 인덱스 찾아서 저장
-    //
-    // 거기에 arr.splice(index, 1, todo);
-    //const index = todoState.findIndex((item) => item.id === todo.id);
-    //const newTodoList = [...todoState].splice(index, 1, todo);
-    //console.log('todoState: ', todoState);
-    //console.log('index: ', index);
-    //console.log('todo: ', todo);
-    //console.log('newTodoList: ', newTodoList);
+    // 수정 후 순서가 안바뀌는 코드
+    const index = todoState.findIndex((item) => item.id === todo.id);
+    let newTodoList = [...todoState];
+    newTodoList.splice(index, 1, todo);
+    console.log('todoState: ', todoState);
+    console.log('index: ', index);
+    console.log('todo: ', todo);
+    console.log('newTodoList: ', newTodoList);
 
-    const filterdTodoList = todoState.filter((item) => item.id !== todo.id);
-    const newTodoList = [todo, ...filterdTodoList];
+    // 수정 후 순서가 바뀌는 코드
+    //const filterdTodoList = todoState.filter((item) => item.id !== todo.id);
+    //const newTodoList = [todo, ...filterdTodoList];
 
     setTodoState(newTodoList);
   };
