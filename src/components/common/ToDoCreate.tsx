@@ -1,54 +1,42 @@
 import React, { useState } from 'react';
-import { ReactComponent as StarSvg } from './star.svg';
 import { initStar } from 'utils/constants';
-import { Modal } from 'component/modal';
+import { Modal } from 'components/modal';
 import { Itodo } from 'utils/todoService';
+import styled from 'styled-components';
+import Stars from './Stars';
 
 interface TodoCreateProps {
   userName: string;
   nextId: number;
+  open: boolean;
   createTodo: (todo: Itodo) => void;
   increamentNextId: () => void;
+  setIsOpen: (e: any) => void;
 }
 
 const ToDoCreate = (props: TodoCreateProps) => {
   const { userName } = props;
-  const { nextId, createTodo, increamentNextId } = props;
+  const { open, nextId, createTodo, increamentNextId, setIsOpen } = props;
   const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => {
-    setOpen((open) => !open);
-  };
-
-  const onCreate = () => {
-    handleToggle();
-  };
 
   const onChange = (e: any) => {
     setInputTask(e.target.value);
   };
 
-  const onClick = (e: any, index: number) => {
-    const newStars = stars.map((_, i): boolean => i < index);
-
-    setStars(newStars);
-    setStarIndex(index);
-  };
-
   const handleSave = () => {
-    handleToggle();
+    setIsOpen(false);
     const todos: Itodo = {
       id: nextId,
       taskName: inputTask,
       status: 'NOT_STARTED',
       importance: starIndex,
-      writer: userName,
+      writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
     };
+
     createTodo(todos);
     increamentNextId();
     setInputTask('');
@@ -56,39 +44,37 @@ const ToDoCreate = (props: TodoCreateProps) => {
   };
 
   const handleCancle = () => {
-    handleToggle();
+    setIsOpen(false);
   };
   const onSubmit = () => {};
 
   return (
     <>
-      <button onClick={onCreate}>+</button>
       <Modal open={open}>
-        <form onSubmit={onSubmit}>
+        <TodoCreateForm onSubmit={onSubmit}>
           <label htmlFor="taskName">할 일</label>
           <input
             onChange={onChange}
             type="text"
             placeholder="할 일을 적어주세요"
             name="taskName"
-            value={inputTask}
+            value={inputTask || ''}
           />
-          <label htmlFor="importance">중요도</label>
-          {stars.map((item, index) => (
-            <StarSvg
-              onClick={(e) => {
-                onClick(e, index + 1);
-              }}
-              name="importance"
-              fill={item ? 'gold' : 'lightgray'}
-            />
-          ))}
+          <Stars
+            stars={stars}
+            setStars={setStars}
+            setStarIndex={setStarIndex}
+          />
           <button onClick={handleSave}>저장</button>
           <button onClick={handleCancle}>취소</button>
-        </form>
+        </TodoCreateForm>
       </Modal>
     </>
   );
 };
 
 export default ToDoCreate;
+
+const TodoCreateForm = styled.div`
+  border: 1px solid black;
+`;
