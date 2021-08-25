@@ -1,52 +1,30 @@
-import React, { useCallback, useEffect, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Itodo } from 'utils/todoService';
 
 interface TodoListProps {
   todos: Itodo[];
-  isDragging: boolean[];
-  setIsDragging: (e: any) => void;
 }
 
-const TodoList = (props: TodoListProps) => {
-  const { todos, isDragging, setIsDragging } = props;
+const TodoList = forwardRef<HTMLDivElement[], TodoListProps>(
+  (props: TodoListProps, ref) => {
+    const { todos } = props;
 
-  useEffect(() => {
-    setIsDragging(Array.from({ length: todos.length }).fill(false));
-  }, [setIsDragging, todos.length]);
-
-  const handleDragStart = useCallback(
-    (id) => {
-      setIsDragging(isDragging.map((_, i) => (i + 1 === id ? true : false)));
-    },
-    [setIsDragging, isDragging],
-  );
-
-  const handleDragEnd = useCallback(
-    (id) => {
-      setIsDragging(isDragging.fill(false));
-    },
-    [isDragging, setIsDragging],
-  );
-
-  return (
-    <>
-      {todos &&
-        todos.length > 0 &&
-        todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            draggable
-            onDragStart={() => handleDragStart(todo.id)}
-            onDragEnd={() => handleDragEnd(todo.id)}
-          >
-            <div>{todo.taskName}</div>
-            <p>{todo.importance}</p>
-          </TodoItem>
-        ))}
-    </>
-  );
-};
+    return (
+      <>
+        {todos &&
+          todos.length > 0 &&
+          ref &&
+          todos.map((todo, index) => (
+            <TodoItem key={todo.id} draggable>
+              <div>{todo.taskName}</div>
+              <p>{todo.importance}</p>
+            </TodoItem>
+          ))}
+      </>
+    );
+  },
+);
 
 export default TodoList;
 

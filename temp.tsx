@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useRef } from 'react';
 // import TodoItem from 'components/TodoItem';
 import styled from 'styled-components';
 import { useCallback } from 'react';
 import { useState } from 'react';
-import { Itodo, useTodo } from 'utils/todoService';
+import { useTodo } from 'utils/todoService';
 import ToDoCreate from 'components/common/ToDoCreate';
 import TodoList from 'components/todoList/TodoList';
 
@@ -17,72 +17,58 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
   const { todoState, nextIdState, increamentNextId, removeTodo, createTodo } =
     useTodo();
 
-  const [newTodoState, setNewTodoState] = useState(todoState);
-
-  const [dragTodo, setDragTodo] = useState<Itodo | null>(null);
+  const [draggableIndex, setDraggableIndex] = useState<number>(0);
   const AreaRef = useRef<HTMLDivElement>(null);
   const ListRef = useRef<HTMLDivElement[]>([]);
 
-  useEffect(() => {
-    setNewTodoState(todoState);
-  }, [todoState]);
+  console.log(ListRef.current);
+
   const handleClick = useCallback(() => {
     setIsOpen(true);
   }, []);
-  const getDragAfterElement = useCallback((y: any) => {
-    const draggableElements = [...ListRef.current];
 
-    return draggableElements.reduce(
-      (closest: any, child: any, index) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
+  const getDragAfterElement = useCallback(
+    (y: any) => {
+      const draggableElements = [...ListRef.current.splice(draggableIndex, 1)];
 
-        if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child, index: index };
-        } else {
-          return closest;
-        }
-      },
-      { offset: Number.NEGATIVE_INFINITY },
-    ).index;
-  }, []);
+      return draggableElements.reduce(
+        (closest: any, child: any) => {
+          const box = child.getBoundingClientRect();
+          const offset = y - box.top - box.height / 2;
+
+          if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+          } else {
+            return closest;
+          }
+        },
+        { offset: Number.NEGATIVE_INFINITY },
+      ).element;
+    },
+    [draggableIndex],
+  );
 
   const handleDragOver = useCallback(
     (e) => {
       e.preventDefault();
       const afterElement = getDragAfterElement(e.clientY);
-      console.log(afterElement);
+      const draggable = ListRef.current[draggableIndex];
 
-      if (dragTodo) {
-        if (afterElement === undefined) {
-          setNewTodoState((prev) => {
-            const nextState = [...prev];
-            const index = nextState.indexOf(dragTodo);
-            nextState.splice(index, 1);
-            nextState.push(dragTodo);
-
-            return nextState;
-          });
-        } else {
-          setNewTodoState((prev) => {
-            const nextState = [...prev];
-            const index = nextState.indexOf(dragTodo);
-            nextState.splice(index, 1);
-            nextState.splice(afterElement, 0, dragTodo);
-            return nextState;
-          });
+      if (AreaRef.current) {
+        if (afterElement === undefined && draggable) {
+          console.log(AreaRef.current);
         }
       }
     },
-    [getDragAfterElement, dragTodo],
+    [getDragAfterElement, draggableIndex],
   );
 
-  const handleDragStart = useCallback((todo) => {
-    setDragTodo(todo);
+  const handleDragStart = useCallback((index) => {
+    setDraggableIndex(index);
   }, []);
 
   const handleDragEnd = useCallback(() => {
-    setDragTodo(null);
+    setDraggableIndex(0);
   }, []);
 
   return (
@@ -92,11 +78,11 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         <p onClick={handleClick}>+</p>
       </StateHeader>
 
-      {newTodoState?.map((todo, index) => (
+      {todoState?.map((todo, index) => (
         <TodoItem
           key={todo.id}
           draggable
-          onDragStart={() => handleDragStart(todo)}
+          onDragStart={() => handleDragStart(index)}
           onDragEnd={handleDragEnd}
           ref={(r: any) => (ListRef.current[index] = r)}
         >
