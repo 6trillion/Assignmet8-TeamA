@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { initStar } from 'utils/constants';
 import { Modal } from 'components/modal';
 import { Itodo } from 'utils/todoService';
 import TaskForm from './TaskForm';
@@ -13,60 +12,43 @@ interface TodoCreateProps {
   createTodo: (todo: Itodo) => void;
   increamentNextId: () => void;
   setIsOpen: (e: any) => void;
+  stars: boolean[];
+  setStars: any;
+  setStarIndex: (starIndex: number) => void;
+  handleSave: any;
+  handleCancel: any;
+  inputTask: string;
+  setInputTask: any;
 }
 
 const ToDoCreate = (props: TodoCreateProps) => {
-  const { userName } = props;
   const {
     isCreate,
+    userName,
     open,
     status,
     nextId,
     createTodo,
     increamentNextId,
     setIsOpen,
+    stars,
+    setStars,
+    setStarIndex,
+    handleSave,
+    handleCancel,
+    inputTask,
+    setInputTask,
   } = props;
-  const [stars, setStars] = useState(initStar);
-  const [starIndex, setStarIndex] = useState(0);
-  const [inputTask, setInputTask] = useState('');
-
-  const onCreate = () => {
-    setIsOpen(false);
-    const todos: Itodo = {
-      id: nextId,
-      taskName: inputTask,
-      status: status,
-      importance: stars,
-      writer: userName ? userName : 'anonymous',
-      createAt: new Date(),
-      updateAt: new Date(),
-    };
-
-    createTodo(todos);
-    increamentNextId();
-    setInputTask('');
-    setStars(initStar);
-    setStarIndex(0);
-  };
-
-  const onUpdate = () => {};
-
-  const handleSave = () => {
-    if (isCreate === true) {
-      onCreate();
-    } else {
-      onUpdate();
-    }
-  };
 
   return (
     <Modal open={open}>
       <TaskForm
+        isCreate={isCreate}
         stars={stars}
         setStars={setStars}
         setStarIndex={setStarIndex}
         handleSave={handleSave}
-        setIsOpen={setIsOpen}
+        handleCancel={handleCancel}
         inputTask={inputTask}
         setInputTask={setInputTask}
       />

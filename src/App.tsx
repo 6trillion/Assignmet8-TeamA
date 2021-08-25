@@ -6,8 +6,14 @@ import { tagStates } from 'utils/constants';
 import { useTodo } from 'utils/todoService';
 
 const App = () => {
-  const { todoState, nextIdState, increamentNextId, removeTodo, createTodo } =
-    useTodo();
+  const {
+    todoState,
+    nextIdState,
+    increamentNextId,
+    removeTodo,
+    createTodo,
+    updateToDo,
+  } = useTodo();
   const [userName, setUserName] = useState('');
 
   return (
@@ -27,6 +33,7 @@ const App = () => {
                 increamentNextId={increamentNextId}
                 removeTodo={removeTodo}
                 todoState={todoState}
+                updateToDo={updateToDo}
               />
             </S.Section>
           ))}

@@ -14,6 +14,7 @@ interface StateAreaProps {
   increamentNextId: () => void;
   removeTodo: (id: number) => void;
   todoState: Itodo[];
+  updateToDo: (todo: Itodo) => void;
 }
 
 const StateArea: FC<StateAreaProps> = ({
@@ -24,6 +25,7 @@ const StateArea: FC<StateAreaProps> = ({
   increamentNextId,
   todoState,
   removeTodo,
+  updateToDo,
 }) => {
   const [open, setIsOpen] = useState(false);
 
@@ -37,17 +39,18 @@ const StateArea: FC<StateAreaProps> = ({
         <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
-      <ToDoCreate
-        isCreate={true}
-        status={tagName}
+      <TodoList
+        open={open}
+        setIsOpen={setIsOpen}
+        tagName={tagName}
+        todos={todoState}
         userName={userName}
         nextId={nextId}
         createTodo={createTodo}
         increamentNextId={increamentNextId}
-        open={open}
-        setIsOpen={setIsOpen}
+        removeTodo={removeTodo}
+        updateToDo={updateToDo}
       />
-      <TodoList tagName={tagName} todos={todoState} removeTodo={removeTodo} />
     </>
   );
 };
