@@ -20,6 +20,7 @@ const Stars = (props: StarsProps) => {
       <label htmlFor="importance">중요도</label>
       {stars.map((item, index) => (
         <StarSvg
+          key={index}
           onClick={(e) => {
             onClick(e, index + 1);
           }}
