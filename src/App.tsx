@@ -14,7 +14,7 @@ const App = () => {
           <Header userName={userName} setUserName={setUserName} />
         </S.Header>
         <S.Main>
-          {tagStates.map((v, i) => (
+          {tagStates.map((v) => (
             <S.Section key={v}>
               <StateArea tagName={v} userName={userName} />
             </S.Section>
