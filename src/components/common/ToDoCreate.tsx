@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ReactComponent as StarSvg } from './star.svg';
 import { initStar } from 'utils/constants';
 import { Modal } from 'components/modal';
 import { Itodo } from 'utils/todoService';
 import styled from 'styled-components';
+import Stars from './Stars';
 
 interface TodoCreateProps {
   userName: string;
@@ -25,13 +25,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
     setInputTask(e.target.value);
   };
 
-  const onClick = (e: any, index: number) => {
-    const newStars = stars.map((_, i): boolean => i < index);
-
-    setStars(newStars);
-    setStarIndex(index);
-  };
-
   const handleSave = () => {
     setIsOpen(false);
     const todos: Itodo = {
@@ -39,10 +32,11 @@ const ToDoCreate = (props: TodoCreateProps) => {
       taskName: inputTask,
       status: 'NOT_STARTED',
       importance: starIndex,
-      writer: userName,
+      writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
     };
+
     createTodo(todos);
     increamentNextId();
     setInputTask('');
@@ -66,17 +60,11 @@ const ToDoCreate = (props: TodoCreateProps) => {
             name="taskName"
             value={inputTask || ''}
           />
-          <label htmlFor="importance">중요도</label>
-          {stars.map((item, index) => (
-            <StarSvg
-              key={index}
-              onClick={(e) => {
-                onClick(e, index + 1);
-              }}
-              name="importance"
-              fill={item ? 'gold' : 'lightgray'}
-            />
-          ))}
+          <Stars
+            stars={stars}
+            setStars={setStars}
+            setStarIndex={setStarIndex}
+          />
           <button onClick={handleSave}>저장</button>
           <button onClick={handleCancle}>취소</button>
         </TodoCreateForm>
