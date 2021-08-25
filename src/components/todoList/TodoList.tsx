@@ -4,6 +4,7 @@ import { initStar } from 'utils/constants';
 
 import ToDoCreate from 'components/common/ToDoCreate';
 import ToDoItem from './ToDoItem';
+import TaskForm from 'components/common/TaskForm';
 
 interface TodoListProps {
   todos: Itodo[];
@@ -35,6 +36,7 @@ const TodoList = (props: TodoListProps) => {
   const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
+  const [editId, setEditId] = useState(-1);
 
   console.log(todos);
 
@@ -97,18 +99,25 @@ const TodoList = (props: TodoListProps) => {
     }
   };
 
-  //React.MouseEventHandler<SVGSVGElement>
   const handleEdit = (id: number) => {
-    //const updateTodos = todos.map((todo) =>
-    //  todo.id === id ? (
-    //    <ToDoCreate todo={todo} status={tagName} userName={todo.writer} />
-    //  ) : (
-    //    todo
-    //  ),
-    //);
-    //console.log('updateTodos>>>', updateTodos);
-    // setTodos(updateTodos);
+    console.log(id);
+
+    setEdit(true);
+    setEditId(id);
   };
+
+  //React.MouseEventHandler<SVGSVGElement>
+  //const handleEdit = (id: number) => {
+  //const updateTodos = todos.map((todo) =>
+  //  todo.id === id ? (
+  //    <ToDoCreate todo={todo} status={tagName} userName={todo.writer} />
+  //  ) : (
+  //    todo
+  //  ),
+  //);
+  //console.log('updateTodos>>>', updateTodos);
+  // setTodos(updateTodos);
+  //};
 
   return (
     <>
@@ -133,23 +142,38 @@ const TodoList = (props: TodoListProps) => {
         todos.length > 0 &&
         todos
           ?.filter((todo) => todo.status === tagName)
-          .map((todo) => (
-            <ToDoItem
-              key={todo.id}
-              isCreate={false}
-              todo={todo}
-              edit={edit}
-              setEdit={setEdit}
-              removeTodo={removeTodo}
-              stars={stars}
-              setStars={setStars}
-              setStarIndex={setStarIndex}
-              handleSave={handleSave}
-              handleCancel={handleCancel}
-              inputTask={inputTask}
-              setInputTask={setInputTask}
-            />
-          ))}
+          .map((todo) =>
+            edit && todo.id === editId ? (
+              <TaskForm
+                todo={todo}
+                isCreate={false}
+                stars={stars}
+                setStars={setStars}
+                setStarIndex={setStarIndex}
+                handleSave={handleSave}
+                handleCancel={handleCancel}
+                inputTask={inputTask}
+                setInputTask={setInputTask}
+              />
+            ) : (
+              <ToDoItem
+                key={todo.id}
+                isCreate={false}
+                todo={todo}
+                edit={edit}
+                setEdit={setEdit}
+                removeTodo={removeTodo}
+                stars={stars}
+                setStars={setStars}
+                setStarIndex={setStarIndex}
+                handleEdit={handleEdit}
+                handleSave={handleSave}
+                handleCancel={handleCancel}
+                inputTask={inputTask}
+                setInputTask={setInputTask}
+              />
+            ),
+          )}
     </>
   );
 };

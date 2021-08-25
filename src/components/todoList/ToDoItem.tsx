@@ -16,6 +16,7 @@ interface ToDoItemProps {
   stars: boolean[];
   setStars: (star: boolean[]) => void;
   setStarIndex: (starIndex: number) => void;
+  handleEdit: any;
   handleSave: (e: any, isCreate: boolean, todo: Itodo) => void;
   handleCancel: (isCreate: boolean) => void;
   inputTask: string;
@@ -31,50 +32,34 @@ const ToDoItem = (props: ToDoItemProps) => {
     stars,
     setStars,
     setStarIndex,
+    handleEdit,
     handleSave,
     handleCancel,
     inputTask,
     setInputTask,
   } = props;
 
-  const handleEdit = (id: number) => {
-    console.log(id);
+  //  const handleEdit = (id: number) => {
+  //    console.log(id);
 
-    setEdit(true);
-  };
+  //    setEdit(true);
+  //  };
 
   const handleRemove = (id: number) => {
     removeTodo(id);
   };
   return (
     <TodoItemWrapper>
-      {edit ? (
-        <TaskForm
-          todo={todo}
-          isCreate={false}
-          stars={stars}
-          setStars={setStars}
-          setStarIndex={setStarIndex}
-          handleSave={handleSave}
-          handleCancel={handleCancel}
-          inputTask={inputTask}
-          setInputTask={setInputTask}
-        />
-      ) : (
-        <>
-          {' '}
-          <div>{todo.taskName}</div>
-          <p>
-            {todo.importance.map((item: boolean, index: number) =>
-              item ? <StarSvg key={index} fill="gold" /> : '',
-            )}
-          </p>
-          <p>{todo.writer}</p>
-          <p>{todo.status}</p>
-          <EditSvg onClick={() => handleEdit(todo.id)} />
-          <DeleteSvg onClick={() => handleRemove(todo.id)} />
-        </>
-      )}
+      <div>{todo.taskName}</div>
+      <p>
+        {todo.importance.map((item: boolean, index: number) =>
+          item ? <StarSvg key={index} fill="gold" /> : '',
+        )}
+      </p>
+      <p>{todo.writer}</p>
+      <p>{todo.status}</p>
+      <EditSvg onClick={() => handleEdit(todo.id)} />
+      <DeleteSvg onClick={() => handleRemove(todo.id)} />
     </TodoItemWrapper>
   );
 };
