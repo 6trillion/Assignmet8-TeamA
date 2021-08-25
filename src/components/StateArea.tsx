@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// import TodoItem from 'components/TodoItem';
 import styled from 'styled-components';
 import { useCallback } from 'react';
 import { useState } from 'react';
@@ -28,8 +27,8 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
-      <TodoList todos={todoState} removeTodo={removeTodo} />
       <ToDoCreate
+        status={tagName}
         userName={userName}
         nextId={nextIdState}
         createTodo={createTodo}
@@ -37,6 +36,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         open={open}
         setIsOpen={setIsOpen}
       />
+      <TodoList todos={todoState} removeTodo={removeTodo} />
     </>
   );
 };

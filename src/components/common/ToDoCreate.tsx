@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Stars from './Stars';
 
 interface TodoCreateProps {
+  status: string;
   userName: string;
   nextId: number;
   open: boolean;
@@ -16,7 +17,8 @@ interface TodoCreateProps {
 
 const ToDoCreate = (props: TodoCreateProps) => {
   const { userName } = props;
-  const { open, nextId, createTodo, increamentNextId, setIsOpen } = props;
+  const { open, status, nextId, createTodo, increamentNextId, setIsOpen } =
+    props;
   const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
@@ -30,7 +32,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
     const todos: Itodo = {
       id: nextId,
       taskName: inputTask,
-      status: 'NOT_STARTED',
+      status: status,
       importance: stars,
       writer: userName ? userName : 'anonymous',
       createAt: new Date(),

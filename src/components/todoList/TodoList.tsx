@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Itodo } from 'utils/todoService';
 import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
-import { ReactComponent as ReviseSvg } from 'components/assets/svg/revise.svg';
+import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
 
 interface TodoListProps {
   todos: Itodo[];
@@ -12,26 +12,38 @@ interface TodoListProps {
 
 const TodoList = (props: TodoListProps) => {
   const { todos, removeTodo } = props;
+  const [edit, setEdit] = useState(false);
   console.log(todos);
 
   const handleRemove = (id: number) => {
     removeTodo(id);
   };
+
+  const handleEdit = () => {
+    setEdit(true);
+  };
+
   return (
     <>
       {todos &&
         todos.length > 0 &&
         todos?.map((todo) => (
           <TodoItem key={todo.id}>
-            <div>{todo.taskName}</div>
-            <p>
-              {todo.importance.map((item) =>
-                item ? <StarSvg fill="gold" /> : '',
-              )}
-            </p>
-            <p>{todo.writer}</p>
-            <p>{todo.status}</p>
-            <ReviseSvg />
+            {edit ? (
+              <></>
+            ) : (
+              <>
+                <div>{todo.taskName}</div>
+                <p>
+                  {todo.importance.map((item) =>
+                    item ? <StarSvg fill="gold" /> : '',
+                  )}
+                </p>
+                <p>{todo.writer}</p>
+                <p>{todo.status}</p>
+                <EditSvg onClick={handleEdit} />
+              </>
+            )}
             <DeleteSvg onClick={() => handleRemove(todo.id)} />
           </TodoItem>
         ))}
