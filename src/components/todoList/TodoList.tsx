@@ -4,10 +4,12 @@ import { Itodo } from 'utils/todoService';
 
 interface TodoListProps {
   todos: Itodo[];
+  setTodoState:(e:any)=>void
 }
 
+
 const TodoList = (props: TodoListProps) => {
-  const { todos } = props;
+  const { todos,setTodoState } = props;
 
   const draggingItem = useRef<number|null>(null);
   const dragOverItem = useRef<number|null>(null);
@@ -27,7 +29,7 @@ const TodoList = (props: TodoListProps) => {
     todosCopy.splice(dragOverItem.current!, 0, draggingItemContent);
     draggingItem.current = dragOverItem.current;
     dragOverItem.current = null;
-    
+    setTodoState(todosCopy);
   }
   return (
     <>

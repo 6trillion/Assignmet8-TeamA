@@ -15,7 +15,7 @@ interface StateAreaProps {
 const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
   const [open, setIsOpen] = useState(false);
 
-  const { todoState, nextIdState, increamentNextId, removeTodo, createTodo } =
+  const { todoState, nextIdState, setTodoState, increamentNextId, removeTodo, createTodo } =
     useTodo();
 
   const handleClick = useCallback(() => {
@@ -28,7 +28,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
-      <TodoList todos={todoState} />
+      <TodoList todos={todoState} setTodoState={setTodoState} />
       <ToDoCreate
         userName={userName}
         nextId={nextIdState}
