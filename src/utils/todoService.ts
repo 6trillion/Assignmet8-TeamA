@@ -9,7 +9,7 @@ export type Itodo = {
   id: number;
   taskName: string;
   status: string;
-  importance: boolean[];
+  importance: number;
   writer: string;
   createAt: Date;
   updateAt: Date;

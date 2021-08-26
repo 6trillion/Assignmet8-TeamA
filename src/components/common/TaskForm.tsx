@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Stars from './Stars';
 import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
 
+
 interface TaskFormProps {
   isCreate: boolean;
   todo?: Todo;
@@ -33,9 +34,9 @@ const TaskForm = (props: TaskFormProps) => {
     inputTask,
     setInputTask,
   } = props;
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value);
-    console.log("왜바껴",inputTask);
   };
 
   return (

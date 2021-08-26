@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTodosState} from 'contexts/Todo/TodoStore';
+import { useTodosState } from 'contexts/Todo/TodoStore';
 import ToDoItem from './ToDoItem';
 
 interface TodoListProps {

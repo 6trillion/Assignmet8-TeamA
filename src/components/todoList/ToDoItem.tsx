@@ -27,6 +27,11 @@ const ToDoItem = (props: ToDoItemProps) => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     if (updateTasKName) updateTasKName.focus();
   }, [isEdit]);
+
+
+  const newStars = (index: number) =>
+    initStar.map((_, i): boolean => i < index);
+
   const handleRemove = (id: number) => {
     dispatch({
       type: 'REMOVE',
@@ -60,8 +65,10 @@ const ToDoItem = (props: ToDoItemProps) => {
     <TodoItemWrapper>
       <div ref={tasKNameRef} contentEditable={isEdit} suppressContentEditableWarning={true}>{todo.taskName}</div>
       <p>
-        <Stars starIndex={todo.importance} setStarIndex={setStarIndex} />
-        {todo.importance}
+        {newStars(todo.importance).map((item: boolean, index: number) =>
+          item ? <StarSvg key={index} fill="gold" /> : '',
+        )}
+
       </p>
       <p>{todo.writer}</p>
       {isEdit ? <Status status={todo.status} setStatus={setStatus}/> : <p>{todo.status}</p>}
