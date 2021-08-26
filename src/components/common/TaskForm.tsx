@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import Stars from './Stars';
 import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
 
+
 interface TaskFormProps {
   isCreate: boolean;
   todo?: Todo;
+  stars: boolean[];
+  setStars: (star: boolean[]) => void;
   setStarIndex: (starIndex: number) => void;
   handleSave: (
     e:
@@ -23,6 +26,8 @@ const TaskForm = (props: TaskFormProps) => {
   const {
     todo,
     isCreate,
+    stars,
+    setStars,
     setStarIndex,
     handleSave,
     handleCancel,
