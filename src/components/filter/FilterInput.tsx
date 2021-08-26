@@ -12,20 +12,6 @@ const FilterInput = () => {
     setInputValue(word);
   }, []);
 
-  // useEffect(() => {
-  //   if (inputValue !== '') {
-  //     const valueLen = inputValue.length;
-  //     const filterdData = copiedData.filter(
-  //       (data) =>
-  //         String(data[dropdownItem]).substring(0, valueLen) === inputValue,
-  //     );
-
-  //     setUserData(filterdData);
-  //   } else {
-  //     setUserData(copiedData);
-  //   }
-  // }, [inputValue, setUserData, copiedData, dropdownItem, setCurrentPage]);
-
   return (
     <SearchBoxContainer>
       <FilterDropdown
@@ -35,7 +21,11 @@ const FilterInput = () => {
         setDropdownItem={setDropdownItem}
       />
       <SearchInput
-        placeholder={`${dropdownName}을 입력해주세요.`}
+        placeholder={
+          dropdownName === '생성일'
+            ? `${dropdownName}를 입력해주세요. 예) 2021-08-26 `
+            : `${dropdownName}를 입력해주세요`
+        }
         onChange={onInputValue}
         type="text"
         value={inputValue}
@@ -54,6 +44,7 @@ const SearchBoxContainer = styled.div`
 `;
 
 const SearchInput = styled.input`
+  width: 30%;
   padding: 0 12px;
   border: 1px solid black;
 
