@@ -4,7 +4,7 @@ export const initStar = [false, false, false, false, false];
 
 export const tagStates = ['To Do', 'In Progrss', 'Complete'];
 
-export const SEARCH_DROPDOWN_ITEMS = [
+export const FILTER_DROPDOWN_ITEMS = [
   {
     id: 1,
     title: '생성일',

@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { SEARCH_DROPDOWN_ITEMS } from '../../utils/constants';
+import { FILTER_DROPDOWN_ITEMS } from '../../utils/constants';
 
 interface FilterDropdownProps {
   dropdownName: string;
@@ -38,7 +38,7 @@ const FilterDropdown: FC<FilterDropdownProps> = ({
     >
       <DropdownBody>{dropdownName}</DropdownBody>
       <DropdownMenu isActive={dropdownToggle}>
-        {SEARCH_DROPDOWN_ITEMS.map((data: any) => (
+        {FILTER_DROPDOWN_ITEMS.map((data: any) => (
           <DropdownItem
             key={data.id}
             onClick={() => onSelectDropdownItem(data)}
