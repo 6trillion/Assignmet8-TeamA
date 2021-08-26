@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { initStar } from 'utils/constants';
 
@@ -7,8 +7,9 @@ interface StarsProps {
   setStarIndex: (index: any) => void;
 }
 const Stars = (props: StarsProps) => {
-  const { setStarIndex , starIndex } = props;
   const [stars, setStars] = useState(initStar);
+  const { setStarIndex , starIndex } = props;
+
   const onClick = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>,
     index: number,

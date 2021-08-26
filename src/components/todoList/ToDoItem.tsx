@@ -24,6 +24,9 @@ const ToDoItem = (props: ToDoItemProps) => {
     if (textTag) textTag.focus();
   }, [isEdit]);
 
+  const newStars = (index: number) =>
+    initStar.map((_, i): boolean => i < index);
+
   const handleRemove = (id: number) => {
     dispatch({
       type: 'REMOVE',
@@ -56,11 +59,10 @@ const ToDoItem = (props: ToDoItemProps) => {
   return (
     <TodoItemWrapper>
       <div ref={tasKNameRef} contentEditable={isEdit}>{todo.taskName}</div>
-      <p contentEditable={isEdit}>
-        {/* starIndex만큼 별 표시!!! */}
-        {/* edit 모드일때만 수정할 수 있게 */}
-        <Stars starIndex={todo.importance} setStarIndex={setStarIndex} />
-        {todo.importance}
+      <p>
+        {newStars(todo.importance).map((item: boolean, index: number) =>
+          item ? <StarSvg key={index} fill="gold" /> : '',
+        )}
       </p>
       <p>{todo.writer}</p>
       <p>{todo.status}</p>
