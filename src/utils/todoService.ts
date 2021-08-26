@@ -73,6 +73,7 @@ export const useTodo = () => {
   return {
     todoState,
     nextIdState,
+    setTodoState,
     increamentNextId,
     removeTodo,
     createTodo,

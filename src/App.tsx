@@ -4,6 +4,7 @@ import StateArea from 'components/StateArea';
 import Header from 'components/Header';
 import { tagStates } from 'utils/constants';
 import { TodosContextProvider } from 'contexts/Todo/TodoStore';
+import FilterInput from 'components/filter/FilterInput';
 
 const App = () => {
   const [userName, setUserName] = useState('');
@@ -13,6 +14,9 @@ const App = () => {
         <S.Header>
           <Header userName={userName} setUserName={setUserName} />
         </S.Header>
+        <S.Filter>
+          <FilterInput />
+        </S.Filter>
         <S.Main>
           {tagStates.map((v) => (
             <S.Section key={v}>

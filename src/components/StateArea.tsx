@@ -30,6 +30,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
+      
       <ToDoCreate
         isCreate={true}
         open={open}
@@ -37,6 +38,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         userName={userName}
         setIsOpen={setIsOpen}
       />
+      {/* <TodoList todos={todoState} setTodoState={setTodoState} /> */}
       <TodoList
         tagName={tagName}
       />
