@@ -30,7 +30,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
   const [edit, setEdit] = useState(false);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
-  const [editId, setEditId] = useState(-1);
 
   const onCreate = () => {
     setIsOpen(false);
@@ -49,29 +48,9 @@ const ToDoCreate = (props: TodoCreateProps) => {
     });
     increamentNextId();
     setInputTask('');
-    // setStars(initStar);
     setStarIndex(0);
   };
 
-  const onUpdate = (todo: Todo) => {
-    const updateTodo: Todo = {
-      id: todo.id,
-      taskName: inputTask,
-      status: tagName,
-      importance: starIndex,
-      writer: userName,
-      createAt: todo.createAt,
-      updateAt: new Date(),
-    };
-    dispatch({
-      type: 'UPDATE',
-      updateTodo: updateTodo,
-    });
-    setEdit(false);
-    setInputTask('');
-    // setStars(initStar);
-    setStarIndex(0);
-  };
   const handleSave = ()=>{
     onCreate();
   };
@@ -82,7 +61,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value);
-    console.log("왜바껴",inputTask);
   };
 
   return (

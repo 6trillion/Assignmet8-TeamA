@@ -2,6 +2,8 @@ import React, { FC, useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import TodoList from 'components/todoList/TodoList';
 import ToDoCreate from 'components/common/ToDoCreate';
+import {useTodosDispatch
+} from 'contexts/Todo/TodoStore';
 
 interface StateAreaProps {
   tagName: string;
@@ -9,7 +11,15 @@ interface StateAreaProps {
 }
 
 const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
+  const dispatch = useTodosDispatch();
   const [open, setIsOpen] = useState(false);
+
+  
+  useEffect(() => {
+    dispatch({
+        type: 'LOAD_DATA',
+      });
+  }, []);
 
   const handleClick = useCallback(() => {
     setIsOpen(true);
