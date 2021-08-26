@@ -10,13 +10,13 @@ export interface Todo {
   taskName: string;
   writer: string;
   status: string;
-  importance: boolean[];
+  importance: number;
   createAt: Date;
   updateAt: Date;
 }
 
 type TodosState = Todo[];
-const initState: TodosState = [];
+let initState: TodosState = [];
 const TodosContext = createContext<TodosState>(initState);
 export let nextIdState: number = 0;
 
@@ -32,10 +32,11 @@ const TodosDispatchContext = createContext<TodosDispatch | null>(null);
 function todosReducer(preState: TodosState, action: Action): TodosState {
   switch (action.type) {
     case 'LOAD_DATA':
-      let initialTodos = getTodoStorage() || '[]';
+      const initialTodos = getTodoStorage() || [] ;
       if (initialTodos && initialTodos.length >= 1) {
         nextIdState = initialTodos[initialTodos.length - 1].id;
       }
+      saveTodoStorage(initialTodos);
       return initialTodos;
     case 'CREATE':
       const nextId = nextIdState + 1;
@@ -77,7 +78,7 @@ export function TodosContextProvider({
 
 export function useTodosState(): Todo[] {
   const state = useContext(TodosContext);
-  console.log('useTodosState', state);
+  // console.log('useTodosState', state);
   if (!state) throw new Error('TodosProvider not found');
   return state;
 }
