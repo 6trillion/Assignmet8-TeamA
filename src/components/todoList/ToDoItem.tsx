@@ -6,6 +6,7 @@ import Stars from '../common/Stars';
 import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
+import Status from '../common/Status';
 
 interface ToDoItemProps {
   todo: Todo;
@@ -14,23 +15,25 @@ interface ToDoItemProps {
 
 const ToDoItem = (props: ToDoItemProps) => {
   const dispatch = useTodosDispatch();
-  const { todo,tagName  } = props;
-  const tasKNameRef = useRef(null);
+  const { todo, tagName  } = props;
+
   const [isEdit, setIsEdit] = useState(false);
+  const [status, setStatus] = useState('');
   const [starIndex, setStarIndex] = useState(initStar);
 
-  useEffect(() => {
-    const textTag = tasKNameRef.current! as HTMLElement;
-    if (textTag) textTag.focus();
-  }, [isEdit]);
 
+  const tasKNameRef = useRef(null);
+  useEffect(() => {
+    const updateTasKName = tasKNameRef.current! as HTMLElement;
+    if (updateTasKName) updateTasKName.focus();
+  }, [isEdit]);
   const handleRemove = (id: number) => {
     dispatch({
       type: 'REMOVE',
       id: id,
     });
   };
-
+  
   const handleEdit = () => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
@@ -38,7 +41,7 @@ const ToDoItem = (props: ToDoItemProps) => {
       const updateTodo: Todo = {
         id: todo.id,
         taskName: updateText,
-        status: tagName,
+        status: status,
         importance: todo.importance,
         writer: todo.writer,
         createAt: todo.createAt,
@@ -55,16 +58,14 @@ const ToDoItem = (props: ToDoItemProps) => {
 
   return (
     <TodoItemWrapper>
-      <div ref={tasKNameRef} contentEditable={isEdit}>{todo.taskName}</div>
-      <p contentEditable={isEdit}>
-        {/* starIndex만큼 별 표시!!! */}
-        {/* edit 모드일때만 수정할 수 있게 */}
+      <div ref={tasKNameRef} contentEditable={isEdit} suppressContentEditableWarning={true}>{todo.taskName}</div>
+      <p>
         <Stars starIndex={todo.importance} setStarIndex={setStarIndex} />
         {todo.importance}
       </p>
       <p>{todo.writer}</p>
-      <p>{todo.status}</p>
-      {!isEdit ? <EditSvg onClick={handleEdit} /> : <p onClick={handleEdit}>저장</p>}
+      {isEdit ? <Status status={todo.status} setStatus={setStatus}/> : <p>{todo.status}</p>}
+      {isEdit ? <p onClick={handleEdit}>저장</p> : <EditSvg onClick={handleEdit} />}
       <DeleteSvg onClick={() => handleRemove(todo.id)} />
     </TodoItemWrapper>
   );
