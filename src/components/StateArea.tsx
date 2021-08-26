@@ -1,6 +1,7 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import TodoList from 'components/todoList/TodoList';
+import ToDoCreate from 'components/common/ToDoCreate';
 
 interface StateAreaProps {
   tagName: string;
@@ -19,11 +20,15 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         <p>{tagName} </p>
         <p onClick={handleClick}>+</p>
       </StateHeader>
-      <TodoList
+      <ToDoCreate
+        isCreate={true}
         open={open}
-        setIsOpen={setIsOpen}
         tagName={tagName}
         userName={userName}
+        setIsOpen={setIsOpen}
+      />
+      <TodoList
+        tagName={tagName}
       />
     </>
   );

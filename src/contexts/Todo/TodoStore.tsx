@@ -10,7 +10,7 @@ export interface Todo {
   taskName: string;
   writer: string;
   status: string;
-  importance: boolean[];
+  importance: number;
   createAt: Date;
   updateAt: Date;
 }
@@ -77,7 +77,7 @@ export function TodosContextProvider({
 
 export function useTodosState(): Todo[] {
   const state = useContext(TodosContext);
-  console.log('useTodosState', state);
+  // console.log('useTodosState', state);
   if (!state) throw new Error('TodosProvider not found');
   return state;
 }
