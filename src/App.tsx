@@ -5,6 +5,10 @@ import Header from 'components/Header';
 import { tagStates } from 'utils/constants';
 import { useTodo } from 'utils/todoService';
 
+import {TodosContextProvider, useTodosState} from 'contexts/Todo/Store'
+import TodoList from 'components/TodoList';
+import TodoForm from 'components/TodoForm';
+
 const App = () => {
   const {
     todoState,
@@ -15,9 +19,14 @@ const App = () => {
     updateToDo,
   } = useTodo();
   const [userName, setUserName] = useState('');
-
   return (
     <>
+    <TodosContextProvider>
+      {/* child */}
+      <TodoForm/>
+      <TodoList/>
+    </TodosContextProvider>
+    
       <S.Wrap>
         <S.Header>
           <Header userName={userName} setUserName={setUserName} />
@@ -39,7 +48,7 @@ const App = () => {
           ))}
         </S.Main>
       </S.Wrap>
-    </>
+      </>
   );
 };
 
