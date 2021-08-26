@@ -25,7 +25,8 @@ type Action =
   | { type: 'REMOVE'; id: number }
   | { type: 'UPDATE'; updateTodo: Todo }
   | { type: 'LOAD_DATA'; }
-  | { type: 'SAVE'; saveTodo: TodosState};
+  | { type: 'SAVE'; saveTodo: TodosState}
+  | { type:'FILTER'; filterTodo: TodosState };
 
 type TodosDispatch = Dispatch<Action>;
 const TodosDispatchContext = createContext<TodosDispatch | null>(null);
@@ -59,6 +60,8 @@ function todosReducer(preState: TodosState, action: Action): TodosState {
       newTodoList.splice(index, 1, action.updateTodo);
       saveTodoStorage(newTodoList);
       return newTodoList;
+    case 'FILTER' : 
+      return action.filterTodo;
     default:
       throw new Error('Unhandled action');
   }

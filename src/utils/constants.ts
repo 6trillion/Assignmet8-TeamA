@@ -18,6 +18,6 @@ export const FILTER_DROPDOWN_ITEMS = [
   {
     id: 3,
     title: '생성자',
-    value: 'creator',
+    value: 'writer',
   },
 ];
