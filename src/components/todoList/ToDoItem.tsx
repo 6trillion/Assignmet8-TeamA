@@ -15,7 +15,7 @@ interface ToDoItemProps {
 
 const ToDoItem = (props: ToDoItemProps) => {
   const dispatch = useTodosDispatch();
-  const { todo, tagName  } = props;
+  const { todo, tagName } = props;
 
   const [isEdit, setIsEdit] = useState(false);
   const [status, setStatus] = useState('');

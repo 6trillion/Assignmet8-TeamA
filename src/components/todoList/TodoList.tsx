@@ -1,26 +1,16 @@
 import React, { useRef } from 'react';
-import { useTodosState } from 'contexts/Todo/TodoStore';
+import { useTodosState, useTodosDispatch } from 'contexts/Todo/TodoStore';
 import ToDoItem from './ToDoItem';
 import styled from 'styled-components';
-import { Itodo } from 'utils/todoService';
 
 interface TodoListProps {
   tagName: string;
 }
-// interface TodoListProps {
-//   todos: Itodo[];
-//   setTodoState: (e: Itodo[]) => void;
-// }
 
 const TodoList = (props: TodoListProps) => {
   const { tagName } = props;
   const todos = useTodosState();
-
-
-
-
-// const TodoList = (props: TodoListProps) => {
-//   const { todos, setTodoState } = props;
+  const dispatch = useTodosDispatch();
 
   const draggingItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
@@ -39,7 +29,11 @@ const TodoList = (props: TodoListProps) => {
     todosCopy.splice(dragOverItem.current!, 0, draggingItemContent);
     draggingItem.current = dragOverItem.current;
     dragOverItem.current = null;
-    // setTodoState(todosCopy);
+    console.log(todosCopy);
+    dispatch({
+      type: 'SAVE',
+      saveTodo: todosCopy,
+    });
   };
 
   return (
@@ -48,21 +42,16 @@ const TodoList = (props: TodoListProps) => {
         todos.length > 0 &&
         todos
           ?.filter((todo) => todo.status === tagName)
-          .map((todo) =>
-          <ToDoItem key={todo.id} todo={todo} tagName={tagName} />
-      )}
-        {/* todos?.map((todo, index) => (
-          <TodoItem
-            key={todo.id}
+          .map((todo, index) =>
+          <div key={todo.id} 
             onDragStart={() => handleDragStart(index)}
             onDragEnter={() => handleDragEnter(index)}
             onDragOver={(e) => e.preventDefault()}
-            draggable
-          >
-            <div>{todo.taskName}</div>
-            <p>{todo.importance}</p>
-          </TodoItem>
-        ))} */}
+            draggable>
+            <ToDoItem  todo={todo} tagName={tagName} 
+              />
+          </div>
+      )}
     </>
   );
 };

@@ -38,7 +38,6 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         userName={userName}
         setIsOpen={setIsOpen}
       />
-      {/* <TodoList todos={todoState} setTodoState={setTodoState} /> */}
       <TodoList
         tagName={tagName}
       />
