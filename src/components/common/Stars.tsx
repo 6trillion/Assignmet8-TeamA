@@ -9,7 +9,10 @@ interface StarsProps {
 }
 const Stars = (props: StarsProps) => {
   const { stars, setStars, setStarIndex } = props;
-  const onClick = (e: any, index: number) => {
+  const onClick = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    index: number,
+  ) => {
     const newStars = stars.map((_, i): boolean => i < index);
 
     setStars(newStars);

@@ -3,7 +3,7 @@ import { getUserId, setUserId, logOutUser } from 'utils/localStorage';
 
 interface LoginProps {
   userName: string;
-  setUserName: any;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Login = (props: LoginProps) => {

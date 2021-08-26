@@ -1,37 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { useCallback } from 'react';
-import { useState } from 'react';
-import { Itodo } from 'utils/todoService';
 import TodoList from 'components/todoList/TodoList';
 
 interface StateAreaProps {
   tagName: string;
   userName: string;
-  nextId: number;
-  createTodo: (todo: Itodo) => void;
-  increamentNextId: () => void;
-  removeTodo: (id: number) => void;
-  todoState: Itodo[];
-  updateToDo: (todo: Itodo) => void;
 }
 
-const StateArea: FC<StateAreaProps> = ({
-  tagName,
-  userName,
-  nextId,
-  createTodo,
-  increamentNextId,
-  todoState,
-  removeTodo,
-  updateToDo,
-}) => {
+const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
   const [open, setIsOpen] = useState(false);
 
   const handleClick = useCallback(() => {
     setIsOpen(true);
   }, []);
-
   return (
     <>
       <StateHeader>
@@ -42,13 +23,7 @@ const StateArea: FC<StateAreaProps> = ({
         open={open}
         setIsOpen={setIsOpen}
         tagName={tagName}
-        todos={todoState}
         userName={userName}
-        nextId={nextId}
-        createTodo={createTodo}
-        increamentNextId={increamentNextId}
-        removeTodo={removeTodo}
-        updateToDo={updateToDo}
       />
     </>
   );

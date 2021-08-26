@@ -1,21 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
 
 import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
 
 interface ToDoItemProps {
-  todo: any;
-  removeTodo: (id: number) => void;
-  handleEdit: any;
+  handleEdit: (id: number) => void;
+  todo: Todo;
 }
 
 const ToDoItem = (props: ToDoItemProps) => {
-  const { todo, removeTodo, handleEdit } = props;
+  const dispatch = useTodosDispatch();
+  const { handleEdit, todo } = props;
 
   const handleRemove = (id: number) => {
-    removeTodo(id);
+    dispatch({
+      type: 'REMOVE',
+      id: id,
+    });
   };
 
   return (

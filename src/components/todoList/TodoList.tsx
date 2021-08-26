@@ -1,37 +1,28 @@
 import React, { useState } from 'react';
 import { Itodo } from 'utils/todoService';
 import { initStar } from 'utils/constants';
+import {
+  useTodosState,
+  useTodosDispatch,
+  increamentNextId,
+  nextIdState,
+} from 'contexts/Todo/TodoStore';
 
 import ToDoCreate from 'components/common/ToDoCreate';
 import ToDoItem from './ToDoItem';
 import TaskForm from 'components/common/TaskForm';
 
 interface TodoListProps {
-  todos: Itodo[];
   tagName: string;
   userName: string;
-  nextId: number;
-  createTodo: any;
-  increamentNextId: any;
   open: boolean;
-  setIsOpen: any;
-  removeTodo: (id: number) => void;
-  updateToDo: (todo: Itodo) => void;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TodoList = (props: TodoListProps) => {
-  const {
-    todos,
-    tagName,
-    userName,
-    nextId,
-    createTodo,
-    increamentNextId,
-    open,
-    setIsOpen,
-    removeTodo,
-    updateToDo,
-  } = props;
+  const { tagName, userName, open, setIsOpen } = props;
+  const todos = useTodosState();
+  const dispatch = useTodosDispatch();
 
   const [edit, setEdit] = useState(false);
   const [stars, setStars] = useState(initStar);
@@ -42,7 +33,7 @@ const TodoList = (props: TodoListProps) => {
   const onCreate = () => {
     setIsOpen(false);
     const todo: Itodo = {
-      id: nextId,
+      id: nextIdState,
       taskName: inputTask,
       status: tagName,
       importance: stars,
@@ -50,8 +41,10 @@ const TodoList = (props: TodoListProps) => {
       createAt: new Date(),
       updateAt: new Date(),
     };
-
-    createTodo(todo);
+    dispatch({
+      type: 'CREATE',
+      createTodo: todo,
+    });
     increamentNextId();
     setInputTask('');
     setStars(initStar);
@@ -59,7 +52,7 @@ const TodoList = (props: TodoListProps) => {
   };
 
   const onUpdate = (todo: Itodo) => {
-    const newTodo: Itodo = {
+    const updateTodo: Itodo = {
       id: todo.id,
       taskName: inputTask,
       status: tagName,
@@ -68,28 +61,29 @@ const TodoList = (props: TodoListProps) => {
       createAt: todo.createAt,
       updateAt: new Date(),
     };
-    updateToDo(newTodo);
+    dispatch({
+      type: 'UPDATE',
+      updateTodo: updateTodo,
+    });
     setEdit(false);
     setInputTask('');
     setStars(initStar);
     setStarIndex(0);
   };
 
-  const handleSave = (e: any, isCreate: boolean, todo: Itodo) => {
+  const handleSave = (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    isCreate: boolean,
+    todo: Itodo,
+  ) => {
     e.preventDefault();
-    if (isCreate === true) {
-      onCreate();
-    } else {
-      onUpdate(todo);
-    }
+    isCreate ? onCreate() : onUpdate(todo);
   };
 
   const handleCancel = (isCreate: boolean) => {
-    if (isCreate === true) {
-      setIsOpen(false);
-    } else {
-      setEdit(false);
-    }
+    isCreate ? setIsOpen(false) : setEdit(false);
   };
 
   const handleEdit = (id: number) => {
@@ -128,12 +122,7 @@ const TodoList = (props: TodoListProps) => {
                 setInputTask={setInputTask}
               />
             ) : (
-              <ToDoItem
-                key={todo.id}
-                todo={todo}
-                removeTodo={removeTodo}
-                handleEdit={handleEdit}
-              />
+              <ToDoItem key={todo.id} todo={todo} handleEdit={handleEdit} />
             ),
           )}
     </>

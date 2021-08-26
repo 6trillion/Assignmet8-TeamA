@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Stars from './Stars';
 import { Itodo } from 'utils/todoService';
+import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
 
 interface TaskFormProps {
   isCreate: boolean;
@@ -9,7 +10,13 @@ interface TaskFormProps {
   stars: boolean[];
   setStars: (star: boolean[]) => void;
   setStarIndex: (starIndex: number) => void;
-  handleSave: (e: any, i: any, todo: Itodo) => void;
+  handleSave: (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    isCreate: boolean,
+    todo: Itodo,
+  ) => void;
   handleCancel: (isCreate: boolean) => void;
   inputTask: string;
   setInputTask: (inputTask: string) => void;
@@ -27,8 +34,7 @@ const TaskForm = (props: TaskFormProps) => {
     inputTask,
     setInputTask,
   } = props;
-
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputTask(e.target.value);
   };
 
@@ -36,7 +42,7 @@ const TaskForm = (props: TaskFormProps) => {
     <TodoCreateForm onSubmit={(e) => handleSave(e, isCreate, todo!)}>
       <label htmlFor="taskName">할 일</label>
       <input
-        onChange={onChange}
+        onChange={(e) => onChange(e)}
         type="text"
         placeholder="할 일을 적어주세요"
         name="taskName"

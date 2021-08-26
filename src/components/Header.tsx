@@ -3,7 +3,7 @@ import Login from 'components/common/Login';
 
 interface HeaderProps {
   userName: string;
-  setUserName: (e: any) => void;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Header: FC<HeaderProps> = ({ userName, setUserName }) => {
