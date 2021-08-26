@@ -8,6 +8,11 @@ export const layouts = {
     flex-direction: column;
   `,
 
+  Filter: styled.div`
+    width: 100%;
+    margin-bottom: 30px;
+  `,
+
   Header: styled.header`
     width: 100%;
     // 임시 height
