@@ -1,81 +1,89 @@
 import React, { useState } from 'react';
-import { initStar } from 'utils/constants';
 import { Modal } from 'components/modal';
-import { Itodo } from 'utils/todoService';
 import styled from 'styled-components';
 import Stars from './Stars';
+import {
+  useTodosDispatch,
+  increamentNextId,
+  nextIdState,Todo
+} from 'contexts/Todo/TodoStore';
 
 interface TodoCreateProps {
-  userName: string;
-  nextId: number;
+  isCreate: boolean;
+  todo?: Todo;
   open: boolean;
-  createTodo: (todo: Itodo) => void;
-  increamentNextId: () => void;
-  setIsOpen: (e: any) => void;
+  tagName: string;
+  userName: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ToDoCreate = (props: TodoCreateProps) => {
-  const { userName } = props;
-  const { open, nextId, createTodo, increamentNextId, setIsOpen } = props;
-  const [stars, setStars] = useState(initStar);
+  const {
+    isCreate,
+    open,
+    tagName,
+    userName,
+    setIsOpen
+  } = props;
+  const dispatch = useTodosDispatch();
+
+  const [edit, setEdit] = useState(false);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
 
-  const onChange = (e: any) => {
-    setInputTask(e.target.value);
-  };
-
-  const handleSave = () => {
+  const onCreate = () => {
     setIsOpen(false);
-    const todos: Itodo = {
-      id: nextId,
+    const todo: Todo = {
+      id: nextIdState,
       taskName: inputTask,
-      status: 'NOT_STARTED',
+      status: tagName,
       importance: starIndex,
       writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
     };
-
-    createTodo(todos);
+    dispatch({
+      type: 'CREATE',
+      createTodo: todo,
+    });
     increamentNextId();
     setInputTask('');
-    setStars(initStar);
     setStarIndex(0);
   };
 
-  const handleCancle = () => {
-    setIsOpen(false);
+  const handleSave = ()=>{
+    onCreate();
   };
-  const onSubmit = () => {};
+
+  const handleCancel = (isCreate: boolean) => {
+    isCreate ? setIsOpen(false) : setEdit(false);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputTask(e.target.value);
+  };
 
   return (
-    <>
-      <Modal open={open}>
-        <TodoCreateForm onSubmit={onSubmit}>
-          <label htmlFor="taskName">할 일</label>
-          <input
-            onChange={onChange}
-            type="text"
-            placeholder="할 일을 적어주세요"
-            name="taskName"
-            value={inputTask || ''}
-          />
-          <Stars
-            stars={stars}
-            setStars={setStars}
-            setStarIndex={setStarIndex}
-          />
-          <button onClick={handleSave}>저장</button>
-          <button onClick={handleCancle}>취소</button>
-        </TodoCreateForm>
-      </Modal>
-    </>
+    <Modal open={open}>
+      <TodoCreateForm onSubmit={handleSave}>
+      <label htmlFor="taskName">할 일</label>
+      <input
+        onChange={(e) => onChange(e)}
+        type="text"
+        placeholder="할 일을 적어주세요"
+        name="taskName"
+        value={inputTask || ''}
+      />
+      <Stars setStarIndex={setStarIndex} />
+      <button onClick={handleSave}>저장</button>
+      <button onClick={() => handleCancel(isCreate)}>취소</button>
+    </TodoCreateForm>
+    </Modal>
   );
 };
-
-export default ToDoCreate;
 
 const TodoCreateForm = styled.form`
   border: 1px solid black;
 `;
+
+export default ToDoCreate;

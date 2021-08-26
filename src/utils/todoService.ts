@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Status } from 'utils/constants';
 import {
   getTodoStorage,
   saveTodoStorage,
@@ -9,7 +8,7 @@ import {
 export type Itodo = {
   id: number;
   taskName: string;
-  status: Status;
+  status: string;
   importance: number;
   writer: string;
   createAt: Date;
@@ -54,8 +53,20 @@ export const useTodo = () => {
     setTodoState(initialTodos);
   };
 
+  const updateToDo = (todo: Itodo) => {
+    // 수정 후 순서가 안바뀌는 코드
+    const index = todoState.findIndex((item) => item.id === todo.id);
+    let newTodoList = [...todoState];
+    newTodoList.splice(index, 1, todo);
+
+    // 수정 후 순서가 바뀌는 코드
+    //const filterdTodoList = todoState.filter((item) => item.id !== todo.id);
+    //const newTodoList = [todo, ...filterdTodoList];
+
+    setTodoState(newTodoList);
+  };
+
   const saveData = () => {
-    console.log(todoState);
     saveTodoStorage(todoState);
   };
 
@@ -66,5 +77,6 @@ export const useTodo = () => {
     increamentNextId,
     removeTodo,
     createTodo,
+    updateToDo,
   };
 };

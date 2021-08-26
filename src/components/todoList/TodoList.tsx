@@ -1,14 +1,26 @@
 import React, { useRef } from 'react';
+import { useTodosState } from 'contexts/Todo/TodoStore';
+import ToDoItem from './ToDoItem';
 import styled from 'styled-components';
 import { Itodo } from 'utils/todoService';
 
 interface TodoListProps {
-  todos: Itodo[];
-  setTodoState: (e: Itodo[]) => void;
+  tagName: string;
 }
+// interface TodoListProps {
+//   todos: Itodo[];
+//   setTodoState: (e: Itodo[]) => void;
+// }
 
 const TodoList = (props: TodoListProps) => {
-  const { todos, setTodoState } = props;
+  const { tagName } = props;
+  const todos = useTodosState();
+
+
+
+
+// const TodoList = (props: TodoListProps) => {
+//   const { todos, setTodoState } = props;
 
   const draggingItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
@@ -27,14 +39,19 @@ const TodoList = (props: TodoListProps) => {
     todosCopy.splice(dragOverItem.current!, 0, draggingItemContent);
     draggingItem.current = dragOverItem.current;
     dragOverItem.current = null;
-    setTodoState(todosCopy);
+    // setTodoState(todosCopy);
   };
 
   return (
     <>
       {todos &&
         todos.length > 0 &&
-        todos?.map((todo, index) => (
+        todos
+          ?.filter((todo) => todo.status === tagName)
+          .map((todo) =>
+          <ToDoItem key={todo.id} todo={todo} tagName={tagName} />
+      )}
+        {/* todos?.map((todo, index) => (
           <TodoItem
             key={todo.id}
             onDragStart={() => handleDragStart(index)}
@@ -45,14 +62,9 @@ const TodoList = (props: TodoListProps) => {
             <div>{todo.taskName}</div>
             <p>{todo.importance}</p>
           </TodoItem>
-        ))}
+        ))} */}
     </>
   );
 };
 
 export default React.memo(TodoList);
-
-const TodoItem = styled.div`
-  border: 1px solid black;
-  margin-bottom: 5px;
-`;
