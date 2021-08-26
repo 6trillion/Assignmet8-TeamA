@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Itodo } from 'utils/todoService';
 
@@ -8,13 +8,37 @@ interface TodoListProps {
 
 const TodoList = (props: TodoListProps) => {
   const { todos } = props;
-  console.log(todos);
+
+  const draggingItem = useRef<number|null>(null);
+  const dragOverItem = useRef<number|null>(null);
+
+  const handleDragStart = (e:any, position:any)=> {
+    draggingItem.current = position;
+   
+  }
+
+  const handleDragEnter = (e:any, position:any)=>{
+    dragOverItem.current = position;
+    
+    const todosCopy = todos&&[...todos];
+    
+    const draggingItemContent = todosCopy[draggingItem.current!];
+    todosCopy.splice(draggingItem.current!, 1);
+    todosCopy.splice(dragOverItem.current!, 0, draggingItemContent);
+    draggingItem.current = dragOverItem.current;
+    dragOverItem.current = null;
+    
+  }
   return (
     <>
       {todos &&
         todos.length > 0 &&
-        todos.map((todo) => (
-          <TodoItem key={todo.id}>
+        todos?.map((todo, index) => (
+          <TodoItem key={todo.id} 
+          onDragStart={(e) => handleDragStart(e, index)} 
+          onDragEnter={(e) => handleDragEnter(e, index)} 
+          onDragOver={(e) => e.preventDefault()} 
+          draggable>
             <div>{todo.taskName}</div>
             <p>{todo.importance}</p>
           </TodoItem>
