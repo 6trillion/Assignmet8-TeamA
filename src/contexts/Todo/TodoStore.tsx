@@ -10,7 +10,7 @@ export interface Todo {
   taskName: string;
   writer: string;
   status: string;
-  importance: boolean[];
+  importance: number;
   createAt: Date;
   updateAt: Date;
 }

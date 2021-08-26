@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Itodo } from 'utils/todoService';
-import { initStar } from 'utils/constants';
 import {
   useTodosState,
   useTodosDispatch,
   increamentNextId,
   nextIdState,
+  Todo,
 } from 'contexts/Todo/TodoStore';
 
 import ToDoCreate from 'components/common/ToDoCreate';
@@ -25,18 +24,17 @@ const TodoList = (props: TodoListProps) => {
   const dispatch = useTodosDispatch();
 
   const [edit, setEdit] = useState(false);
-  const [stars, setStars] = useState(initStar);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
   const [editId, setEditId] = useState(-1);
 
   const onCreate = () => {
     setIsOpen(false);
-    const todo: Itodo = {
+    const todo: Todo = {
       id: nextIdState,
       taskName: inputTask,
       status: tagName,
-      importance: stars,
+      importance: starIndex,
       writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
@@ -47,16 +45,15 @@ const TodoList = (props: TodoListProps) => {
     });
     increamentNextId();
     setInputTask('');
-    setStars(initStar);
     setStarIndex(0);
   };
 
-  const onUpdate = (todo: Itodo) => {
-    const updateTodo: Itodo = {
+  const onUpdate = (todo: Todo) => {
+    const updateTodo: Todo = {
       id: todo.id,
       taskName: inputTask,
       status: tagName,
-      importance: stars,
+      importance: starIndex,
       writer: userName,
       createAt: todo.createAt,
       updateAt: new Date(),
@@ -67,7 +64,6 @@ const TodoList = (props: TodoListProps) => {
     });
     setEdit(false);
     setInputTask('');
-    setStars(initStar);
     setStarIndex(0);
   };
 
@@ -76,7 +72,7 @@ const TodoList = (props: TodoListProps) => {
       | React.FormEvent<HTMLFormElement>
       | React.MouseEvent<HTMLButtonElement, MouseEvent>,
     isCreate: boolean,
-    todo: Itodo,
+    todo: Todo,
   ) => {
     e.preventDefault();
     isCreate ? onCreate() : onUpdate(todo);
@@ -96,13 +92,11 @@ const TodoList = (props: TodoListProps) => {
       <ToDoCreate
         isCreate={true}
         open={open}
-        stars={stars}
-        setStars={setStars}
         setStarIndex={setStarIndex}
-        handleSave={handleSave}
-        handleCancel={handleCancel}
         inputTask={inputTask}
         setInputTask={setInputTask}
+        handleSave={handleSave}
+        handleCancel={handleCancel}
       />
       {todos &&
         todos.length > 0 &&
@@ -113,8 +107,6 @@ const TodoList = (props: TodoListProps) => {
               <TaskForm
                 todo={todo}
                 isCreate={false}
-                stars={stars}
-                setStars={setStars}
                 setStarIndex={setStarIndex}
                 handleSave={handleSave}
                 handleCancel={handleCancel}

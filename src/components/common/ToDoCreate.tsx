@@ -6,8 +6,6 @@ import { Todo } from 'contexts/Todo/TodoStore';
 interface TodoCreateProps {
   isCreate: boolean;
   open: boolean;
-  stars: boolean[];
-  setStars: React.Dispatch<React.SetStateAction<boolean[]>>;
   setStarIndex: React.Dispatch<React.SetStateAction<number>>;
   handleSave: (
     e:
@@ -25,8 +23,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
   const {
     isCreate,
     open,
-    stars,
-    setStars,
     setStarIndex,
     handleSave,
     handleCancel,
@@ -38,8 +34,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
     <Modal open={open}>
       <TaskForm
         isCreate={isCreate}
-        stars={stars}
-        setStars={setStars}
         setStarIndex={setStarIndex}
         handleSave={handleSave}
         handleCancel={handleCancel}

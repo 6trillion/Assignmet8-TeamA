@@ -5,6 +5,7 @@ import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
 import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
+import { initStar } from 'utils/constants';
 
 interface ToDoItemProps {
   handleEdit: (id: number) => void;
@@ -14,6 +15,9 @@ interface ToDoItemProps {
 const ToDoItem = (props: ToDoItemProps) => {
   const dispatch = useTodosDispatch();
   const { handleEdit, todo } = props;
+
+  const newStars = (index: number) =>
+    initStar.map((_, i): boolean => i < index);
 
   const handleRemove = (id: number) => {
     dispatch({
@@ -26,7 +30,7 @@ const ToDoItem = (props: ToDoItemProps) => {
     <TodoItemWrapper>
       <div>{todo.taskName}</div>
       <p>
-        {todo.importance.map((item: boolean, index: number) =>
+        {newStars(todo.importance).map((item: boolean, index: number) =>
           item ? <StarSvg key={index} fill="gold" /> : '',
         )}
       </p>
