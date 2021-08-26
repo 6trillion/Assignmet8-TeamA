@@ -3,7 +3,7 @@ import { getUserId, setUserId, logOutUser } from 'utils/localStorage';
 
 interface LoginProps {
   userName: string;
-  setUserName: any;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Login = (props: LoginProps) => {
@@ -18,7 +18,7 @@ const Login = (props: LoginProps) => {
     } else {
       setIsLogin(false);
     }
-  }, []);
+  }, [setUserName]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +50,7 @@ const Login = (props: LoginProps) => {
             type="text"
             name="username"
             placeholder="이름을 입력해주세요"
-            value={userName}
+            value={userName || ''}
             onChange={onChange}
           />
           <button>로그인</button>

@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
-import Login from 'component/common/Login';
-import ToDoCreate from 'component/common/ToDoCreate';
-import { useTodo } from 'utils/todoService';
-import ToDoList from 'component/todoList/ToDoList';
+import { layouts as S } from 'styles/layouts';
+import StateArea from 'components/StateArea';
+import Header from 'components/Header';
+import { tagStates } from 'utils/constants';
+import { TodosContextProvider } from 'contexts/Todo/TodoStore';
 
 const App = () => {
-  const { todoState, nextIdState, increamentNextId, removeTodo, createTodo } =
-    useTodo();
   const [userName, setUserName] = useState('');
   return (
-    <div>
-      <Login userName={userName} setUserName={setUserName} />
-      <ToDoCreate
-        userName={userName}
-        nextId={nextIdState}
-        createTodo={createTodo}
-        increamentNextId={increamentNextId}
-      />
-      {/*<ToDoList todos={todoState}></ToDoList>*/}
-    </div>
+    <TodosContextProvider>
+      <S.Wrap>
+        <S.Header>
+          <Header userName={userName} setUserName={setUserName} />
+        </S.Header>
+        <S.Main>
+          {tagStates.map((v) => (
+            <S.Section key={v}>
+              <StateArea tagName={v} userName={userName} />
+            </S.Section>
+          ))}
+        </S.Main>
+      </S.Wrap>
+    </TodosContextProvider>
   );
 };
 
