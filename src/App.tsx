@@ -13,7 +13,7 @@ const App = () => {
         <S.Header>
           <Header userName={userName} setUserName={setUserName} />
         </S.Header>
-        
+
         <S.Main>
           {tagStates.map((v) => (
             <S.Section key={v}>

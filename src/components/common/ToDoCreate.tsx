@@ -27,14 +27,17 @@ const ToDoCreate = (props: TodoCreateProps) => {
   const [starIndex, setStarIndex] = useState(1);
   const [inputTask, setInputTask] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
-  const [todo, setTodo] = useState<Todo>();
 
   const handleSave = () => {
+    onCreate();
+  };
+
+  const onCreate = () => {
     if (inputTask === '') {
       handleToggle();
       return;
     }
-    setTodo({
+    const todo: Todo = {
       id: nextIdState,
       taskName: inputTask,
       status: tagName,
@@ -42,24 +45,19 @@ const ToDoCreate = (props: TodoCreateProps) => {
       writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
+    };
+    dispatch({
+      type: 'CREATE',
+      createTodo: todo,
     });
-  };
-
-  const handleToggle = () => {
-    setModalOpen(!modalOpen);
-  };
-
-  const handleSubmit = () => {
-    if (todo) {
-      dispatch({
-        type: 'CREATE',
-        createTodo: todo,
-      });
-    }
     setIsOpen(false);
     increamentNextId();
     setInputTask('');
     setStarIndex(0);
+  };
+
+  const handleToggle = () => {
+    setModalOpen(!modalOpen);
   };
 
   const handleCancel = (isCreate: boolean) => {
