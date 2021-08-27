@@ -29,8 +29,6 @@ export const layouts = {
 
   Section: styled.section`
     width: 30%;
-    // 스크롤 위한 임시 height
-    height: 200vh;
     padding: 10px;
     border: 1px solid black;
   `,

@@ -66,7 +66,8 @@ const ToDoCreate = (props: TodoCreateProps) => {
   return (
     <Modal open={open}>
       <TodoCreateForm onSubmit={handleSave}>
-      <label htmlFor="taskName">할 일</label>
+        <TodoName>
+        <label htmlFor="taskName">할 일</label>
       <input
         onChange={(e) => onChange(e)}
         type="text"
@@ -74,16 +75,46 @@ const ToDoCreate = (props: TodoCreateProps) => {
         name="taskName"
         value={inputTask || ''}
       />
+        </TodoName>
+      
+      <TodoControl>
       <Stars setStarIndex={setStarIndex} />
-      <button onClick={handleSave}>저장</button>
+      <button type="button" onClick={handleSave}>저장</button>
       <button onClick={() => handleCancel(isCreate)}>취소</button>
+      </TodoControl>
+      
     </TodoCreateForm>
     </Modal>
   );
 };
 
 const TodoCreateForm = styled.form`
+display:flex;
+flex-direction:column;
   border: 1px solid black;
+  border-radius:5px;
+  margin-bottom: 5px;
+  input{
+    
+  }
+`;
+const TodoName = styled.div`
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px;
 `;
 
+const TodoControl = styled.div`
+
+button{
+  margin-left:5px;
+  margin-bottom:5px;
+  border-radius:25%;
+  &:hover{
+    background-color:blue;
+    cursor:pointer;
+  }
+}
+`;
 export default ToDoCreate;
