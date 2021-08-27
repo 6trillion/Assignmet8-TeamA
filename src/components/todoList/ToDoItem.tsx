@@ -85,7 +85,6 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
       onDragStart={() => handleDragStart(todo)}
       onDragEnd={handleDragEnd}
     >
-      <p>{todo.id}</p>
       <TodoName
         ref={tasKNameRef}
         contentEditable={isEdit}
