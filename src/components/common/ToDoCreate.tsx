@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ITodo } from 'types/ITodo';
 import Stars from 'components/common/Stars';
 import TodoCreateBox from 'components/TodoCreateBox/TodoCreateBox';
 import Modal from 'components/common/Modal';
@@ -6,13 +7,12 @@ import {
   useTodosDispatch,
   increamentNextId,
   nextIdState,
-  Todo,
 } from 'contexts/Todo/TodoStore';
 import styled from 'styled-components';
 
 interface TodoCreateProps {
   isCreate: boolean;
-  todo?: Todo;
+  todo?: ITodo;
   open: boolean;
   tagName: string;
   userName: string;
@@ -45,7 +45,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
       handleToggle();
       return;
     }
-    const todo: Todo = {
+    const todo: ITodo = {
       id: nextIdState,
       taskName: inputTask,
       status: tagName,

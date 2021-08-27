@@ -4,26 +4,17 @@ import {
   saveTodoStorage,
   removeTodoStorage,
 } from 'utils/localStorage';
+import { ITodo } from 'types/ITodo';
 
-export interface Todo {
-  id: number;
-  taskName: string;
-  writer: string;
-  status: string;
-  importance: number;
-  createAt: Date;
-  updateAt: Date;
-}
-
-type TodosState = Todo[];
+type TodosState = ITodo[];
 let initState: TodosState = [];
 const TodosContext = createContext<TodosState>(initState);
 export let nextIdState: number = 0;
 
 type Action =
-  | { type: 'CREATE'; createTodo: Todo }
+  | { type: 'CREATE'; createTodo: ITodo }
   | { type: 'REMOVE'; id: number }
-  | { type: 'UPDATE'; updateTodo: Todo }
+  | { type: 'UPDATE'; updateTodo: ITodo }
   | { type: 'LOAD_DATA' }
   | { type: 'SAVE'; saveTodo: TodosState }
   | {
@@ -100,7 +91,7 @@ export function TodosContextProvider({
   );
 }
 
-export function useTodosState(): Todo[] {
+export function useTodosState(): ITodo[] {
   const state = useContext(TodosContext);
   if (!state) throw new Error('TodosProvider not found');
   return state;

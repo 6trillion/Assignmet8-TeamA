@@ -1,4 +1,4 @@
-import { Todo } from 'contexts/Todo/TodoStore';
+import { ITodo } from 'types/ITodo';
 
 const getLocalStorage = (key: string) => {
   const data = localStorage.getItem(key);
@@ -35,7 +35,7 @@ export const saveTodoStorage = (todo: any) => {
 
 export const removeTodoStorage = (id: number) => {
   const todos = getTodoStorage();
-  const newTodos = todos.filter((todo: Todo) => todo.id !== id);
+  const newTodos = todos.filter((todo: ITodo) => todo.id !== id);
   saveTodoStorage(newTodos);
   return newTodos;
 };

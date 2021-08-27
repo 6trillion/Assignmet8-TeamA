@@ -1,7 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { getTodoStorage } from 'utils/localStorage';
 import FilterDropdown from 'components/filter/FilterDropdown';
-import { Todo, useTodosDispatch } from 'contexts/Todo/TodoStore';
+import { useTodosDispatch } from 'contexts/Todo/TodoStore';
+import { ITodo } from 'types/ITodo';
 import styled from 'styled-components';
 
 const FilterInput = () => {
@@ -10,8 +11,8 @@ const FilterInput = () => {
   const [inputValue, setInputValue] = useState('');
   const [dropdownName, setDropdownName] = useState('생성일');
   const [dropdownItem, setDropdownItem] = useState('createAt');
-  const [copiedTodos] = useState<Todo[] | null>(getTodos);
-  const [originalTodos] = useState<Todo[]>(getTodos);
+  const [copiedTodos] = useState<ITodo[] | null>(getTodos);
+  const [originalTodos] = useState<ITodo[]>(getTodos);
 
   useEffect(() => {
     const valueLen = inputValue.length;

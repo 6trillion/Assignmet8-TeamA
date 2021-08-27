@@ -10,14 +10,15 @@ import Status from 'components/common/Status';
 import Modal from 'components/common/Modal';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
-import { useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
+import { ITodo } from 'types/ITodo';
+import { useTodosDispatch } from 'contexts/Todo/TodoStore';
 import styled from 'styled-components';
 
 interface ToDoItemProps {
-  todo: Todo;
+  todo: ITodo;
   tagName: string;
   userName: string;
-  setDragTodo: (e: Todo | null) => void;
+  setDragTodo: (e: ITodo | null) => void;
 }
 
 const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
@@ -52,7 +53,7 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
     const updateText = updateTasKName.innerText;
 
     if (isEdit && updateText !== '') {
-      const updateTodo: Todo = {
+      const updateTodo: ITodo = {
         id: todo.id,
         taskName: updateText,
         status: updateStatus,
@@ -123,6 +124,11 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
           )}
         </TodoStatus>
 
+        <WriterWrap>
+          <span>날짜 : </span>
+          <DateStyle>{String(todo.createAt).split('T')[0]}</DateStyle>
+        </WriterWrap>
+
         {isEdit ? (
           <p onClick={handleEdit}>저장</p>
         ) : (
@@ -164,6 +170,13 @@ const TagWriter = styled.span`
   margin-bottom: 4px;
   padding: 2px;
   background-color: aqua;
+  border-radius: 5px;
+`;
+
+const DateStyle = styled.span`
+  margin-right: 5px;
+  margin-bottom: 4px;
+  padding: 2px;
   border-radius: 5px;
 `;
 

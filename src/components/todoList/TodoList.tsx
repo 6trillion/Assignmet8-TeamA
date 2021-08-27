@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { throttle } from 'utils/throttle';
 import ToDoItem from 'components/todoList/ToDoItem';
-import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
+import { useTodosState, useTodosDispatch } from 'contexts/Todo/TodoStore';
+import { ITodo } from 'types/ITodo';
 
 interface TodoListProps {
   tagName: string;
@@ -12,7 +13,7 @@ const TodoList = (props: TodoListProps) => {
   const { tagName, userName } = props;
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
-  const [dragTodo, setDragTodo] = useState<Todo | null>(null);
+  const [dragTodo, setDragTodo] = useState<ITodo | null>(null);
 
   const AreaRef = useRef<HTMLDivElement>(null);
   const ListRef = useRef<HTMLDivElement[]>([]);
@@ -74,19 +75,18 @@ const TodoList = (props: TodoListProps) => {
 
   return (
     <div onDragOver={handleThrottleDragOver} ref={AreaRef}>
-      {todos.length > 0 &&
-        todos
-          ?.filter((todo) => todo?.status === tagName)
-          .map((todo, index) => (
-            <ToDoItem
-              key={todo.id}
-              todo={todo}
-              tagName={tagName}
-              userName={userName}
-              setDragTodo={setDragTodo}
-              ref={(r: any) => (ListRef.current[index] = r)}
-            />
-          ))}
+      {todos
+        ?.filter((todo) => todo?.status === tagName)
+        .map((todo, index) => (
+          <ToDoItem
+            key={todo.id}
+            todo={todo}
+            tagName={tagName}
+            userName={userName}
+            setDragTodo={setDragTodo}
+            ref={(r: any) => (ListRef.current[index] = r)}
+          />
+        ))}
     </div>
   );
 };
