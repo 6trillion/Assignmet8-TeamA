@@ -18,10 +18,9 @@ const Clock = () => {
   }, []);
 
   return (
-    <div>
-      <p>{date}</p>
-      <p>{time}</p>
-    </div>
+    <>
+      <span>{date} {time}</span>
+    </>
   );
 };
 

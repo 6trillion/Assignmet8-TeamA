@@ -2,8 +2,7 @@ import React, { FC, useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import TodoList from 'components/todoList/TodoList';
 import ToDoCreate from 'components/common/ToDoCreate';
-import {useTodosDispatch
-} from 'contexts/Todo/TodoStore';
+import { useTodosDispatch } from 'contexts/Todo/TodoStore';
 
 interface StateAreaProps {
   tagName: string;
@@ -14,23 +13,23 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
   const dispatch = useTodosDispatch();
   const [open, setIsOpen] = useState(false);
 
-  
   useEffect(() => {
     dispatch({
-        type: 'LOAD_DATA',
-      });
-  }, []);
+      type: 'LOAD_DATA',
+    });
+  }, [dispatch]);
 
   const handleClick = useCallback(() => {
     setIsOpen(true);
   }, []);
+
   return (
     <>
       <StateHeader>
         <p>{tagName} </p>
-        <p onClick={handleClick}>+</p>
+        <button onClick={handleClick}>+</button>
       </StateHeader>
-      
+
       <ToDoCreate
         isCreate={true}
         open={open}
@@ -38,9 +37,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
         userName={userName}
         setIsOpen={setIsOpen}
       />
-      <TodoList
-        tagName={tagName}
-      />
+      <TodoList tagName={tagName} userName={userName} />
     </>
   );
 };
@@ -48,12 +45,18 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
 export default StateArea;
 
 const StateHeader = styled.div`
-  border: 1px solid black;
   display: flex;
-  justify-content: space-evenly;
   margin-bottom: 10px;
+  justify-content: space-between;
 
   p {
     cursor: pointer;
+  }
+  button {
+    border-radius: 25%;
+    &:hover {
+      background-color: aqua;
+      cursor: pointer;
+    }
   }
 `;
