@@ -56,6 +56,7 @@ export default FilterDropdown;
 const DropdownContainer = styled.div`
   color: black;
   border-radius: 6px 0 0 6px;
+  background-color:white;
 `;
 
 const DropdownMenu = styled.ul<{ isActive: boolean }>`

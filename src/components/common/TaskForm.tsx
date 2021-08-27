@@ -58,5 +58,10 @@ const TaskForm = (props: TaskFormProps) => {
 
 const TodoCreateForm = styled.form`
   border: 1px solid black;
+  input{
+    &:focus{
+      outline:none;
+    }
+  }
 `;
 export default TaskForm;
