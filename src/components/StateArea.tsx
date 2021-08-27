@@ -19,7 +19,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
     dispatch({
         type: 'LOAD_DATA',
       });
-  }, []);
+  }, [dispatch]);
 
   const handleClick = useCallback(() => {
     setIsOpen(true);

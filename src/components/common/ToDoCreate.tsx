@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactEventHandler, useState } from 'react';
 import { Modal } from 'components/modal';
 import styled from 'styled-components';
 import Stars from './Stars';
@@ -61,37 +61,24 @@ const ToDoCreate = (props: TodoCreateProps) => {
   return (
     <Modal open={open}>
       <TodoCreateForm onSubmit={handleSave}>
-<<<<<<< HEAD
         <TodoName>
           <label htmlFor="taskName">할 일</label>
           <input
-=======
-        <label htmlFor="taskName">할 일</label>
-        <input
->>>>>>> 93d42f7f8af3fcd3702cd7bdd5ff91fcf9bf914d
-          onChange={(e) => onChange(e)}
-          type="text"
-          placeholder="할 일을 적어주세요"
-          name="taskName"
-          value={inputTask || ''}
-<<<<<<< HEAD
+            onChange={(e) => onChange(e)}
+            type="text"
+            placeholder="할 일을 적어주세요"
+            name="taskName"
+            value={inputTask || ''}
           />
         </TodoName>
-      <TodoControl>
-      <Stars setStarIndex={setStarIndex} />
-      <button type="button" onClick={handleSave}>저장</button>
-      <button onClick={() => handleCancel(isCreate)}>취소</button>
-      </TodoControl>
-      
-    </TodoCreateForm>
-
-=======
-        />
-        <Stars setStarIndex={setStarIndex} />
-        <button onClick={handleSave}>저장</button>
-        <button onClick={() => handleCancel(isCreate)}>취소</button>
+        <TodoControl>
+          <Stars setStarIndex={setStarIndex} />
+          <button type="button" onClick={handleSave}>
+            저장
+          </button>
+          <button onClick={() => handleCancel(isCreate)}>취소</button>
+        </TodoControl>
       </TodoCreateForm>
->>>>>>> 93d42f7f8af3fcd3702cd7bdd5ff91fcf9bf914d
     </Modal>
   );
 };

@@ -8,7 +8,7 @@ export const FILTER_DROPDOWN_ITEMS = [
   {
     id: 1,
     title: '생성일',
-    value: 'crateAt',
+    value: 'createAt',
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const FILTER_DROPDOWN_ITEMS = [
   {
     id: 3,
     title: '생성자',
-    value: 'creator',
+    value: 'writer',
   },
 ];
 
