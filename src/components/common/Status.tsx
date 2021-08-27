@@ -3,18 +3,16 @@ import styled from 'styled-components';
 import { tagStates } from '../../utils/constants';
 
 interface StatusProps {
-  status: string;
-  setStatus: (status: string) => void;
+  updateStatus: string;
+  setUpdateStatus: (status: string) => void;
 }
 
 const Status = (props: StatusProps) => {
-  const { status, setStatus } = props;
-  const [updateStatus, setUpdateStatus] = useState(status);
+  const { updateStatus, setUpdateStatus } = props;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setUpdateStatus(value);
-    setStatus(value);
   };
   return (
     <StatusWrapper>
@@ -38,12 +36,9 @@ const Status = (props: StatusProps) => {
 
 const StatusWrapper = styled.div``;
 
-const StatusItems = styled.div`
+const StatusItems = styled.div``;
 
-`;
-
-const StatusItem = styled.div`
-`;
+const StatusItem = styled.div``;
 
 const Radio = styled.input``;
 

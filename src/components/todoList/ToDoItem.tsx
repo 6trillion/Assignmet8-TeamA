@@ -26,7 +26,8 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   const dispatch = useTodosDispatch();
   const { todo, tagName, userName, setDragTodo } = props;
   const [isEdit, setIsEdit] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(todo.status);
+  const [updateStatus, setUpdateStatus] = useState(todo.status);
   const [starIndex, setStarIndex] = useState(todo.importance);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -35,9 +36,6 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
     const updateTasKName = taskNameRef.current! as HTMLElement;
     if (updateTasKName) updateTasKName.focus();
   }, [isEdit]);
-
-  const newStars = (index: number) =>
-    initStar.map((_, i): boolean => i < index);
 
   const handleRemove = (id: number) => {
     if (window.confirm('정말 삭제하시겠습니까?'))
@@ -60,7 +58,7 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
       const updateTodo: Todo = {
         id: todo.id,
         taskName: updateText,
-        status: status,
+        status: updateStatus,
         importance: starIndex === 0 ? 1 : starIndex,
         writer: todo.writer,
         createAt: todo.createAt,
@@ -72,6 +70,7 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
       updateTasKName.innerText = todo.taskName;
     }
     setIsEdit((prev) => !prev);
+    setStatus(updateStatus);
   };
 
   const handleDragStart = useCallback(
@@ -103,9 +102,11 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
         <ImpWrap>
           <span>우선순위 :</span>{' '}
           <StarTag>
-            {newStars(todo.importance).map((item: boolean, index: number) =>
-              item ? <StarSvg key={index} fill="gold" /> : '',
-            )}
+            <Stars
+              isCreate={isEdit}
+              starIndex={starIndex}
+              setStarIndex={setStarIndex}
+            />
           </StarTag>
         </ImpWrap>
 
@@ -117,7 +118,10 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
         <TodoStatus>
           <span>진행상황 : </span>
           {isEdit ? (
-            <Status status={todo.status} setStatus={setStatus} />
+            <Status
+              updateStatus={updateStatus}
+              setUpdateStatus={setUpdateStatus}
+            />
           ) : (
             <StatusRes status={todo.status}>{todo.status}</StatusRes>
           )}
