@@ -1,51 +1,33 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FilterDropdown from './FilterDropdown';
-import {
-  useTodosState,
-  Todo,
-  useTodosDispatch,
-  useCopiedState,
-} from 'contexts/Todo/TodoStore';
+import { Todo, useTodosDispatch, useTodosState } from 'contexts/Todo/TodoStore';
 import { getTodoStorage } from 'utils/localStorage';
 
 const FilterInput = () => {
-  const todos = useTodosState();
-  const copys = useCopiedState(); // /todo를 카피
+  const getTodos = getTodoStorage();
   const dispatch = useTodosDispatch();
   const [inputValue, setInputValue] = useState('');
   const [dropdownName, setDropdownName] = useState('생성일');
   const [dropdownItem, setDropdownItem] = useState('createAt');
-  const [copiedTodos, setCopiedTodos] = useState<Todo[]>();
+  const [copiedTodos, setCopiedTodos] = useState<Todo[] | null>();
   const [originalTodos, setOriginalTodos] = useState<Todo[]>();
 
   useEffect(() => {
-    setCopiedTodos(getTodoStorage());
-    setOriginalTodos(getTodoStorage());
-    //todo를 카피하는 액션함수
-    dispatch({
-      type: 'COPY',
-      copyTodo: todos,
-    });
-    console.log(copys);
-  }, [dropdownName, copys]);
+    setCopiedTodos(getTodos);
+    setOriginalTodos(getTodos);
+  }, [dropdownName]);
 
   useEffect(() => {
-    if (copiedTodos && inputValue !== '') {
-      const valueLen = inputValue.length;
-      const filteredData = copiedTodos.filter(
-        (data: any) =>
-          String(data[dropdownItem]).substring(0, valueLen) === inputValue,
-      );
-      // dispatch({
-      //   type: 'SAVE',
-      //   saveTodo: filteredData,
-      // });
-    } else if (originalTodos) {
-      // dispatch({
-      //   type: 'SAVE',
-      //   saveTodo: originalTodos,
-      // });
+    const valueLen = inputValue.length;
+    if (copiedTodos) {
+      dispatch({
+        type: 'FILTER',
+        copiedTodos: copiedTodos,
+        length: valueLen,
+        value: inputValue,
+        Item: dropdownItem,
+      });
     }
   }, [inputValue, copiedTodos, dropdownItem, originalTodos, dispatch]);
 

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { ReactEventHandler, useState } from 'react';
 import { Modal } from 'components/modal';
 import styled from 'styled-components';
 import Stars from './Stars';
 import {
   useTodosDispatch,
   increamentNextId,
-  nextIdState,Todo
+  nextIdState,
+  Todo,
 } from 'contexts/Todo/TodoStore';
 
 interface TodoCreateProps {
@@ -18,13 +19,7 @@ interface TodoCreateProps {
 }
 
 const ToDoCreate = (props: TodoCreateProps) => {
-  const {
-    isCreate,
-    open,
-    tagName,
-    userName,
-    setIsOpen
-  } = props;
+  const { isCreate, open, tagName, userName, setIsOpen } = props;
   const dispatch = useTodosDispatch();
 
   const [edit, setEdit] = useState(false);
@@ -51,7 +46,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
     setStarIndex(0);
   };
 
-  const handleSave = ()=>{
+  const handleSave = () => {
     onCreate();
   };
 
@@ -65,19 +60,19 @@ const ToDoCreate = (props: TodoCreateProps) => {
 
   return (
     <Modal open={open}>
-      <TodoCreateForm onSubmit={handleSave}>
-      <label htmlFor="taskName">할 일</label>
-      <input
-        onChange={(e) => onChange(e)}
-        type="text"
-        placeholder="할 일을 적어주세요"
-        name="taskName"
-        value={inputTask || ''}
-      />
-      <Stars setStarIndex={setStarIndex} />
-      <button onClick={handleSave}>저장</button>
-      <button onClick={() => handleCancel(isCreate)}>취소</button>
-    </TodoCreateForm>
+      <TodoCreateForm>
+        <label htmlFor="taskName">할 일</label>
+        <input
+          onChange={(e) => onChange(e)}
+          type="text"
+          placeholder="할 일을 적어주세요"
+          name="taskName"
+          value={inputTask || ''}
+        />
+        <Stars setStarIndex={setStarIndex} />
+        <button onClick={handleSave}>저장</button>
+        <button onClick={() => handleCancel(isCreate)}>취소</button>
+      </TodoCreateForm>
     </Modal>
   );
 };

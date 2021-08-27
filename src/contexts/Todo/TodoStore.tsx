@@ -17,9 +17,7 @@ export interface Todo {
 
 type TodosState = Todo[];
 let initState: TodosState = [];
-let copiedState: TodosState = [];
 const TodosContext = createContext<TodosState>(initState);
-const CopidTodosContext = createContext<TodosState>(copiedState);
 export let nextIdState: number = 0;
 
 type Action =
@@ -28,7 +26,13 @@ type Action =
   | { type: 'UPDATE'; updateTodo: Todo }
   | { type: 'LOAD_DATA' }
   | { type: 'SAVE'; saveTodo: TodosState }
-  | { type: 'COPY'; copyTodo: TodosState };
+  | {
+      type: 'FILTER';
+      length: number;
+      value: string;
+      Item: string;
+      copiedTodos: TodosState;
+    };
 
 type TodosDispatch = Dispatch<Action>;
 const TodosDispatchContext = createContext<TodosDispatch | null>(null);
@@ -62,9 +66,20 @@ function todosReducer(preState: TodosState, action: Action): TodosState {
       newTodoList.splice(index, 1, action.updateTodo);
       saveTodoStorage(newTodoList);
       return newTodoList;
-    case 'COPY':
-      copiedState = action.copyTodo;
-      return preState;
+    case 'FILTER':
+      const copiedState = preState;
+      if (action.copiedTodos && action.value !== '') {
+        const filterdData = copiedState.filter(
+          (data: any) =>
+            String(data[action.Item]).substring(0, action.length) ===
+            action.value,
+        );
+        console.log(action.value);
+        return filterdData;
+      } else {
+        return action.copiedTodos;
+      }
+
     default:
       throw new Error('Unhandled action');
   }
@@ -82,11 +97,7 @@ export function TodosContextProvider({
   const [todos, dispatch] = useReducer(todosReducer, initState);
   return (
     <TodosDispatchContext.Provider value={dispatch}>
-      <TodosContext.Provider value={todos}>
-        <CopidTodosContext.Provider value={copiedState}>
-          {children}
-        </CopidTodosContext.Provider>
-      </TodosContext.Provider>
+      <TodosContext.Provider value={todos}>{children}</TodosContext.Provider>
     </TodosDispatchContext.Provider>
   );
 }
@@ -95,12 +106,6 @@ export function useTodosState(): Todo[] {
   const state = useContext(TodosContext);
   if (!state) throw new Error('TodosProvider not found');
   return state;
-}
-
-export function useCopiedState(): Todo[] {
-  const copiedState = useContext(CopidTodosContext);
-  if (!copiedState) throw new Error('TodosProvider not found');
-  return copiedState;
 }
 
 export function useTodosDispatch() {
