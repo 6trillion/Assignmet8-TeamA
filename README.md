@@ -7,7 +7,7 @@
 ## 프로젝트 개요
 
 > A. Drag and Drop으로 Task를 옮길 수 있는 TodoApp 구현
-</br>
+
 > B. Todo App CRUD, Task를 필터링, Task 상태 변경 구현
 
 ## 팀 구성
@@ -48,3 +48,18 @@
 - React, Styled Components, Typescript
 
 ## 폴더 구조
+```html
+📦src
+ ┣ 📂components
+ ┃ ┣ 📂assets
+ ┃ ┣ 📂common
+ ┃ ┣ 📂filter
+ ┃ ┣ 📂header
+ ┃ ┣ 📂TodoCreateBox
+ ┃ ┗📜StateArea.tsx
+ ┣ 📂context
+ ┣ 📂styles
+ ┣ 📂utils
+ ┣ 📜App.tsx
+ ┗ 📜index.tsx
+```
