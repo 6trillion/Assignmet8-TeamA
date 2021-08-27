@@ -2,7 +2,7 @@
 
 ## Demo Link
 
-🔗 Demo Page : []()
+🔗 [Demo Page](https://6129254cda43ce0007c3000c--loving-panini-e5e1ae.netlify.app/)
 
 ## 프로젝트 개요
 
@@ -31,7 +31,6 @@
 
 - [x]
 
-## 데모 영상
 
 ## 실행 방법
 
