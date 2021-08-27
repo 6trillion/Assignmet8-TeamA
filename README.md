@@ -7,6 +7,7 @@
 ## 프로젝트 개요
 
 > A. Drag and Drop으로 Task를 옮길 수 있는 TodoApp 구현
+</br>
 > B. Todo App CRUD, Task를 필터링, Task 상태 변경 구현
 
 ## 팀 구성
@@ -30,6 +31,8 @@
 
 - [x]
 
+## 데모 영상
+
 ## 실행 방법
 
 #### Project setup
@@ -43,3 +46,5 @@
 ## Skills
 
 - React, Styled Components, Typescript
+
+## 폴더 구조
