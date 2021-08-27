@@ -1,5 +1,5 @@
 import React from 'react';
-import { Status } from 'utils/constants';
+import { Status } from '../../utils/constants';
 
 //저장 버튼 누르면 todo에 추가 + save Storage
 //취소버튼 누르면 modal 닫기
@@ -13,15 +13,15 @@ export type Itodo = {
   updateAt?: string;
 };
 
-interface ModalProps {
+interface TodoCreateBoxProps {
   open: boolean;
   children?: JSX.Element;
 }
 
-const Modal = (props: ModalProps) => {
+const TodoCreateBox = (props: TodoCreateBoxProps) => {
   const { open, children } = props;
 
   return <>{open && <div>{children}</div>}</>;
 };
 
-export default Modal;
+export default TodoCreateBox;

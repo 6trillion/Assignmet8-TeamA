@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal } from 'components/modal';
+import { TodoCreateBox } from '../TodoCreateBox';
 import styled from 'styled-components';
 import Stars from './Stars';
 import {
@@ -64,21 +64,21 @@ const ToDoCreate = (props: TodoCreateProps) => {
   };
 
   return (
-    <Modal open={open}>
+    <TodoCreateBox open={open}>
       <TodoCreateForm onSubmit={handleSave}>
-      <label htmlFor="taskName">할 일</label>
-      <input
-        onChange={(e) => onChange(e)}
-        type="text"
-        placeholder="할 일을 적어주세요"
-        name="taskName"
-        value={inputTask || ''}
-      />
-      <Stars setStarIndex={setStarIndex} />
-      <button onClick={handleSave}>저장</button>
-      <button onClick={() => handleCancel(isCreate)}>취소</button>
-    </TodoCreateForm>
-    </Modal>
+        <label htmlFor="taskName">할 일</label>
+        <input
+          onChange={(e) => onChange(e)}
+          type="text"
+          placeholder="할 일을 적어주세요"
+          name="taskName"
+          value={inputTask || ''}
+        />
+        <Stars setStarIndex={setStarIndex} />
+        <button onClick={handleSave}>저장</button>
+        <button onClick={() => handleCancel(isCreate)}>취소</button>
+      </TodoCreateForm>
+    </TodoCreateBox>
   );
 };
 
