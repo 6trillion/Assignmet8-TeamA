@@ -39,9 +39,11 @@ const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
 const StatusWrapper = styled.div``;
 
 const StatusItems = styled.div`
+
 `;
 
-const StatusItem = styled.div``;
+const StatusItem = styled.div`
+`;
 
 const Radio = styled.input``;
 

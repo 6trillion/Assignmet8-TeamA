@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useTodosState, useTodosDispatch } from 'contexts/Todo/TodoStore';
 import ToDoItem from './ToDoItem';
-import styled from 'styled-components';
 
 interface TodoListProps {
   tagName: string;
@@ -29,7 +28,6 @@ const TodoList = (props: TodoListProps) => {
     todosCopy.splice(dragOverItem.current!, 0, draggingItemContent);
     draggingItem.current = dragOverItem.current;
     dragOverItem.current = null;
-    console.log(todosCopy);
     dispatch({
       type: 'SAVE',
       saveTodo: todosCopy,
@@ -40,8 +38,7 @@ const TodoList = (props: TodoListProps) => {
     <>
       {todos &&
         todos.length > 0 &&
-        todos
-          ?.filter((todo) => todo.status === tagName)
+        todos?.filter((todo) => todo.status === tagName)
           .map((todo, index) =>
           <div key={todo.id} 
             onDragStart={() => handleDragStart(index)}

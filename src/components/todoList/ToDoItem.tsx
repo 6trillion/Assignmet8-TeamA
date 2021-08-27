@@ -76,7 +76,8 @@ const ToDoItem = (props: ToDoItemProps) => {
       </WriterWrap>
       
       <TodoStatus>
-      <span>진행상황 : </span>{isEdit ? <Status status={todo.status} setStatus={setStatus}/> : <p>{todo.status}</p>}
+      <span>진행상황 : </span>{isEdit ? <Status status={todo.status} setStatus={setStatus}/> : 
+      <StatusRes status={todo.status}>{todo.status}</StatusRes>}
       </TodoStatus>
       {isEdit ? <p onClick={handleEdit}>저장</p> : <EditSvg onClick={handleEdit} />}
       <DeleteSvg onClick={() => handleRemove(todo.id)} />
@@ -103,6 +104,7 @@ justify-content:space-between;
 
 const TagWriter = styled.span`
 margin-right:5px;
+margin-bottom:4px;
 padding:2px;
 background-color:aqua;
 border-radius:5px;`
@@ -113,10 +115,19 @@ justify-content:space-between;
 `
 const StarTag = styled.span`
 margin-right:5px;
+margin-bottom:4px;
 padding:2px;`
 
 const TodoStatus = styled.div`
 display: flex;
 justify-content:space-between;
 `
+const StatusRes = styled.span<{status:string}>`
+margin-right:5px;
+margin-bottom:4px;
+padding:2px;
+background-color:${props=>props.status==="To Do"?'yellow':props.status==="In Progress"?"green":"red"}
+`
+
+
 export default ToDoItem;
