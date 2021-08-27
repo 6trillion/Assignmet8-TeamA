@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { layouts as S } from 'styles/layouts';
 import StateArea from 'components/StateArea';
-import Header from 'components/Header';
+import Header from 'components/header/Header';
 import { tagStates } from 'utils/constants';
 import { TodosContextProvider } from 'contexts/Todo/TodoStore';
 import FilterInput from 'components/filter/FilterInput';
