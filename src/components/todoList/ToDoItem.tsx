@@ -5,15 +5,13 @@ import React, {
   forwardRef,
   useCallback,
 } from 'react';
-import styled from 'styled-components';
-import { useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
-import { initStar } from 'utils/constants';
-import Stars from '../common/Stars';
-import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
+import Stars from 'components/common/Stars';
+import Status from 'components/common/Status';
+import Modal from 'components/common/Modal';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
-import Status from '../common/Status';
-import Modal from 'components/common/Modal';
+import { useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
+import styled from 'styled-components';
 
 interface ToDoItemProps {
   todo: Todo;
@@ -24,9 +22,8 @@ interface ToDoItemProps {
 
 const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   const dispatch = useTodosDispatch();
-  const { todo, tagName, userName, setDragTodo } = props;
+  const { todo, userName, setDragTodo } = props;
   const [isEdit, setIsEdit] = useState(false);
-  const [status, setStatus] = useState(todo.status);
   const [updateStatus, setUpdateStatus] = useState(todo.status);
   const [starIndex, setStarIndex] = useState(todo.importance);
   const [modalOpen, setModalOpen] = useState(false);
@@ -70,7 +67,6 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
       updateTasKName.innerText = todo.taskName;
     }
     setIsEdit((prev) => !prev);
-    setStatus(updateStatus);
   };
 
   const handleDragStart = useCallback(

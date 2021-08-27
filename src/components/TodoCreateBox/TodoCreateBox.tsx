@@ -1,8 +1,5 @@
 import React from 'react';
-import { Status } from '../../utils/constants';
-
-//저장 버튼 누르면 todo에 추가 + save Storage
-//취소버튼 누르면 modal 닫기
+import { Status } from 'utils/constants';
 
 export type Itodo = {
   id?: number;

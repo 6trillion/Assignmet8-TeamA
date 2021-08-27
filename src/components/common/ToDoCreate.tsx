@@ -1,14 +1,14 @@
-import React, { useState, useRef } from 'react';
-import { TodoCreateBox } from '../TodoCreateBox';
-import styled from 'styled-components';
-import Stars from './Stars';
+import React, { useState } from 'react';
+import Stars from 'components/common/Stars';
+import TodoCreateBox from 'components/TodoCreateBox/TodoCreateBox';
+import Modal from 'components/common/Modal';
 import {
   useTodosDispatch,
   increamentNextId,
   nextIdState,
   Todo,
 } from 'contexts/Todo/TodoStore';
-import Modal from './Modal';
+import styled from 'styled-components';
 
 interface TodoCreateProps {
   isCreate: boolean;
@@ -23,23 +23,22 @@ const ToDoCreate = (props: TodoCreateProps) => {
   const { isCreate, open, tagName, userName, setIsOpen } = props;
   const dispatch = useTodosDispatch();
 
-  const [edit, setEdit] = useState(false);
   const [starIndex, setStarIndex] = useState(1);
   const [inputTask, setInputTask] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
-  const [checkLoginValid,setCheckLoginValid] = useState(false);
+  const [checkLoginValid, setCheckLoginValid] = useState(false);
 
   const handleSave = () => {
-    onCreate()
+    onCreate();
   };
-  
-  const checkLogin = ()=>{
-    if(userName){
-      handleSave()
-    }else{
+
+  const checkLogin = () => {
+    if (userName) {
+      handleSave();
+    } else {
       setCheckLoginValid(true);
     }
-  }
+  };
 
   const onCreate = () => {
     if (inputTask === '') {
@@ -69,12 +68,12 @@ const ToDoCreate = (props: TodoCreateProps) => {
     setModalOpen(!modalOpen);
   };
 
-  const handleLoginCheckToggle = ()=>{
+  const handleLoginCheckToggle = () => {
     setCheckLoginValid(!checkLoginValid);
-  }
+  };
 
   const handleCancel = (isCreate: boolean) => {
-    isCreate ? setIsOpen(false) : setEdit(false);
+    setIsOpen(false);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +110,6 @@ const ToDoCreate = (props: TodoCreateProps) => {
       <Modal modalOpen={checkLoginValid} handleToggle={handleLoginCheckToggle}>
         <p>로그인 후 작성할 수 있습니다</p>
       </Modal>
-
     </>
   );
 };

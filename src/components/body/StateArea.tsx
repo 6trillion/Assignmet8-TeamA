@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useState, useEffect } from 'react';
-import styled from 'styled-components';
 import TodoList from 'components/todoList/TodoList';
 import ToDoCreate from 'components/common/ToDoCreate';
 import { useTodosDispatch } from 'contexts/Todo/TodoStore';
+import styled from 'styled-components';
 
 interface StateAreaProps {
   tagName: string;

@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useState } from 'react';
+import { FILTER_DROPDOWN_ITEMS } from 'utils/constants';
 import styled from 'styled-components';
-import { FILTER_DROPDOWN_ITEMS } from '../../utils/constants';
 
 interface FilterDropdownProps {
   dropdownName: string;
-  setDropdownName: (e: any) => void;
-  setInputValue: (e: any) => void;
-  setDropdownItem: (e: any) => void;
+  setDropdownName: (e: string) => void;
+  setInputValue: (e: string) => void;
+  setDropdownItem: (e: string) => void;
 }
 
 const FilterDropdown: FC<FilterDropdownProps> = ({
@@ -56,7 +56,7 @@ export default FilterDropdown;
 const DropdownContainer = styled.div`
   color: black;
   border-radius: 6px 0 0 6px;
-  background-color:white;
+  background-color: white;
 `;
 
 const DropdownMenu = styled.ul<{ isActive: boolean }>`

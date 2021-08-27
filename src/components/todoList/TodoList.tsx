@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
+import { throttle } from 'utils/throttle';
+import ToDoItem from 'components/todoList/ToDoItem';
 import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
-import ToDoItem from './ToDoItem';
-import { throttle } from '../../utils/throttle';
 
 interface TodoListProps {
   tagName: string;

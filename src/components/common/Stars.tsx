@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { initStar } from 'utils/constants';
+import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
+import styled from 'styled-components';
 
 interface StarsProps {
   starIndex?: number;
-  setStarIndex: (index: any) => void;
+  setStarIndex: (index: number) => void;
   isCreate?: boolean;
 }
 const Stars = (props: StarsProps) => {

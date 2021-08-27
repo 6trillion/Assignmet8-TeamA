@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { tagStates } from 'utils/constants';
 import styled from 'styled-components';
-import { tagStates } from '../../utils/constants';
 
 interface StatusProps {
   updateStatus: string;

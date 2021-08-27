@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import styled from 'styled-components';
-import FilterDropdown from './FilterDropdown';
-import { Todo, useTodosDispatch } from 'contexts/Todo/TodoStore';
 import { getTodoStorage } from 'utils/localStorage';
+import FilterDropdown from 'components/filter/FilterDropdown';
+import { Todo, useTodosDispatch } from 'contexts/Todo/TodoStore';
+import styled from 'styled-components';
 
 const FilterInput = () => {
   const getTodos = getTodoStorage();
@@ -66,7 +66,7 @@ const SearchInput = styled.input`
   width: 30%;
   padding: 0 12px;
   border: 1px solid black;
-  
+
   :focus {
     outline: 0;
   }

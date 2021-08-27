@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { getUserId, setUserId, logOutUser } from 'utils/localStorage';
+import styled from 'styled-components';
 
 interface LoginProps {
   userName: string;

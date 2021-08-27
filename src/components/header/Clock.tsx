@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DATE_FORM, TIME_FORM } from '../../utils/constants';
-import styled from 'styled-components';
+import { DATE_FORM, TIME_FORM } from 'utils/constants';
 
 const Clock = () => {
   const [date] = useState(new Date().toLocaleDateString('kr-KR', DATE_FORM));
@@ -19,7 +18,9 @@ const Clock = () => {
 
   return (
     <>
-      <span>{date} {time}</span>
+      <span>
+        {date} {time}
+      </span>
     </>
   );
 };

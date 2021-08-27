@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import Clock from './Clock';
+import Clock from 'components/header/Clock';
 import Login from 'components/common/Login';
-import styled from 'styled-components';
 import FilterInput from 'components/filter/FilterInput';
+import styled from 'styled-components';
 
 interface HeaderProps {
   userName: string;
@@ -20,8 +20,9 @@ const Header: FC<HeaderProps> = ({ userName, setUserName }) => {
 };
 
 const HeaderWrap = styled.div`
-display:flex;
-margin:4px 10px;
-justify-content:space-between;`
+  display: flex;
+  margin: 4px 10px;
+  justify-content: space-between;
+`;
 
 export default Header;
