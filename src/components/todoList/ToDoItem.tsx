@@ -26,7 +26,7 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   const { todo, tagName, setDragTodo } = props;
   const [isEdit, setIsEdit] = useState(false);
   const [status, setStatus] = useState('');
-  const [starIndex, setStarIndex] = useState(initStar);
+  const [starIndex, setStarIndex] = useState(1);
 
   const tasKNameRef = useRef(null);
   useEffect(() => {
@@ -48,12 +48,13 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   const handleEdit = () => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
-    if (isEdit) {
+
+    if (isEdit && updateText !== '') {
       const updateTodo: Todo = {
         id: todo.id,
         taskName: updateText,
         status: status,
-        importance: todo.importance,
+        importance: starIndex === 0 ? 1 : starIndex,
         writer: todo.writer,
         createAt: todo.createAt,
         updateAt: new Date(),
@@ -84,7 +85,6 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
       onDragStart={() => handleDragStart(todo)}
       onDragEnd={handleDragEnd}
     >
-      <p>{todo.id}</p>
       <TodoName
         ref={tasKNameRef}
         contentEditable={isEdit}
@@ -92,29 +92,21 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
       >
         {todo.taskName}
       </TodoName>
-      <ImpWrap>
-        <span>우선순위 :</span>{' '}
-        <StarTag>
-          {newStars(todo.importance).map((item: boolean, index: number) =>
-            item ? <StarSvg key={index} fill="gold" /> : '',
-          )}
-        </StarTag>
-      </ImpWrap>
-
-      <WriterWrap>
-        <span>작성자 : </span>
-        <TagWriter>{todo.writer}</TagWriter>
-      </WriterWrap>
-
-      <TodoStatus>
-        <span>진행상황 : </span>
+      <p>
         {isEdit ? (
-          <Status status={todo.status} setStatus={setStatus} />
+          <Stars setStarIndex={setStarIndex} />
         ) : (
-          <StatusRes status={todo.status}>{todo.status}</StatusRes>
+          newStars(todo.importance).map((item: boolean, index: number) =>
+            item ? <StarSvg key={index} fill="gold" /> : '',
+          )
         )}
-      </TodoStatus>
-
+      </p>
+      <p>{todo.writer}</p>
+      {isEdit ? (
+        <Status status={todo.status} setStatus={setStatus} />
+      ) : (
+        <p>{todo.status}</p>
+      )}
       {isEdit ? (
         <p onClick={handleEdit}>저장</p>
       ) : (
