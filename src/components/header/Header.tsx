@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import Clock from './Clock';
 import Login from 'components/common/Login';
 
 interface HeaderProps {
@@ -7,7 +8,12 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ userName, setUserName }) => {
-  return <Login userName={userName} setUserName={setUserName} />;
+  return (
+    <>
+      <Clock />
+      <Login userName={userName} setUserName={setUserName} />
+    </>
+  );
 };
 
 export default Header;
