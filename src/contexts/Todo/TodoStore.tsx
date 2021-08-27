@@ -67,14 +67,12 @@ function todosReducer(preState: TodosState, action: Action): TodosState {
       saveTodoStorage(newTodoList);
       return newTodoList;
     case 'FILTER':
-      const copiedState = preState;
       if (action.copiedTodos && action.value !== '') {
-        const filterdData = copiedState.filter(
+        const filterdData = action.copiedTodos.filter(
           (data: any) =>
-            String(data[action.Item]).substring(0, action.length) ===
-            action.value,
+            String(data[action.Item]).includes(action.value) === true,
         );
-        console.log(action.value);
+
         return filterdData;
       } else {
         return action.copiedTodos;
