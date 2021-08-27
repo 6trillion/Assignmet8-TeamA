@@ -18,17 +18,15 @@ const ToDoItem = (props: ToDoItemProps) => {
   const { todo, tagName } = props;
 
   const [isEdit, setIsEdit] = useState(false);
-  const [status, setStatus] = useState('');
-  const [starIndex, setStarIndex] = useState(1);
+  const [status, setStatus] = useState(todo.status);
+  const [updateStatus, setUpdateStatus] = useState(todo.status);
+  const [starIndex, setStarIndex] = useState(todo.importance);
 
   const tasKNameRef = useRef(null);
   useEffect(() => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     if (updateTasKName) updateTasKName.focus();
   }, [isEdit]);
-
-  const newStars = (index: number) =>
-    initStar.map((_, i): boolean => i < index);
 
   const handleRemove = (id: number) => {
     dispatch({
@@ -45,7 +43,7 @@ const ToDoItem = (props: ToDoItemProps) => {
       const updateTodo: Todo = {
         id: todo.id,
         taskName: updateText,
-        status: status,
+        status: updateStatus,
         importance: starIndex === 0 ? 1 : starIndex,
         writer: todo.writer,
         createAt: todo.createAt,
@@ -57,6 +55,7 @@ const ToDoItem = (props: ToDoItemProps) => {
       updateTasKName.innerText = todo.taskName;
     }
     setIsEdit((prev) => !prev);
+    setStatus(updateStatus);
   };
 
   return (
@@ -69,17 +68,15 @@ const ToDoItem = (props: ToDoItemProps) => {
         {todo.taskName}
       </div>
       <p>
-        {isEdit ? (
-          <Stars setStarIndex={setStarIndex} />
-        ) : (
-          newStars(todo.importance).map((item: boolean, index: number) =>
-            item ? <StarSvg key={index} fill="gold" /> : '',
-          )
-        )}
+        <Stars
+          isCreate={isEdit}
+          starIndex={starIndex}
+          setStarIndex={setStarIndex}
+        />
       </p>
       <p>{todo.writer}</p>
       {isEdit ? (
-        <Status status={todo.status} setStatus={setStatus} />
+        <Status updateStatus={updateStatus} setUpdateStatus={setUpdateStatus} />
       ) : (
         <p>{todo.status}</p>
       )}

@@ -69,7 +69,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
           name="taskName"
           value={inputTask || ''}
         />
-        <Stars setStarIndex={setStarIndex} />
+        <Stars isCreate={true} setStarIndex={setStarIndex} />
         <button onClick={handleSave}>저장</button>
         <button onClick={() => handleCancel(isCreate)}>취소</button>
       </TodoCreateForm>
