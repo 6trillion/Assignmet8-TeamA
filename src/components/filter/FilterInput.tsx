@@ -66,7 +66,7 @@ const SearchInput = styled.input`
   width: 30%;
   padding: 0 12px;
   border: 1px solid black;
-
+  
   :focus {
     outline: 0;
   }
