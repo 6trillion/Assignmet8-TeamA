@@ -27,7 +27,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
     <>
       <StateHeader>
         <p>{tagName} </p>
-        <p onClick={handleClick}>+</p>
+        <button onClick={handleClick}>+</button>
       </StateHeader>
 
       <ToDoCreate
@@ -45,12 +45,18 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
 export default StateArea;
 
 const StateHeader = styled.div`
-  border: 1px solid black;
   display: flex;
-  justify-content: space-evenly;
   margin-bottom: 10px;
+  justify-content: space-between;
 
   p {
     cursor: pointer;
+  }
+  button {
+    border-radius: 25%;
+    &:hover {
+      background-color: aqua;
+      cursor: pointer;
+    }
   }
 `;

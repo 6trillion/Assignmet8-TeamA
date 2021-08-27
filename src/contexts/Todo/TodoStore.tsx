@@ -25,7 +25,14 @@ type Action =
   | { type: 'REMOVE'; id: number }
   | { type: 'UPDATE'; updateTodo: Todo }
   | { type: 'LOAD_DATA' }
-  | { type: 'SAVE'; saveTodo: TodosState };
+  | { type: 'SAVE'; saveTodo: TodosState }
+  | {
+      type: 'FILTER';
+      length: number;
+      value: string;
+      Item: string;
+      copiedTodos: TodosState;
+    };
 
 type TodosDispatch = Dispatch<Action>;
 const TodosDispatchContext = createContext<TodosDispatch | null>(null);
@@ -59,6 +66,18 @@ function todosReducer(preState: TodosState, action: Action): TodosState {
       newTodoList.splice(index, 1, action.updateTodo);
       saveTodoStorage(newTodoList);
       return newTodoList;
+    case 'FILTER':
+      if (action.copiedTodos && action.value !== '') {
+        const filterdData = action.copiedTodos.filter(
+          (data: any) =>
+            String(data[action.Item]).includes(action.value) === true,
+        );
+
+        return filterdData;
+      } else {
+        return action.copiedTodos;
+      }
+
     default:
       throw new Error('Unhandled action');
   }
@@ -83,7 +102,6 @@ export function TodosContextProvider({
 
 export function useTodosState(): Todo[] {
   const state = useContext(TodosContext);
-  // console.log('useTodosState', state);
   if (!state) throw new Error('TodosProvider not found');
   return state;
 }

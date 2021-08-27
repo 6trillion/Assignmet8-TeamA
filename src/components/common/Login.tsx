@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { getUserId, setUserId, logOutUser } from 'utils/localStorage';
 
 interface LoginProps {
@@ -39,13 +40,13 @@ const Login = (props: LoginProps) => {
   };
 
   return (
-    <div>
+    <>
       {isLogin ? (
         <>
           <span>{userName}</span> <button onClick={onLogOut}>로그아웃</button>
         </>
       ) : (
-        <form onSubmit={onSubmit}>
+        <LoginControl onSubmit={onSubmit}>
           <input
             type="text"
             name="username"
@@ -54,10 +55,27 @@ const Login = (props: LoginProps) => {
             onChange={onChange}
           />
           <button>로그인</button>
-        </form>
+        </LoginControl>
       )}
-    </div>
+    </>
   );
 };
+
+const LoginControl = styled.form`
+  white-space: nowrap;
+  input {
+    margin-right: 5px;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    border-radius: 4px;
+    &:hover {
+      background-color: aqua;
+      cursor: pointer;
+    }
+  }
+`;
 
 export default Login;

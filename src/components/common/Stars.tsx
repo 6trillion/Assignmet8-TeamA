@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { initStar } from 'utils/constants';
 
@@ -21,7 +22,7 @@ const Stars = (props: StarsProps) => {
   };
   return (
     <>
-      <label htmlFor="importance">중요도</label>
+      <StarLabel htmlFor="importance">중요도</StarLabel>
       {stars.map((item, index) => (
         <StarSvg
           key={index}
@@ -35,5 +36,8 @@ const Stars = (props: StarsProps) => {
     </>
   );
 };
+const StarLabel = styled.label`
+  padding: 10px;
+`;
 
 export default Stars;

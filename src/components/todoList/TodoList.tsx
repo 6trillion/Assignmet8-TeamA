@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
-import { useTodosState, useTodosDispatch } from 'contexts/Todo/TodoStore';
+import React, { useCallback, useRef, useState } from 'react';
+import { useTodosState, useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
 import ToDoItem from './ToDoItem';
-import styled from 'styled-components';
+import { throttle } from '../../utils/throttle';
 
 interface TodoListProps {
   tagName: string;
@@ -12,49 +12,82 @@ const TodoList = (props: TodoListProps) => {
   const { tagName, userName } = props;
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
+  const [dragTodo, setDragTodo] = useState<Todo | null>(null);
 
-  const draggingItem = useRef<number | null>(null);
-  const dragOverItem = useRef<number | null>(null);
+  const AreaRef = useRef<HTMLDivElement>(null);
+  const ListRef = useRef<HTMLDivElement[]>([]);
 
-  const handleDragStart = (position: number) => {
-    draggingItem.current = position;
-  };
+  const getDragAfterElement = useCallback((y: any) => {
+    const draggableElements = [
+      ...ListRef.current.filter((v) => v !== undefined),
+    ];
 
-  const handleDragEnter = (position: number) => {
-    dragOverItem.current = position;
+    return draggableElements.reduce(
+      (closest: any, child: any, index) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
 
-    const todosCopy = todos && [...todos];
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child, index: index };
+        } else {
+          return closest;
+        }
+      },
+      { offset: Number.NEGATIVE_INFINITY },
+    ).index;
+  }, []);
 
-    const draggingItemContent = todosCopy[draggingItem.current!];
-    todosCopy.splice(draggingItem.current!, 1);
-    todosCopy.splice(dragOverItem.current!, 0, draggingItemContent);
-    draggingItem.current = dragOverItem.current;
-    dragOverItem.current = null;
-    console.log(todosCopy);
-    dispatch({
-      type: 'SAVE',
-      saveTodo: todosCopy,
-    });
-  };
+  const handleDragOver = useCallback(
+    (e) => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(e.clientY);
+      console.log(afterElement);
+
+      if (dragTodo) {
+        if (afterElement === undefined) {
+          const nextState = [...todos];
+          const index = nextState.indexOf(dragTodo);
+          nextState.splice(index, 1);
+          nextState.push(dragTodo);
+
+          dispatch({
+            type: 'SAVE',
+            saveTodo: nextState,
+          });
+        } else {
+          const nextState = [...todos];
+          const index = nextState.indexOf(dragTodo);
+          nextState.splice(index, 1);
+          nextState.splice(afterElement, 0, dragTodo);
+
+          dispatch({
+            type: 'SAVE',
+            saveTodo: nextState,
+          });
+        }
+      }
+    },
+    [getDragAfterElement, dragTodo, dispatch, todos],
+  );
+
+  const handleThrottleDragOver = throttle(handleDragOver, 300);
 
   return (
-    <>
-      {todos &&
-        todos.length > 0 &&
+    <div onDragOver={handleThrottleDragOver} ref={AreaRef}>
+      {todos.length > 0 &&
         todos
-          ?.filter((todo) => todo.status === tagName)
+          ?.filter((todo) => todo?.status === tagName)
           .map((todo, index) => (
-            <div
+            <ToDoItem
               key={todo.id}
-              onDragStart={() => handleDragStart(index)}
-              onDragEnter={() => handleDragEnter(index)}
-              onDragOver={(e) => e.preventDefault()}
-              draggable
-            >
-              <ToDoItem todo={todo} userName={userName} />
-            </div>
+              todo={todo}
+              tagName={tagName}
+              userName={userName}
+              setDragTodo={setDragTodo}
+              ref={(r: any) => (ListRef.current[index] = r)}
+            />
           ))}
-    </>
+    </div>
   );
 };
 
