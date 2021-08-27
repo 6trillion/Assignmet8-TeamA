@@ -4,6 +4,10 @@
 
 🔗 [Demo Page](https://6129254cda43ce0007c3000c--loving-panini-e5e1ae.netlify.app/)
 
+## 회의 로그
+
+🔗 [모두컴퍼니-TeamA 회의로그](https://www.notion.so/imhjlov/TodoList-TeamA-f3258ea9e66b4544847b2d93c7e10635)
+
 ## 프로젝트 개요
 
 > A. Drag and Drop으로 Task를 옮길 수 있는 TodoApp 구현
