@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { TodoCreateBox } from '../TodoCreateBox';
 import styled from 'styled-components';
 import Stars from './Stars';
@@ -8,6 +8,7 @@ import {
   nextIdState,
   Todo,
 } from 'contexts/Todo/TodoStore';
+import Modal from './Modal';
 
 interface TodoCreateProps {
   isCreate: boolean;
@@ -25,10 +26,15 @@ const ToDoCreate = (props: TodoCreateProps) => {
   const [edit, setEdit] = useState(false);
   const [starIndex, setStarIndex] = useState(0);
   const [inputTask, setInputTask] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [todo, setTodo] = useState<Todo>();
 
-  const onCreate = () => {
-    setIsOpen(false);
-    const todo: Todo = {
+  const handleSave = () => {
+    if (inputTask === '') {
+      handleToggle();
+      return;
+    }
+    setTodo({
       id: nextIdState,
       taskName: inputTask,
       status: tagName,
@@ -36,18 +42,24 @@ const ToDoCreate = (props: TodoCreateProps) => {
       writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
-    };
-    dispatch({
-      type: 'CREATE',
-      createTodo: todo,
     });
+  };
+
+  const handleToggle = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const handleSubmit = () => {
+    if (todo) {
+      dispatch({
+        type: 'CREATE',
+        createTodo: todo,
+      });
+    }
+    setIsOpen(false);
     increamentNextId();
     setInputTask('');
     setStarIndex(0);
-  };
-
-  const handleSave = () => {
-    onCreate();
   };
 
   const handleCancel = (isCreate: boolean) => {
@@ -59,21 +71,26 @@ const ToDoCreate = (props: TodoCreateProps) => {
   };
 
   return (
-    <TodoCreateBox open={open}>
-      <TodoCreateForm onSubmit={handleSave}>
-        <label htmlFor="taskName">할 일</label>
-        <input
-          onChange={(e) => onChange(e)}
-          type="text"
-          placeholder="할 일을 적어주세요"
-          name="taskName"
-          value={inputTask || ''}
-        />
-        <Stars setStarIndex={setStarIndex} />
-        <button onClick={handleSave}>저장</button>
-        <button onClick={() => handleCancel(isCreate)}>취소</button>
-      </TodoCreateForm>
-    </TodoCreateBox>
+    <>
+      <TodoCreateBox open={open}>
+        <TodoCreateForm onSubmit={handleSubmit}>
+          <label htmlFor="taskName">할 일</label>
+          <input
+            onChange={(e) => onChange(e)}
+            type="text"
+            placeholder="할 일을 적어주세요"
+            name="taskName"
+            value={inputTask}
+          />
+          <Stars setStarIndex={setStarIndex} />
+          <button onClick={handleSave}>저장</button>
+          <button onClick={() => handleCancel(isCreate)}>취소</button>
+        </TodoCreateForm>
+      </TodoCreateBox>
+      <Modal modalOpen={modalOpen} handleToggle={handleToggle}>
+        <p>내용을 입력해 주세요📝</p>
+      </Modal>
+    </>
   );
 };
 

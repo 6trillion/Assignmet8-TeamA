@@ -23,9 +23,9 @@ const ToDoItem = (props: ToDoItemProps) => {
   const [starIndex, setStarIndex] = useState(initStar);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const tasKNameRef = useRef(null);
+  const taskNameRef = useRef(null);
   useEffect(() => {
-    const updateTasKName = tasKNameRef.current! as HTMLElement;
+    const updateTasKName = taskNameRef.current! as HTMLElement;
     if (updateTasKName) updateTasKName.focus();
   }, [isEdit]);
 
@@ -45,7 +45,7 @@ const ToDoItem = (props: ToDoItemProps) => {
 
   const handleEdit = () => {
     if (userName !== todo.writer) return handleToggle();
-    const updateTasKName = tasKNameRef.current! as HTMLElement;
+    const updateTasKName = taskNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
     if (isEdit) {
       const updateTodo: Todo = {
@@ -69,7 +69,7 @@ const ToDoItem = (props: ToDoItemProps) => {
     <>
       <TodoItemWrapper>
         <div
-          ref={tasKNameRef}
+          ref={taskNameRef}
           contentEditable={isEdit}
           suppressContentEditableWarning={true}
         >
