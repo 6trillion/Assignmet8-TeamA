@@ -11,7 +11,6 @@ const TodoList = (props: TodoListProps) => {
   const { tagName } = props;
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
-
   const draggingItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
 
@@ -42,16 +41,17 @@ const TodoList = (props: TodoListProps) => {
         todos.length > 0 &&
         todos
           ?.filter((todo) => todo.status === tagName)
-          .map((todo, index) =>
-          <div key={todo.id} 
-            onDragStart={() => handleDragStart(index)}
-            onDragEnter={() => handleDragEnter(index)}
-            onDragOver={(e) => e.preventDefault()}
-            draggable>
-            <ToDoItem  todo={todo} tagName={tagName} 
-              />
-          </div>
-      )}
+          .map((todo, index) => (
+            <div
+              key={todo.id}
+              onDragStart={() => handleDragStart(index)}
+              onDragEnter={() => handleDragEnter(index)}
+              onDragOver={(e) => e.preventDefault()}
+              draggable
+            >
+              <ToDoItem todo={todo} tagName={tagName} />
+            </div>
+          ))}
     </>
   );
 };

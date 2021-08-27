@@ -1,11 +1,17 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FilterDropdown from './FilterDropdown';
-import { useTodosState, Todo, useTodosDispatch } from 'contexts/Todo/TodoStore';
+import {
+  useTodosState,
+  Todo,
+  useTodosDispatch,
+  useCopiedState,
+} from 'contexts/Todo/TodoStore';
 import { getTodoStorage } from 'utils/localStorage';
 
 const FilterInput = () => {
   const todos = useTodosState();
+  const copys = useCopiedState(); // /todo를 카피
   const dispatch = useTodosDispatch();
   const [inputValue, setInputValue] = useState('');
   const [dropdownName, setDropdownName] = useState('생성일');
@@ -16,7 +22,12 @@ const FilterInput = () => {
   useEffect(() => {
     setCopiedTodos(getTodoStorage());
     setOriginalTodos(getTodoStorage());
-  }, [dropdownName]);
+    // /todo를 카피하는 액션함수
+    dispatch({
+      type: 'COPY',
+    });
+    console.log(copys);
+  }, [dropdownName, copys]);
 
   useEffect(() => {
     if (copiedTodos && inputValue !== '') {
@@ -25,15 +36,15 @@ const FilterInput = () => {
         (data: any) =>
           String(data[dropdownItem]).substring(0, valueLen) === inputValue,
       );
-      dispatch({
-        type: 'SAVE',
-        saveTodo: filteredData,
-      });
+      // dispatch({
+      //   type: 'SAVE',
+      //   saveTodo: filteredData,
+      // });
     } else if (originalTodos) {
-      dispatch({
-        type: 'SAVE',
-        saveTodo: originalTodos,
-      });
+      // dispatch({
+      //   type: 'SAVE',
+      //   saveTodo: originalTodos,
+      // });
     }
   }, [inputValue, copiedTodos, dropdownItem, originalTodos, dispatch]);
 
