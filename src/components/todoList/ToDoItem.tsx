@@ -42,7 +42,7 @@ const ToDoItem = (props: ToDoItemProps) => {
   const handleEdit = () => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
-    if (isEdit && updateText !== "") {
+    if (isEdit) {
       const updateTodo: Todo = {
         id: todo.id,
         taskName: updateText,
