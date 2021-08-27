@@ -28,7 +28,7 @@ type Action =
   | { type: 'UPDATE'; updateTodo: Todo }
   | { type: 'LOAD_DATA' }
   | { type: 'SAVE'; saveTodo: TodosState }
-  | { type: 'COPY' };
+  | { type: 'COPY'; copyTodo: TodosState };
 
 type TodosDispatch = Dispatch<Action>;
 const TodosDispatchContext = createContext<TodosDispatch | null>(null);
@@ -63,7 +63,7 @@ function todosReducer(preState: TodosState, action: Action): TodosState {
       saveTodoStorage(newTodoList);
       return newTodoList;
     case 'COPY':
-      copiedState = preState;
+      copiedState = action.copyTodo;
       return preState;
     default:
       throw new Error('Unhandled action');

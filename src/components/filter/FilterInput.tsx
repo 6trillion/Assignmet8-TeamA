@@ -22,9 +22,10 @@ const FilterInput = () => {
   useEffect(() => {
     setCopiedTodos(getTodoStorage());
     setOriginalTodos(getTodoStorage());
-    // /todo를 카피하는 액션함수
+    //todo를 카피하는 액션함수
     dispatch({
       type: 'COPY',
+      copyTodo: todos,
     });
     console.log(copys);
   }, [dropdownName, copys]);
