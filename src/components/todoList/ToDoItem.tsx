@@ -32,13 +32,19 @@ const ToDoItem = (props: ToDoItemProps) => {
   const newStars = (index: number) =>
     initStar.map((_, i): boolean => i < index);
 
-  const handleRemove = (id: number) => {
-    dispatch({
-      type: 'REMOVE',
-      id: id,
-    });
-  };
   
+
+  const handleRemove = (id: number) => {
+    if(window.confirm('정말 삭제하시겠습니까?'))
+      return(
+        dispatch({
+          type: 'REMOVE',
+          id: id,
+        })
+    )
+    
+  };
+
   const handleEdit = () => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
@@ -79,6 +85,7 @@ const ToDoItem = (props: ToDoItemProps) => {
       <span>진행상황 : </span>{isEdit ? <Status status={todo.status} setStatus={setStatus}/> : 
       <StatusRes status={todo.status}>{todo.status}</StatusRes>}
       </TodoStatus>
+      
       {isEdit ? <p onClick={handleEdit}>저장</p> : <EditSvg onClick={handleEdit} />}
       <DeleteSvg onClick={() => handleRemove(todo.id)} />
     </TodoItemWrapper>
@@ -90,11 +97,15 @@ const TodoItemWrapper = styled.div`
   border: 1px solid black;
   border-radius:4px;
   background-color:lightgray;
+  span{
+    margin-left:4px;
+  }
 `;
 
 const TodoName = styled.div`
 display:flex;
 justify-content:center;
+padding:10px;
 `
 
 const WriterWrap = styled.div`
@@ -126,6 +137,7 @@ const StatusRes = styled.span<{status:string}>`
 margin-right:5px;
 margin-bottom:4px;
 padding:2px;
+border-radius:4px;
 background-color:${props=>props.status==="To Do"?'yellow':props.status==="In Progress"?"green":"red"}
 `
 

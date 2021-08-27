@@ -36,9 +36,8 @@ const TodoList = (props: TodoListProps) => {
 
   return (
     <>
-      {todos &&
-        todos.length > 0 &&
-        todos?.filter((todo) => todo.status === tagName)
+      {todos.length > 0 &&
+        todos?.filter((todo) => todo?.status === tagName)
           .map((todo, index) =>
           <div key={todo.id} 
             onDragStart={() => handleDragStart(index)}

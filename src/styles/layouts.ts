@@ -16,9 +16,13 @@ export const layouts = {
   `,
 
   Header: styled.header`
-    width: 100%;
-    border: 1px solid black;
-    margin-bottom: 30px;
+    
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top:10px;
+    background-color:mediumaquamarine;
+    border-radius:4px;
+    
   `,
 
   Main: styled.main`

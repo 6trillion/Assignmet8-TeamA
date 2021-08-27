@@ -68,6 +68,14 @@ input{
   &:focus{
     outline:none;
   }
-}`
+}
+button{
+  border-radius:4px;
+  &:hover{
+    background-color:aqua;
+    cursor:pointer;
+  }
+}
+`
 
 export default Login;
