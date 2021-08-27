@@ -4,7 +4,6 @@ import FilterDropdown from './FilterDropdown';
 import { useTodosState, Todo, useTodosDispatch } from 'contexts/Todo/TodoStore';
 import { getTodoStorage } from 'utils/localStorage';
 
-
 const FilterInput = () => {
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
@@ -14,28 +13,29 @@ const FilterInput = () => {
   const [copiedTodos, setCopiedTodos] = useState<Todo[]>();
   const [originalTodos, setOriginalTodos] = useState<Todo[]>();
 
-  useEffect(()=>{
+  useEffect(() => {
     setCopiedTodos(getTodoStorage());
     setOriginalTodos(getTodoStorage());
-  },[dropdownName])
+  }, [dropdownName]);
 
-  useEffect(()=>{
-    if (copiedTodos && inputValue !== "") {
+  useEffect(() => {
+    if (copiedTodos && inputValue !== '') {
       const valueLen = inputValue.length;
-      const filterdData = copiedTodos.filter(
-        (data:any) => String(data[dropdownItem]).substring(0, valueLen) === inputValue,
+      const filteredData = copiedTodos.filter(
+        (data: any) =>
+          String(data[dropdownItem]).substring(0, valueLen) === inputValue,
       );
       dispatch({
         type: 'SAVE',
-        saveTodo:filterdData
+        saveTodo: filteredData,
       });
-    } else if (originalTodos){
+    } else if (originalTodos) {
       dispatch({
         type: 'SAVE',
-        saveTodo:originalTodos
+        saveTodo: originalTodos,
       });
     }
-  }, [inputValue, copiedTodos, dropdownItem, originalTodos, dispatch]);  
+  }, [inputValue, copiedTodos, dropdownItem, originalTodos, dispatch]);
 
   const onInputValue = useCallback((e) => {
     const word = e.target.value;
