@@ -40,6 +40,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
       />
       <TodoList
         tagName={tagName}
+        userName={userName}
       />
     </>
   );

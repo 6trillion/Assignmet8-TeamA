@@ -5,10 +5,11 @@ import styled from 'styled-components';
 
 interface TodoListProps {
   tagName: string;
+  userName : string;
 }
 
 const TodoList = (props: TodoListProps) => {
-  const { tagName } = props;
+  const { tagName,userName } = props;
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
 
@@ -48,8 +49,7 @@ const TodoList = (props: TodoListProps) => {
             onDragEnter={() => handleDragEnter(index)}
             onDragOver={(e) => e.preventDefault()}
             draggable>
-            <ToDoItem  todo={todo} tagName={tagName} 
-              />
+            <ToDoItem  todo={todo} userName={userName}/>
           </div>
       )}
     </>

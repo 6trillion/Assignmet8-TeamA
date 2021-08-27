@@ -7,19 +7,21 @@ import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
 import Status from '../common/Status';
+import Modal from 'components/common/Modal'
 
 interface ToDoItemProps {
   todo: Todo;
-  tagName:string;
+  userName : string;
 }
 
 const ToDoItem = (props: ToDoItemProps) => {
   const dispatch = useTodosDispatch();
-  const { todo, tagName } = props;
+  const { todo, userName } = props;
 
   const [isEdit, setIsEdit] = useState(false);
   const [status, setStatus] = useState('');
   const [starIndex, setStarIndex] = useState(initStar);
+  const [modalOpen, setModalOpen] = useState(false);
 
 
   const tasKNameRef = useRef(null);
@@ -38,8 +40,13 @@ const ToDoItem = (props: ToDoItemProps) => {
       id: id,
     });
   };
+
+  const handleToggle = ()=>{
+    setModalOpen(!modalOpen);
+  };
   
   const handleEdit = () => {
+    if(userName !== todo.writer) return handleToggle();
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
     if (isEdit) {
@@ -74,6 +81,9 @@ const ToDoItem = (props: ToDoItemProps) => {
       {isEdit ? <Status status={todo.status} setStatus={setStatus}/> : <p>{todo.status}</p>}
       {isEdit ? <p onClick={handleEdit}>저장</p> : <EditSvg onClick={handleEdit} />}
       <DeleteSvg onClick={() => handleRemove(todo.id)} />
+      <Modal modalOpen={modalOpen} handleToggle={handleToggle}>
+        <p>생성자가 같지 않아 수정이 불가합니다</p>
+      </Modal>
     </TodoItemWrapper>
   );
 };

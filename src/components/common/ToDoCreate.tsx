@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { TodoCreateBox } from '../TodoCreateBox';
 import styled from 'styled-components';
 import Stars from './Stars';
-import {
-  useTodosDispatch,
-  increamentNextId,
-  nextIdState,Todo
-} from 'contexts/Todo/TodoStore';
+import { useTodosDispatch, increamentNextId, nextIdState,Todo } from 'contexts/Todo/TodoStore';
 
 interface TodoCreateProps {
   isCreate: boolean;
