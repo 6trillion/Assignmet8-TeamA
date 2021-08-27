@@ -27,19 +27,31 @@ const Modal = (props: ModalProps) => {
 export default Modal;
 
 const ModalWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.3);
 
-  > div {
+  div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 60%;
+    height: 30%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 50px 30px;
-    width: 800px;
+
+    z-index: 2001;
+    background: #fff;
+    opacity: 0.8;
   }
 
   button {

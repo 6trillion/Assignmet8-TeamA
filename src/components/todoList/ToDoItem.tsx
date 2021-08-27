@@ -66,35 +66,37 @@ const ToDoItem = (props: ToDoItemProps) => {
   };
 
   return (
-    <TodoItemWrapper>
-      <div
-        ref={tasKNameRef}
-        contentEditable={isEdit}
-        suppressContentEditableWarning={true}
-      >
-        {todo.taskName}
-      </div>
-      <p>
-        {newStars(todo.importance).map((item: boolean, index: number) =>
-          item ? <StarSvg key={index} fill="gold" /> : '',
+    <>
+      <TodoItemWrapper>
+        <div
+          ref={tasKNameRef}
+          contentEditable={isEdit}
+          suppressContentEditableWarning={true}
+        >
+          {todo.taskName}
+        </div>
+        <p>
+          {newStars(todo.importance).map((item: boolean, index: number) =>
+            item ? <StarSvg key={index} fill="gold" /> : '',
+          )}
+        </p>
+        <p>{todo.writer}</p>
+        {isEdit ? (
+          <Status status={todo.status} setStatus={setStatus} />
+        ) : (
+          <p>{todo.status}</p>
         )}
-      </p>
-      <p>{todo.writer}</p>
-      {isEdit ? (
-        <Status status={todo.status} setStatus={setStatus} />
-      ) : (
-        <p>{todo.status}</p>
-      )}
-      {isEdit ? (
-        <p onClick={handleEdit}>저장</p>
-      ) : (
-        <EditSvg onClick={handleEdit} />
-      )}
-      <DeleteSvg onClick={() => handleRemove(todo.id)} />
+        {isEdit ? (
+          <p onClick={handleEdit}>저장</p>
+        ) : (
+          <EditSvg onClick={handleEdit} />
+        )}
+        <DeleteSvg onClick={() => handleRemove(todo.id)} />
+      </TodoItemWrapper>
       <Modal modalOpen={modalOpen} handleToggle={handleToggle}>
         <p>생성자가 같지 않아 수정이 불가합니다</p>
       </Modal>
-    </TodoItemWrapper>
+    </>
   );
 };
 
