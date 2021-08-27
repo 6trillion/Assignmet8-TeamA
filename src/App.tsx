@@ -12,7 +12,6 @@ const App = () => {
       <S.Wrap>
         <S.Header>
           <Header userName={userName} setUserName={setUserName} />
-          
         </S.Header>
         
         <S.Main>

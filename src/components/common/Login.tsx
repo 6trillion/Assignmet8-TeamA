@@ -40,7 +40,7 @@ const Login = (props: LoginProps) => {
   };
 
   return (
-    <LoginContainer>
+    <>
       {isLogin ? (
         <>
           <span>{userName}</span> <button onClick={onLogOut}>로그아웃</button>
@@ -57,12 +57,12 @@ const Login = (props: LoginProps) => {
           <button>로그인</button>
         </LoginControl>
       )}
-    </LoginContainer>
+    </>
   );
 };
-const LoginContainer = styled.div`
-`
+
 const LoginControl = styled.form`
+white-space:nowrap;
 input{
   margin-right:5px;
   &:focus{

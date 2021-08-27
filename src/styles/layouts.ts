@@ -22,7 +22,10 @@ export const layouts = {
   margin-top:10px;
     background-color:mediumaquamarine;
     border-radius:4px;
-    
+    span{
+      white-space:nowrap;
+      padding:10px;
+    }
   `,
 
   Main: styled.main`
