@@ -5,7 +5,8 @@ import Stars from './Stars';
 import {
   useTodosDispatch,
   increamentNextId,
-  nextIdState,Todo
+  nextIdState,
+  Todo,
 } from 'contexts/Todo/TodoStore';
 
 interface TodoCreateProps {
@@ -18,17 +19,11 @@ interface TodoCreateProps {
 }
 
 const ToDoCreate = (props: TodoCreateProps) => {
-  const {
-    isCreate,
-    open,
-    tagName,
-    userName,
-    setIsOpen
-  } = props;
+  const { isCreate, open, tagName, userName, setIsOpen } = props;
   const dispatch = useTodosDispatch();
 
   const [edit, setEdit] = useState(false);
-  const [starIndex, setStarIndex] = useState(0);
+  const [starIndex, setStarIndex] = useState(1);
   const [inputTask, setInputTask] = useState('');
 
   const onCreate = () => {
@@ -37,7 +32,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
       id: nextIdState,
       taskName: inputTask,
       status: tagName,
-      importance: starIndex,
+      importance: starIndex === 0 ? 1 : starIndex,
       writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),
@@ -51,7 +46,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
     setStarIndex(0);
   };
 
-  const handleSave = ()=>{
+  const handleSave = () => {
     onCreate();
   };
 
@@ -67,16 +62,15 @@ const ToDoCreate = (props: TodoCreateProps) => {
     <Modal open={open}>
       <TodoCreateForm onSubmit={handleSave}>
         <TodoName>
-        <label htmlFor="taskName">할 일</label>
-      <input
-        onChange={(e) => onChange(e)}
-        type="text"
-        placeholder="할 일을 적어주세요"
-        name="taskName"
-        value={inputTask || ''}
-      />
+          <label htmlFor="taskName">할 일</label>
+          <input
+          onChange={(e) => onChange(e)}
+          type="text"
+          placeholder="할 일을 적어주세요"
+          name="taskName"
+          value={inputTask || ''}
+          />
         </TodoName>
-      
       <TodoControl>
       <Stars setStarIndex={setStarIndex} />
       <button type="button" onClick={handleSave}>저장</button>
@@ -84,6 +78,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
       </TodoControl>
       
     </TodoCreateForm>
+
     </Modal>
   );
 };

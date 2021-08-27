@@ -26,8 +26,8 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   const { todo, tagName, setDragTodo } = props;
   const [isEdit, setIsEdit] = useState(false);
   const [status, setStatus] = useState('');
-  const [starIndex, setStarIndex] = useState(initStar);
-
+  const [starIndex, setStarIndex] = useState(todo.importance);
+  
   const tasKNameRef = useRef(null);
   useEffect(() => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
@@ -48,12 +48,13 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   const handleEdit = () => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
-    if (isEdit) {
+
+    if (isEdit && updateText !== '') {
       const updateTodo: Todo = {
         id: todo.id,
         taskName: updateText,
         status: status,
-        importance: todo.importance,
+        importance: starIndex === 0 ? 1 : starIndex,
         writer: todo.writer,
         createAt: todo.createAt,
         updateAt: new Date(),
