@@ -3,12 +3,12 @@ import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { initStar } from 'utils/constants';
 
 interface StarsProps {
-  starIndex? : number;
+  starIndex?: number;
   setStarIndex: (index: any) => void;
 }
 const Stars = (props: StarsProps) => {
   const [stars, setStars] = useState(initStar);
-  const { setStarIndex , starIndex } = props;
+  const { setStarIndex, starIndex } = props;
 
   const onClick = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>,

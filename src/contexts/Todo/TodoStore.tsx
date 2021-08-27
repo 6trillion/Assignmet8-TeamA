@@ -24,8 +24,8 @@ type Action =
   | { type: 'CREATE'; createTodo: Todo }
   | { type: 'REMOVE'; id: number }
   | { type: 'UPDATE'; updateTodo: Todo }
-  | { type: 'LOAD_DATA'; }
-  | { type: 'SAVE'; saveTodo: TodosState};
+  | { type: 'LOAD_DATA' }
+  | { type: 'SAVE'; saveTodo: TodosState };
 
 type TodosDispatch = Dispatch<Action>;
 const TodosDispatchContext = createContext<TodosDispatch | null>(null);
@@ -33,13 +33,13 @@ const TodosDispatchContext = createContext<TodosDispatch | null>(null);
 function todosReducer(preState: TodosState, action: Action): TodosState {
   switch (action.type) {
     case 'LOAD_DATA':
-      const initialTodos = getTodoStorage() || [] ;
+      const initialTodos = getTodoStorage() || [];
       if (initialTodos && initialTodos.length >= 1) {
         nextIdState = initialTodos[initialTodos.length - 1].id;
       }
       saveTodoStorage(initialTodos);
       return initialTodos;
-    case 'SAVE' : 
+    case 'SAVE':
       const newSaveState = action.saveTodo;
       saveTodoStorage(newSaveState);
       return newSaveState;

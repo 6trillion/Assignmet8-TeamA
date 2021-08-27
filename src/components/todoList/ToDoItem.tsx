@@ -1,4 +1,4 @@
-import React,{useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTodosDispatch, Todo } from 'contexts/Todo/TodoStore';
 import { initStar } from 'utils/constants';
@@ -7,11 +7,11 @@ import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
 import Status from '../common/Status';
-import Modal from 'components/common/Modal'
+import Modal from 'components/common/Modal';
 
 interface ToDoItemProps {
   todo: Todo;
-  userName : string;
+  userName: string;
 }
 
 const ToDoItem = (props: ToDoItemProps) => {
@@ -23,13 +23,11 @@ const ToDoItem = (props: ToDoItemProps) => {
   const [starIndex, setStarIndex] = useState(initStar);
   const [modalOpen, setModalOpen] = useState(false);
 
-
   const tasKNameRef = useRef(null);
   useEffect(() => {
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     if (updateTasKName) updateTasKName.focus();
   }, [isEdit]);
-
 
   const newStars = (index: number) =>
     initStar.map((_, i): boolean => i < index);
@@ -41,12 +39,12 @@ const ToDoItem = (props: ToDoItemProps) => {
     });
   };
 
-  const handleToggle = ()=>{
+  const handleToggle = () => {
     setModalOpen(!modalOpen);
   };
-  
+
   const handleEdit = () => {
-    if(userName !== todo.writer) return handleToggle();
+    if (userName !== todo.writer) return handleToggle();
     const updateTasKName = tasKNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
     if (isEdit) {
@@ -59,10 +57,9 @@ const ToDoItem = (props: ToDoItemProps) => {
         createAt: todo.createAt,
         updateAt: new Date(),
       };
-      dispatch({type: 'UPDATE',
-      updateTodo: updateTodo,});
+      dispatch({ type: 'UPDATE', updateTodo: updateTodo });
     }
-    if (updateText === "") {
+    if (updateText === '') {
       updateTasKName.innerText = todo.taskName;
     }
     setIsEdit((prev) => !prev);
@@ -70,16 +67,29 @@ const ToDoItem = (props: ToDoItemProps) => {
 
   return (
     <TodoItemWrapper>
-      <div ref={tasKNameRef} contentEditable={isEdit} suppressContentEditableWarning={true}>{todo.taskName}</div>
+      <div
+        ref={tasKNameRef}
+        contentEditable={isEdit}
+        suppressContentEditableWarning={true}
+      >
+        {todo.taskName}
+      </div>
       <p>
         {newStars(todo.importance).map((item: boolean, index: number) =>
           item ? <StarSvg key={index} fill="gold" /> : '',
         )}
-
       </p>
       <p>{todo.writer}</p>
-      {isEdit ? <Status status={todo.status} setStatus={setStatus}/> : <p>{todo.status}</p>}
-      {isEdit ? <p onClick={handleEdit}>저장</p> : <EditSvg onClick={handleEdit} />}
+      {isEdit ? (
+        <Status status={todo.status} setStatus={setStatus} />
+      ) : (
+        <p>{todo.status}</p>
+      )}
+      {isEdit ? (
+        <p onClick={handleEdit}>저장</p>
+      ) : (
+        <EditSvg onClick={handleEdit} />
+      )}
       <DeleteSvg onClick={() => handleRemove(todo.id)} />
       <Modal modalOpen={modalOpen} handleToggle={handleToggle}>
         <p>생성자가 같지 않아 수정이 불가합니다</p>

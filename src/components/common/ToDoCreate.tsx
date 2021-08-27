@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { TodoCreateBox } from '../TodoCreateBox';
 import styled from 'styled-components';
 import Stars from './Stars';
-import { useTodosDispatch, increamentNextId, nextIdState,Todo } from 'contexts/Todo/TodoStore';
+import {
+  useTodosDispatch,
+  increamentNextId,
+  nextIdState,
+  Todo,
+} from 'contexts/Todo/TodoStore';
 
 interface TodoCreateProps {
   isCreate: boolean;
@@ -14,13 +19,7 @@ interface TodoCreateProps {
 }
 
 const ToDoCreate = (props: TodoCreateProps) => {
-  const {
-    isCreate,
-    open,
-    tagName,
-    userName,
-    setIsOpen
-  } = props;
+  const { isCreate, open, tagName, userName, setIsOpen } = props;
   const dispatch = useTodosDispatch();
 
   const [edit, setEdit] = useState(false);
@@ -47,7 +46,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
     setStarIndex(0);
   };
 
-  const handleSave = ()=>{
+  const handleSave = () => {
     onCreate();
   };
 

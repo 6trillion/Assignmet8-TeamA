@@ -5,11 +5,11 @@ import styled from 'styled-components';
 
 interface TodoListProps {
   tagName: string;
-  userName : string;
+  userName: string;
 }
 
 const TodoList = (props: TodoListProps) => {
-  const { tagName,userName } = props;
+  const { tagName, userName } = props;
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
 
@@ -43,15 +43,17 @@ const TodoList = (props: TodoListProps) => {
         todos.length > 0 &&
         todos
           ?.filter((todo) => todo.status === tagName)
-          .map((todo, index) =>
-          <div key={todo.id} 
-            onDragStart={() => handleDragStart(index)}
-            onDragEnter={() => handleDragEnter(index)}
-            onDragOver={(e) => e.preventDefault()}
-            draggable>
-            <ToDoItem  todo={todo} userName={userName}/>
-          </div>
-      )}
+          .map((todo, index) => (
+            <div
+              key={todo.id}
+              onDragStart={() => handleDragStart(index)}
+              onDragEnter={() => handleDragEnter(index)}
+              onDragOver={(e) => e.preventDefault()}
+              draggable
+            >
+              <ToDoItem todo={todo} userName={userName} />
+            </div>
+          ))}
     </>
   );
 };
