@@ -5,10 +5,11 @@ import { throttle } from '../../utils/throttle';
 
 interface TodoListProps {
   tagName: string;
+  userName: string;
 }
 
 const TodoList = (props: TodoListProps) => {
-  const { tagName } = props;
+  const { tagName, userName } = props;
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
   const [dragTodo, setDragTodo] = useState<Todo | null>(null);
@@ -81,6 +82,7 @@ const TodoList = (props: TodoListProps) => {
               key={todo.id}
               todo={todo}
               tagName={tagName}
+              userName={userName}
               setDragTodo={setDragTodo}
               ref={(r: any) => (ListRef.current[index] = r)}
             />

@@ -62,20 +62,20 @@ const Login = (props: LoginProps) => {
 };
 
 const LoginControl = styled.form`
-white-space:nowrap;
-input{
-  margin-right:5px;
-  &:focus{
-    outline:none;
+  white-space: nowrap;
+  input {
+    margin-right: 5px;
+    &:focus {
+      outline: none;
+    }
   }
-}
-button{
-  border-radius:4px;
-  &:hover{
-    background-color:aqua;
-    cursor:pointer;
+  button {
+    border-radius: 4px;
+    &:hover {
+      background-color: aqua;
+      cursor: pointer;
+    }
   }
-}
-`
+`;
 
 export default Login;

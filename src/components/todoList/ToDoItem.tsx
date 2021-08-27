@@ -13,24 +13,26 @@ import { ReactComponent as StarSvg } from 'components/assets/svg/star.svg';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
 import Status from '../common/Status';
-import { couldStartTrivia } from 'typescript';
+import Modal from 'components/common/Modal';
 
 interface ToDoItemProps {
   todo: Todo;
   tagName: string;
+  userName: string;
   setDragTodo: (e: Todo | null) => void;
 }
 
 const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   const dispatch = useTodosDispatch();
-  const { todo, tagName, setDragTodo } = props;
+  const { todo, tagName, userName, setDragTodo } = props;
   const [isEdit, setIsEdit] = useState(false);
   const [status, setStatus] = useState('');
   const [starIndex, setStarIndex] = useState(todo.importance);
-  
-  const tasKNameRef = useRef(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const taskNameRef = useRef(null);
   useEffect(() => {
-    const updateTasKName = tasKNameRef.current! as HTMLElement;
+    const updateTasKName = taskNameRef.current! as HTMLElement;
     if (updateTasKName) updateTasKName.focus();
   }, [isEdit]);
 
@@ -45,8 +47,13 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
       });
   };
 
+  const handleToggle = () => {
+    setModalOpen(!modalOpen);
+  };
+
   const handleEdit = () => {
-    const updateTasKName = tasKNameRef.current! as HTMLElement;
+    if (userName !== todo.writer) return handleToggle();
+    const updateTasKName = taskNameRef.current! as HTMLElement;
     const updateText = updateTasKName.innerText;
 
     if (isEdit && updateText !== '') {
@@ -79,49 +86,54 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
   }, [setDragTodo]);
 
   return (
-    <TodoItemWrapper
-      draggable
-      ref={ref}
-      onDragStart={() => handleDragStart(todo)}
-      onDragEnd={handleDragEnd}
-    >
-      <TodoName
-        ref={tasKNameRef}
-        contentEditable={isEdit}
-        suppressContentEditableWarning={true}
+    <>
+      <TodoItemWrapper
+        draggable
+        ref={ref}
+        onDragStart={() => handleDragStart(todo)}
+        onDragEnd={handleDragEnd}
       >
-        {todo.taskName}
-      </TodoName>
-      <ImpWrap>
-        <span>우선순위 :</span>{' '}
-        <StarTag>
-          {newStars(todo.importance).map((item: boolean, index: number) =>
-            item ? <StarSvg key={index} fill="gold" /> : '',
+        <TodoName
+          ref={taskNameRef}
+          contentEditable={isEdit}
+          suppressContentEditableWarning={true}
+        >
+          {todo.taskName}
+        </TodoName>
+        <ImpWrap>
+          <span>우선순위 :</span>{' '}
+          <StarTag>
+            {newStars(todo.importance).map((item: boolean, index: number) =>
+              item ? <StarSvg key={index} fill="gold" /> : '',
+            )}
+          </StarTag>
+        </ImpWrap>
+
+        <WriterWrap>
+          <span>작성자 : </span>
+          <TagWriter>{todo.writer}</TagWriter>
+        </WriterWrap>
+
+        <TodoStatus>
+          <span>진행상황 : </span>
+          {isEdit ? (
+            <Status status={todo.status} setStatus={setStatus} />
+          ) : (
+            <StatusRes status={todo.status}>{todo.status}</StatusRes>
           )}
-        </StarTag>
-      </ImpWrap>
+        </TodoStatus>
 
-      <WriterWrap>
-        <span>작성자 : </span>
-        <TagWriter>{todo.writer}</TagWriter>
-      </WriterWrap>
-
-      <TodoStatus>
-        <span>진행상황 : </span>
         {isEdit ? (
-          <Status status={todo.status} setStatus={setStatus} />
+          <p onClick={handleEdit}>저장</p>
         ) : (
-          <StatusRes status={todo.status}>{todo.status}</StatusRes>
+          <EditSvg onClick={handleEdit} />
         )}
-      </TodoStatus>
-
-      {isEdit ? (
-        <p onClick={handleEdit}>저장</p>
-      ) : (
-        <EditSvg onClick={handleEdit} />
-      )}
-      <DeleteSvg onClick={() => handleRemove(todo.id)} />
-    </TodoItemWrapper>
+        <DeleteSvg onClick={() => handleRemove(todo.id)} />
+      </TodoItemWrapper>
+      <Modal modalOpen={modalOpen} handleToggle={handleToggle}>
+        <p>생성자가 같지 않아 수정이 불가합니다</p>
+      </Modal>
+    </>
   );
 });
 
