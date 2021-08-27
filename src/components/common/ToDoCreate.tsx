@@ -32,7 +32,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
       id: nextIdState,
       taskName: inputTask,
       status: tagName,
-      importance: starIndex,
+      importance: starIndex === 0 ? 1 : starIndex,
       writer: userName ? userName : 'anonymous',
       createAt: new Date(),
       updateAt: new Date(),

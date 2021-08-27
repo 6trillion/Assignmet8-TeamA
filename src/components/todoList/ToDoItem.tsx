@@ -46,7 +46,7 @@ const ToDoItem = (props: ToDoItemProps) => {
         id: todo.id,
         taskName: updateText,
         status: status,
-        importance: starIndex,
+        importance: starIndex === 0 ? 1 : starIndex,
         writer: todo.writer,
         createAt: todo.createAt,
         updateAt: new Date(),
