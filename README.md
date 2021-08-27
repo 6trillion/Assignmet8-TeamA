@@ -16,8 +16,8 @@
 | ------ | --------------------------------------------- | -------------------------------------- |
 | 김동원 | [dongwonnn](https://github.com/dongwonnn)     | Drag and Drop 기능 구현, 레이아웃 구현 |
 | 황윤성 | [Telling-Y](https://github.com/Telling-Y)     | Drag and Drop 기능 구현, 스타일링      |
-| 박현정 | [imhjlov](https://github.com/imhjlov)         |                                        |
-| 윤수진 | [blingblin-g](https://github.com/blingblin-g) |                                        |
+| 박현정 | [imhjlov](https://github.com/imhjlov)         | Todo App CRUD 기능 구현, Task를 필터링  |
+| 윤수진 | [blingblin-g](https://github.com/blingblin-g) | Todo App CRUD 기능 구현, Task 상태 변경구현 |
 
 ## 구현 목록
 
@@ -29,7 +29,10 @@
 
 ### B팀
 
-- [x]
+- [x] 로그인
+- [x] Task 목록 조회
+- [x] Task 추가, 수정, 삭제
+- [x] 필터링
 
 
 ## 실행 방법
