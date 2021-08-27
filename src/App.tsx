@@ -13,10 +13,10 @@ const App = () => {
       <S.Wrap>
         <S.Header>
           <Header userName={userName} setUserName={setUserName} />
-        </S.Header>
-        <S.Filter>
+          
           <FilterInput />
-        </S.Filter>
+        </S.Header>
+        
         <S.Main>
           {tagStates.map((v) => (
             <S.Section key={v}>

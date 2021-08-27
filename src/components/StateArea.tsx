@@ -50,13 +50,17 @@ export default StateArea;
 const StateHeader = styled.div`
   
   display: flex;
-  justify-content: space-between;
   margin-bottom: 10px;
+  justify-content: space-between;
 
   p {
     cursor: pointer;
   }
   button{
     border-radius:25%;
+    &:hover{
+      background-color:aqua;
+      cursor:pointer;
+    }
   }
 `;

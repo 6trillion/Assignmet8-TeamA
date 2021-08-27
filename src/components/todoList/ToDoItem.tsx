@@ -63,15 +63,21 @@ const ToDoItem = (props: ToDoItemProps) => {
 
   return (
     <TodoItemWrapper>
-      <div ref={tasKNameRef} contentEditable={isEdit} suppressContentEditableWarning={true}>{todo.taskName}</div>
-      <p>
+      <TodoName ref={tasKNameRef} contentEditable={isEdit} suppressContentEditableWarning={true}>{todo.taskName}</TodoName>
+      <ImpWrap>
+      <span>우선순위 :</span> <StarTag>
         {newStars(todo.importance).map((item: boolean, index: number) =>
           item ? <StarSvg key={index} fill="gold" /> : '',
-        )}
-
-      </p>
-      <p>{todo.writer}</p>
-      {isEdit ? <Status status={todo.status} setStatus={setStatus}/> : <p>{todo.status}</p>}
+        )}</StarTag>
+      </ImpWrap>
+      
+      <WriterWrap>
+      <span>작성자 : </span><TagWriter>{todo.writer}</TagWriter>
+      </WriterWrap>
+      
+      <TodoStatus>
+      <span>진행상황 : </span>{isEdit ? <Status status={todo.status} setStatus={setStatus}/> : <p>{todo.status}</p>}
+      </TodoStatus>
       {isEdit ? <p onClick={handleEdit}>저장</p> : <EditSvg onClick={handleEdit} />}
       <DeleteSvg onClick={() => handleRemove(todo.id)} />
     </TodoItemWrapper>
@@ -79,8 +85,38 @@ const ToDoItem = (props: ToDoItemProps) => {
 };
 
 const TodoItemWrapper = styled.div`
-  border: 1px solid black;
   margin-bottom: 5px;
+  border: 1px solid black;
+  border-radius:4px;
+  background-color:lightgray;
 `;
 
+const TodoName = styled.div`
+display:flex;
+justify-content:center;
+`
+
+const WriterWrap = styled.div`
+display: flex;
+justify-content:space-between;
+`
+
+const TagWriter = styled.span`
+margin-right:5px;
+padding:2px;
+background-color:aqua;
+border-radius:5px;`
+
+const ImpWrap = styled.div`
+display: flex;
+justify-content:space-between;
+`
+const StarTag = styled.span`
+margin-right:5px;
+padding:2px;`
+
+const TodoStatus = styled.div`
+display: flex;
+justify-content:space-between;
+`
 export default ToDoItem;

@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const layouts = {
   Wrap: styled.div`
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  width: 80%;
+  height:100vh;
+  margin: 0 auto;
+  flex-direction: column;
+    
   `,
 
   Filter: styled.div`
@@ -15,8 +17,6 @@ export const layouts = {
 
   Header: styled.header`
     width: 100%;
-    // 임시 height
-    height: 10vh;
     border: 1px solid black;
     margin-bottom: 30px;
   `,
@@ -25,11 +25,15 @@ export const layouts = {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    
   `,
 
   Section: styled.section`
     width: 30%;
     padding: 10px;
     border: 1px solid black;
+    border-radius: 4px;
+    background-color:ghostwhite;
+
   `,
 };

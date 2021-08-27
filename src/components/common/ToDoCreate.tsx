@@ -112,7 +112,7 @@ button{
   margin-bottom:5px;
   border-radius:25%;
   &:hover{
-    background-color:blue;
+    background-color:aqua;
     cursor:pointer;
   }
 }
