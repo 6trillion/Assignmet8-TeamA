@@ -94,9 +94,10 @@ const ToDoCreate = (props: TodoCreateProps) => {
               value={inputTask}
             />
           </TodoName>
-          <TodoControl>
+          <StarContain>
             <Stars isCreate={true} setStarIndex={setStarIndex} />
-
+          </StarContain>
+          <TodoControl>
             <button type="button" onClick={checkLogin}>
               저장
             </button>
@@ -108,7 +109,7 @@ const ToDoCreate = (props: TodoCreateProps) => {
         <p>내용을 입력해 주세요📝</p>
       </Modal>
       <Modal modalOpen={checkLoginValid} handleToggle={handleLoginCheckToggle}>
-        <p>로그인 후 작성할 수 있습니다</p>
+        <p>로그인 후 작성할 수 있습니다🤗</p>
       </Modal>
     </>
   );
@@ -117,28 +118,49 @@ const ToDoCreate = (props: TodoCreateProps) => {
 const TodoCreateForm = styled.form`
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  input {
-  }
+  border: 1px solid #4B5489;
+  background-color: rgba(171, 184, 213,0.8);
+  margin-bottom: 15px;
+  padding: 25px 15px;
+  border-radius: 10px;
+  
 `;
 const TodoName = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  label{
+    width: 20%;
+    font-weight: 600;
+    text-align: center;
+  }
+  input{
+    width: 75%;
+    border-radius: 5px;
+    height: 30px;
+  }
+`;
+const StarContain = styled.div`
+  margin: 5px 0;
 `;
 
 const TodoControl = styled.div`
+  display: flex;  
+  justify-content: flex-end;
   button {
-    margin-left: 5px;
-    margin-bottom: 5px;
-    border-radius: 25%;
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.3);
+    color: #FFFFFF;
     &:hover {
-      background-color: aqua;
+      background-color: #4B5489;
       cursor: pointer;
     }
+  }
+  button + button {
+    margin-left: 10px;
+    margin-right: 5px;
   }
 `;
 export default ToDoCreate;

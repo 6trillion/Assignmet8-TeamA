@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 import { FILTER_DROPDOWN_ITEMS } from 'utils/constants';
+import { ReactComponent as ArrowSvg} from 'components/assets/svg/arrow.svg';
 import styled from 'styled-components';
 
 interface FilterDropdownProps {
@@ -36,7 +37,7 @@ const FilterDropdown: FC<FilterDropdownProps> = ({
       onClick={onDropdownToggle}
       onMouseLeave={() => setDropdownToggle(false)}
     >
-      <DropdownBody>{dropdownName}</DropdownBody>
+      <DropdownBody>{dropdownName}<ArrowSvg/></DropdownBody>
       <DropdownMenu isActive={dropdownToggle}>
         {FILTER_DROPDOWN_ITEMS.map((data: any) => (
           <DropdownItem
@@ -55,7 +56,8 @@ export default FilterDropdown;
 
 const DropdownContainer = styled.div`
   color: black;
-  border-radius: 6px 0 0 6px;
+  height: 45px;
+  border-radius: 10px 0 0 10px;
   background-color: white;
 `;
 
@@ -65,19 +67,21 @@ const DropdownMenu = styled.ul<{ isActive: boolean }>`
   background-color: white;
   width: 150px;
   color: black;
-  border: 1px solid black;
 `;
 
 const DropdownBody = styled.p`
   width: 150px;
+  height: 45px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   cursor: pointer;
-  border: 1px solid black;
+  color: #4B5489;
 `;
 
 const DropdownItem = styled.li`
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;

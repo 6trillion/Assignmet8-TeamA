@@ -9,17 +9,19 @@ const App = () => {
   const [userName, setUserName] = useState('');
   return (
     <TodosContextProvider>
-      <S.Header>
-        <Header userName={userName} setUserName={setUserName} />
-      </S.Header>
       <S.Wrap>
-        <S.Main>
-          {tagStates.map((v) => (
-            <S.Section key={v}>
-              <StateArea tagName={v} userName={userName} />
-            </S.Section>
-          ))}
-        </S.Main>
+        <S.Header>
+          <Header userName={userName} setUserName={setUserName} />
+        </S.Header>
+        <S.Body>
+          <S.Main>
+            {tagStates.map((v) => (
+              <S.Section key={v}>
+                <StateArea tagName={v} userName={userName} />
+              </S.Section>
+            ))}
+          </S.Main>
+        </S.Body>
       </S.Wrap>
     </TodosContextProvider>
   );

@@ -21,7 +21,7 @@ const Header: FC<HeaderProps> = ({ userName, setUserName }) => {
 
 const HeaderWrap = styled.div`
   display: flex;
-  margin: 4px 10px;
+  margin: 0 20px;
   justify-content: space-between;
 `;
 

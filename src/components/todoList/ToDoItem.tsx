@@ -10,6 +10,7 @@ import Status from 'components/common/Status';
 import Modal from 'components/common/Modal';
 import { ReactComponent as DeleteSvg } from 'components/assets/svg/delete.svg';
 import { ReactComponent as EditSvg } from 'components/assets/svg/edit.svg';
+import { ReactComponent as CheckSvg} from 'components/assets/svg/check.svg';
 import { ITodo } from 'types/ITodo';
 import { useTodosDispatch } from 'contexts/Todo/TodoStore';
 import styled from 'styled-components';
@@ -89,15 +90,7 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
         onDragStart={() => handleDragStart(todo)}
         onDragEnd={handleDragEnd}
       >
-        <TodoName
-          ref={taskNameRef}
-          contentEditable={isEdit}
-          suppressContentEditableWarning={true}
-        >
-          {todo.taskName}
-        </TodoName>
         <ImpWrap>
-          <span>우선순위 :</span>{' '}
           <StarTag>
             <Stars
               isCreate={isEdit}
@@ -105,15 +98,26 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
               setStarIndex={setStarIndex}
             />
           </StarTag>
+
+          <ButtonWrap>
+              {isEdit ? (
+              <CheckSvg onClick={handleEdit} />
+            ) : (
+              <EditSvg onClick={handleEdit} />
+            )}
+            <DeleteSvg onClick={() => handleRemove(todo.id)} />
+          </ButtonWrap>
         </ImpWrap>
 
-        <WriterWrap>
-          <span>작성자 : </span>
-          <TagWriter>{todo.writer}</TagWriter>
-        </WriterWrap>
+        <TodoName
+          ref={taskNameRef}
+          contentEditable={isEdit}
+          suppressContentEditableWarning={true}
+        >
+          {todo.taskName}
+        </TodoName>
 
         <TodoStatus>
-          <span>진행상황 : </span>
           {isEdit ? (
             <Status
               updateStatus={updateStatus}
@@ -125,16 +129,10 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
         </TodoStatus>
 
         <WriterWrap>
-          <span>날짜 : </span>
-          <DateStyle>{String(todo.createAt).split('T')[0]}</DateStyle>
+          <DateStyle>createAt {String(todo.createAt).split('T')[0]}</DateStyle>
+          <TagWriter>{todo.writer}</TagWriter>
         </WriterWrap>
 
-        {isEdit ? (
-          <p onClick={handleEdit}>저장</p>
-        ) : (
-          <EditSvg onClick={handleEdit} />
-        )}
-        <DeleteSvg onClick={() => handleRemove(todo.id)} />
       </TodoItemWrapper>
       <Modal modalOpen={modalOpen} handleToggle={handleToggle}>
         <p>생성자가 같지 않아 수정이 불가합니다</p>
@@ -144,67 +142,93 @@ const ToDoItem = forwardRef<HTMLInputElement, ToDoItemProps>((props, ref) => {
 });
 
 const TodoItemWrapper = styled.div`
-  margin-bottom: 5px;
-  border: 1px solid black;
-  border-radius: 4px;
-  background-color: lightgray;
-  cursor: move;
-  span {
-    margin-left: 4px;
-  }
-`;
-
-const TodoName = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-`;
-
-const WriterWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const TagWriter = styled.span`
-  margin-right: 5px;
-  margin-bottom: 4px;
-  padding: 2px;
-  background-color: aqua;
-  border-radius: 5px;
-`;
-
-const DateStyle = styled.span`
-  margin-right: 5px;
-  margin-bottom: 4px;
-  padding: 2px;
-  border-radius: 5px;
+  position: relative;
+  margin-bottom: 15px;
+  padding: 25px 15px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  cursor: pointer;
 `;
 
 const ImpWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 8px;
 `;
+
 const StarTag = styled.span`
   margin-right: 5px;
-  margin-bottom: 4px;
   padding: 2px;
+`;
+
+const TodoName = styled.div`
+  margin-bottom: 8px;
+  padding: 2px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+`;
+
+const ButtonWrap = styled.div`
+  svg+svg{
+    margin-left: 5px;
+    margin-right: 3px;
+  }
+  svg{
+    fill: #AAAAAA;
+    &:hover{
+      fill: #4B5489;
+    }
+  }
 `;
 
 const TodoStatus = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-left: 2px;
+  margin-bottom: 35px;
 `;
+
+
+const WriterWrap = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  bottom: 0;
+  margin-bottom: 25px;
+  font-size: 0.8rem;
+  color: #333333;
+`;
+
+const DateStyle = styled.span`
+  margin-right: 5px;
+  padding: 2px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: #777777;
+`;
+
+const TagWriter = styled.span`
+  margin-right: 35px;
+  padding: 2px;
+  font-size: 0.8rem;
+  border-radius: 5px;
+`;
+
 const StatusRes = styled.span<{ status: string }>`
   margin-right: 5px;
   margin-bottom: 4px;
-  padding: 2px;
-  border-radius: 4px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 0.8rem;
   background-color: ${(props) =>
     props.status === 'To Do'
-      ? 'yellow'
+      ? '#9895E0'
       : props.status === 'In Progress'
-      ? 'green'
-      : 'red'};
+      ? '#4A94F8'
+      : '#56C991'};
 `;
 
 export default ToDoItem;

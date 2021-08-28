@@ -65,11 +65,14 @@ const SearchBoxContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 30%;
+  height: 45px;
   padding: 0 12px;
-  border: 1px solid black;
-
-  :focus {
+  border-radius: 0 10px 10px 0;
+  border:none;
+  
+  &:focus {
     outline: 0;
+    border: 1px solid #4B5489;
   }
 
   background-color: #fff;

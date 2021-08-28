@@ -40,10 +40,10 @@ const Login = (props: LoginProps) => {
   };
 
   return (
-    <>
+    <LoginWrapper>
       {isLogin ? (
         <>
-          <span>{userName}</span> <button onClick={onLogOut}>로그아웃</button>
+          <LoginedName>{userName}</LoginedName> <button onClick={onLogOut}>로그아웃</button>
         </>
       ) : (
         <LoginControl onSubmit={onSubmit}>
@@ -57,25 +57,56 @@ const Login = (props: LoginProps) => {
           <button>로그인</button>
         </LoginControl>
       )}
-    </>
+    </LoginWrapper>
   );
 };
 
-const LoginControl = styled.form`
-  white-space: nowrap;
-  input {
-    margin-right: 5px;
-    &:focus {
-      outline: none;
-    }
-  }
+const LoginWrapper = styled.div`
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   button {
-    border-radius: 4px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.3);
+    color: #FFFFFF;
     &:hover {
-      background-color: aqua;
+      background-color: #4B5489;
       cursor: pointer;
     }
   }
 `;
+
+const LoginedName = styled.span`
+  margin-right: 15px;
+`;
+    
+
+const LoginControl = styled.form`
+  white-space: nowrap;
+  input {
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 10px 0 0 10px;
+    background-color: rgba(255,255,255,0.5);
+    border:none;
+      &:focus {
+        outline: 0;
+        border: 1px solid #4B5489;
+    }
+  }
+  button {
+    height: 30px;
+    border-radius: 0 10px 10px 0;
+    background-color: rgba(0,0,0,0.3);
+    color: #FFFFFF;
+    &:hover {
+      background-color: #4B5489;
+      cursor: pointer;
+    }
+  }
+`;
+
 
 export default Login;

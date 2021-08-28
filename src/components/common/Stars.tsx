@@ -25,7 +25,7 @@ const Stars = (props: StarsProps) => {
   const createStar = () => {
     return (
       <>
-        <StarLabel htmlFor="importance">중요도</StarLabel>
+        <StarLabel htmlFor="importance" />
         {stars.map((item, index) => (
           <StarSvg
             key={index}
@@ -49,7 +49,7 @@ const Stars = (props: StarsProps) => {
   return <>{isCreate ? createStar() : renderingStar()}</>;
 };
 const StarLabel = styled.label`
-  padding: 10px;
+  margin-right: 3px;
 `;
 
 export default Stars;

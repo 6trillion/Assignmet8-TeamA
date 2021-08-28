@@ -25,7 +25,7 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
 
   return (
     <>
-      <StateHeader>
+      <StateHeader tagName={tagName}>
         <p>{tagName} </p>
         <button onClick={handleClick}>+</button>
       </StateHeader>
@@ -44,18 +44,30 @@ const StateArea: FC<StateAreaProps> = ({ tagName, userName }) => {
 
 export default StateArea;
 
-const StateHeader = styled.div`
+const StateHeader = styled.div<{tagName: string}>`
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  padding: 15px 10px;
   justify-content: space-between;
+  color: #FFFFFF;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background-color: ${(props) =>
+    props.tagName === 'To Do'
+      ? '#9895E0'
+      : props.tagName === 'In Progress'
+      ? '#4A94F8'
+      : '#56C991'};
 
   p {
+    margin-left: 10px;
     cursor: pointer;
   }
   button {
+    margin-right: 5px;
     border-radius: 25%;
     &:hover {
-      background-color: aqua;
+      background-color: #4B5489;
       cursor: pointer;
     }
   }

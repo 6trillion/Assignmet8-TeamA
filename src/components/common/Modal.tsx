@@ -41,8 +41,9 @@ const ModalWrapper = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 60%;
+    width: 50%;
     height: 30%;
+    border-radius: 15px;
 
     display: flex;
     flex-direction: column;
@@ -50,11 +51,20 @@ const ModalWrapper = styled.div`
     justify-content: center;
 
     z-index: 2001;
-    background: #fff;
-    opacity: 0.8;
+    background: rgba(255,255,255,0.8);
+    font-size: 1rem;
   }
 
   button {
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
     margin-top: 20px;
+    background-color: rgba(0,0,0,0.3);
+    color: #FFFFFF;
+    &:hover {
+      background-color: #4B5489;
+      cursor: pointer;
+    }
   }
 `;
