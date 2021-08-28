@@ -3,9 +3,10 @@ import styled from 'styled-components';
 export const layouts = {
   Wrap: styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: auto;
     background : 
     linear-gradient(
       217deg, 
@@ -44,7 +45,7 @@ export const layouts = {
     width: 100%;
     height: 100%;
     margin-top: 80px;
-    background-color: rgba(255,255,255,0.3);
+
   `,
 
   Main: styled.main`
@@ -54,7 +55,6 @@ export const layouts = {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-
   `,
 
   Section: styled.section`
