@@ -2,7 +2,7 @@
 
 ## Demo Link
 
-🔗 [Demo Page](https://6129254cda43ce0007c3000c--loving-panini-e5e1ae.netlify.app/)
+🔗 Demo Page : [https://6trillion.github.io/Assignmet8-TeamA/](https://6trillion.github.io/Assignmet8-TeamA/)
 
 ## 회의 로그
 
