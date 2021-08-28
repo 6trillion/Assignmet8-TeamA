@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/static/js/main.7f65ca30.chunk.js",
-    "main.js.map": "/static/js/main.7f65ca30.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.4d8af809.js",
-    "runtime-main.js.map": "/static/js/runtime-main.4d8af809.js.map",
-    "static/js/2.f85e7c99.chunk.js": "/static/js/2.f85e7c99.chunk.js",
-    "static/js/2.f85e7c99.chunk.js.map": "/static/js/2.f85e7c99.chunk.js.map",
-    "index.html": "/index.html",
-    "static/js/2.f85e7c99.chunk.js.LICENSE.txt": "/static/js/2.f85e7c99.chunk.js.LICENSE.txt",
-    "static/media/arrow.083a6de6.svg": "/static/media/arrow.083a6de6.svg",
-    "static/media/check.b9d15492.svg": "/static/media/check.b9d15492.svg",
-    "static/media/delete.03bc14cb.svg": "/static/media/delete.03bc14cb.svg",
-    "static/media/edit.1e218c7e.svg": "/static/media/edit.1e218c7e.svg",
-    "static/media/star.19b95c99.svg": "/static/media/star.19b95c99.svg"
+    "main.js": "/Assignmet8-TeamA/static/js/main.be573da0.chunk.js",
+    "main.js.map": "/Assignmet8-TeamA/static/js/main.be573da0.chunk.js.map",
+    "runtime-main.js": "/Assignmet8-TeamA/static/js/runtime-main.a80b869e.js",
+    "runtime-main.js.map": "/Assignmet8-TeamA/static/js/runtime-main.a80b869e.js.map",
+    "static/js/2.aee24959.chunk.js": "/Assignmet8-TeamA/static/js/2.aee24959.chunk.js",
+    "static/js/2.aee24959.chunk.js.map": "/Assignmet8-TeamA/static/js/2.aee24959.chunk.js.map",
+    "index.html": "/Assignmet8-TeamA/index.html",
+    "static/js/2.aee24959.chunk.js.LICENSE.txt": "/Assignmet8-TeamA/static/js/2.aee24959.chunk.js.LICENSE.txt",
+    "static/media/arrow.083a6de6.svg": "/Assignmet8-TeamA/static/media/arrow.083a6de6.svg",
+    "static/media/check.b9d15492.svg": "/Assignmet8-TeamA/static/media/check.b9d15492.svg",
+    "static/media/delete.03bc14cb.svg": "/Assignmet8-TeamA/static/media/delete.03bc14cb.svg",
+    "static/media/edit.1e218c7e.svg": "/Assignmet8-TeamA/static/media/edit.1e218c7e.svg",
+    "static/media/star.19b95c99.svg": "/Assignmet8-TeamA/static/media/star.19b95c99.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.4d8af809.js",
-    "static/js/2.f85e7c99.chunk.js",
-    "static/js/main.7f65ca30.chunk.js"
+    "static/js/runtime-main.a80b869e.js",
+    "static/js/2.aee24959.chunk.js",
+    "static/js/main.be573da0.chunk.js"
   ]
 }
