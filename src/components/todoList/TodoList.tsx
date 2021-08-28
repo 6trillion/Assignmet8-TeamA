@@ -3,13 +3,14 @@ import { throttle } from 'utils/throttle';
 import ToDoItem from 'components/todoList/ToDoItem';
 import { useTodosState, useTodosDispatch } from 'contexts/Todo/TodoStore';
 import { ITodo } from 'types/ITodo';
+import { FC } from 'react';
 
 interface TodoListProps {
   tagName: string;
   userName: string;
 }
 
-const TodoList = (props: TodoListProps) => {
+const TodoList: FC<TodoListProps> = (props) => {
   const { tagName, userName } = props;
   const todos = useTodosState();
   const dispatch = useTodosDispatch();
